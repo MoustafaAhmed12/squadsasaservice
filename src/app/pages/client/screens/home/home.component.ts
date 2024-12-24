@@ -5,6 +5,7 @@ import { MarketsComponent } from '../../Components/markets/markets.component';
 import { ServicesComponent } from '../../Components/services/services.component';
 import { OurcompanyComponent } from '../../Components/ourcompany/ourcompany.component';
 import { TechnologiesComponent } from '../../Components/technologies/technologies.component';
+import { ContactUsComponent } from '../../Components/contact-us/contact-us.component';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ import { TechnologiesComponent } from '../../Components/technologies/technologie
     ServicesComponent,
     OurcompanyComponent,
     TechnologiesComponent,
+    ContactUsComponent,
     NgClass,
   ],
   templateUrl: './home.component.html',

@@ -1,1 +1,108 @@
-<p>contact-us works!</p>
+<div class="flex min-h-screen pt-16 text-white ps-32">
+  <form
+    [formGroup]="contactForm"
+    (ngSubmit)="onSubmit()"
+    class="w-7/12 p-6 rounded shadow-lg"
+  >
+    <h2 class="mb-16 text-3xl md:text-6xl">Ask for more information!</h2>
+
+    <div class="flex flex-col gap-y-8">
+      <!-- Contact Name -->
+      <input
+        id="contactName"
+        type="text"
+        formControlName="contactName"
+        class="w-full px-4 py-3 mb-4 text-white bg-transparent border-b-2 outline-none border-fGradient focus:ring-0"
+        placeholder="Contact name"
+      />
+
+      <!-- Email -->
+      <input
+        id="email"
+        type="email"
+        formControlName="contactEmail"
+        class="w-full px-4 py-3 mb-4 text-white bg-transparent border-b-2 outline-none border-fGradient focus:ring-0"
+        placeholder="Email"
+      />
+
+      <!-- Telephone -->
+      <div class="flex items-center justify-center gap-x-8">
+        <input
+          id="telephone"
+          type="text"
+          formControlName="telphone"
+          class="w-full px-4 py-3 mb-4 text-white bg-transparent border-b-2 outline-none border-fGradient focus:ring-0"
+          placeholder="Telephone"
+        />
+
+        <input
+          id="company"
+          type="text"
+          formControlName="company"
+          class="w-full px-4 py-3 mb-4 text-white bg-transparent border-b-2 outline-none border-fGradient focus:ring-0"
+          placeholder="company"
+        />
+      </div>
+
+      <textarea
+        id="message"
+        formControlName="message"
+        class="w-full px-4 py-3 mb-4 text-white bg-transparent border-b-2 outline-none border-fGradient focus:ring-0"
+        rows="4"
+        placeholder="How can we help you?"
+      ></textarea>
+
+      <!-- Subscribe -->
+      <div class="flex flex-col gap-y-4">
+        <div class="flex items-center mb-4">
+          <input
+            id="subscribe"
+            type="checkbox"
+            formControlName="subscribe"
+            class="mr-2"
+          />
+          <label for="subscribe" class="text-sm">
+            Subscribe to Hiberus today for service updates.
+          </label>
+        </div>
+
+        <!-- Accept Policy -->
+        <div class="flex items-center mb-4">
+          <input
+            id="acceptPolicy"
+            type="checkbox"
+            formControlName="acceptPolicy"
+            class="mr-2"
+          />
+          <label for="acceptPolicy" class="text-sm">
+            I have read and accept the
+            <a href="#" class="text-purple-500 underline">legal notice</a> and
+            the
+            <a href="#" class="text-purple-500 underline">privacy policy</a>.
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="flex items-center justify-center mt-3 text-lg rounded-full gap-x-3 text-mainWhite btn"
+    >
+      @if (isLoading) {
+      <div
+        class="w-6 h-6 border-4 border-[#3c193a] border-solid rounded-full animate-spin border-t-transparent"
+      ></div>
+
+      } <span class="ps-2">Let's do it</span>
+    </button>
+  </form>
+  <div class="absolute inset-y-0 pt-10 -right-0">
+    <img
+      src="https://squadsasaservice.com/form.webp"
+      class="relative object-cover w-11/12 pt-8 top-44 h-5/6"
+      alt="Here Image"
+      loading="lazy"
+    />
+  </div>
+</div>

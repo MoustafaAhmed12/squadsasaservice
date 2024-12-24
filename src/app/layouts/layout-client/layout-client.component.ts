@@ -9,4 +9,11 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './layout-client.component.html',
   styleUrl: './layout-client.component.scss',
 })
-export class LayoutClientComponent {}
+export class LayoutClientComponent {
+  onScrollToSection(sectionId: string): void {
+    const targetElement = document.getElementById(sectionId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+}

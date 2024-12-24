@@ -1,5 +1,5 @@
 <!-- Inside your app-ourcompany component -->
-<div id="counterSection" class="flex flex-col w-full gap-y-6">
+<div #numberSection class="flex flex-col w-full gap-y-6">
   <h1
     class="text-5xl leading-tight text-center text-white px-7 md:text-5xl lg:text-8xl"
   >
@@ -8,29 +8,24 @@
   <div
     class="flex flex-wrap items-center justify-between w-full gap-y-6 gap-x-36 px-7 lg:px-20"
   >
+    @for (item of animatedNumbers; track item; let first = $first; let last =
+    $last) {
+
     <div class="flex-grow w-full text-center lg:w-auto">
       <h1
-        class="text-transparent text-center font-bold text-[130px] font-openSans outlined-number"
+        class="text-transparent text-center font-bold text-[130px] font-openSans"
+        [ngClass]="
+          first
+            ? 'outlined-number '
+            : last
+            ? 'outlined-number3'
+            : 'outlined-number2'
+        "
       >
-        {{ counter1 }}
+        {{ item.number }}
       </h1>
-      <p class="mt-2 text-xl">Employees</p>
+      <p class="mt-2 text-xl">{{ item.label }}</p>
     </div>
-    <div class="flex-grow w-full text-center lg:w-auto">
-      <h1
-        class="text-transparent text-center font-bold text-[130px] font-openSans outlined-number2"
-      >
-        {{ counter2 }}
-      </h1>
-      <p class="mt-2 text-xl">IT Units</p>
-    </div>
-    <div class="flex-grow w-full text-center lg:w-auto">
-      <h1
-        class="text-transparent text-center font-bold text-[130px] font-openSans outlined-number3"
-      >
-        {{ counter3 }}
-      </h1>
-      <p class="mt-2 text-xl">Spanish’ Delivery Hubs</p>
-    </div>
+    }
   </div>
 </div>

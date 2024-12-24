@@ -1,1 +1,203 @@
-<p>it-services works!</p>
+<!-- <aside
+  class="fixed top-0 right-0 flex z-50 flex-col items-center justify-center w-16 h-full space-y-3.5 text-white"
+>
+  @for (item of sections; track i; let i = $index) {
+  <button
+    (click)="scrollToSection(i)"
+    class="transition-all duration-300 bg-gray-800 rounded-full"
+    [ngClass]="activeSectionIndex === i ? 'w-3.5 h-3.5 ' : 'w-1 h-1'"
+  ></button>
+  }
+</aside> -->
+
+<!-- (scroll)="onScroll($event)" -->
+<main class="mx-auto overflow-y-auto text-mainWhite">
+  <section
+    id="section0"
+    class="flex justify-center h-[calc(100vh-6rem)] max-w-7xl mx-auto"
+  >
+    <div class="grid w-full h-full grid-cols-1">
+      <div class="relative z-50 w-full pt-0 md:w-7/12 ps-4 md:ps-0 md:pt-28">
+        <h1
+          class="text-5xl font-black leading-tight text-white pe-8 md:text-5xl lg:text-6xl"
+        >
+          GLOBAL SUPPORT &
+          <br />
+
+          DEVELOPMENT
+          <span
+            class="text-transparent bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text"
+            style="-webkit-text-fill-color: transparent"
+          >
+            DELIVERY MODEL
+          </span>
+        </h1>
+        <button
+          routerLink="configurator"
+          [queryParams]="{ catId: '0' }"
+          class="mt-10 bg-black border-2 rounded-full text-mainWhite login-btn"
+        >
+          CREATE YOUR SQUAD
+        </button>
+      </div>
+      <div class="absolute inset-y-0 right-0">
+        <img
+          src="https://squadsasaservice.com/hero_about.webp"
+          class="object-cover w-full h-full"
+          alt="Here Image"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+  <div
+    class="h-[calc(100vh-6rem)] pt-6 overflow-hidden flex flex-col justify-between text-white bg-black"
+  >
+    <div
+      class="flex flex-col justify-center flex-grow w-10/12 px-8 mx-auto lg:px-10"
+    >
+      <h1 class="mb-6 text-4xl lg:text-6xl">A perfect solution if you need</h1>
+      <h1 class="mb-6 text-4xl text-right lg:text-6xl">additional IT team</h1>
+      <div class="grid grid-cols-1 text-lg gap-x-16 md:grid-cols-2">
+        <p>
+          The drive for challenges, the speed, and the quality of the service we
+          deliver is what makes us unique. Regardless of your project scope, we
+          can propose IT individuals or Squad as a service model in various
+          technologies. Hiberus’ tribe is the perfect solution if you need
+          additional IT members to work on a specific project.
+        </p>
+        <p>
+          Our team will follow only your project development rules and will be
+          under your full control or alternatively we will set up and manage a
+          dedicated team to fulfill your specific needs for application support
+          or development, system integration, software testing, or website
+          development.
+        </p>
+      </div>
+    </div>
+    <div class="relative w-full">
+      <img
+        src="https://squadsasaservice.com/city.webp"
+        alt="City View"
+        class="object-cover w-full bottom-20"
+      />
+    </div>
+  </div>
+
+  <!-- <section class="relative text-white bg-black">
+    <div class="py-12 text-center">
+      <h2 class="text-5xl font-bold">Why Us?</h2>
+    </div>
+
+    <div class="relative">
+      <div
+        class="absolute inset-0 z-10 flex flex-col items-start justify-center gap-8 p-6 lg:px-24"
+      >
+        <div class="bg-[#1E293B] bg-opacity-75 p-6 rounded-lg shadow-lg">
+          <h3 class="mb-4 text-2xl font-semibold">Cost-effectiveness</h3>
+          <p class="text-base">
+            Our squads allow you to pay only for the on-demand work and required
+            skills, when you need them.
+          </p>
+        </div>
+        <div class="bg-[#1E293B] bg-opacity-75 p-6 rounded-lg shadow-lg">
+          <h3 class="mb-4 text-2xl font-semibold">Flexibility</h3>
+          <p class="text-base">
+            Scale your team without formalities and additional processes with
+            squads as a service model.
+          </p>
+        </div>
+        <div class="bg-[#1E293B] bg-opacity-75 p-6 rounded-lg shadow-lg">
+          <h3 class="mb-4 text-2xl font-semibold">Control</h3>
+          <p class="text-base">
+            The Project Manager, assigned by Hiberus, will manage the team's
+            tasks and responsibilities to achieve the highest performance.
+          </p>
+        </div>
+        <div class="bg-[#1E293B] bg-opacity-75 p-6 rounded-lg shadow-lg">
+          <h3 class="mb-4 text-2xl font-semibold">Lower risk</h3>
+          <p class="text-base">
+            Remain the talent and processes in-house, since provided experts are
+            a part of your team. Control the situation and react in the blink of
+            an eye.
+          </p>
+        </div>
+      </div>
+      <div class="h-[600px] w-7/12 flex justify-end">
+        <img
+          src="https://squadsasaservice.com/boy-lights.webp"
+          alt="Background"
+          class="object-cover w-full h-full opacity-50"
+        />
+      </div>
+    </div>
+  </section> -->
+
+  <section id="section4" class="relative flex h-screen ps-64">
+    <div class="flex items-center justify-center w-full gap-x-6">
+      <h2 class="text-5xl font-light text-white pe-14 sm:text-6xl xl:text-8xl">
+        Clients
+      </h2>
+      <div class="border-l-[3px] flex flex-col gap-y-12 border-white ps-16">
+        <img
+          alt="Santander"
+          src="https://squadsasaservice.com/_next/image?url=%2FSantander.svg&w=256&q=75"
+          class="w-1/3"
+        />
+        <img
+          alt="Santander"
+          src="https://squadsasaservice.com/_next/image?url=%2FBoots.svg&w=128&q=75"
+          class="w-1/4"
+        />
+        <img
+          alt="Santander"
+          src="https://squadsasaservice.com/_next/image?url=%2FIAG_Cargo.svg&w=256&q=75"
+          class="w-1/3"
+        />
+        <img
+          alt="Santander"
+          src="https://squadsasaservice.com/_next/image?url=%2FVodafone.svg&w=256&q=75"
+          class="w-1/3"
+        />
+        <img
+          alt="Santander"
+          src="https://squadsasaservice.com/_next/image?url=%2FZurich.svg&w=256&q=75"
+          class="w-1/3"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="h-[calc(100vh-4rem)] overflow-hidden w-11/12 mx-auto flex items-center text-white"
+  >
+    <!-- Left Content -->
+    <div class="w-1/2 px-8 lg:ps-16">
+      <h1 class="mb-8 text-5xl md:text-8xl">Nearshore Agile Centre</h1>
+      <p class="mb-6 w-10/12 text-[#858585] leading-relaxed">
+        Hiberus’ Spanish-based nearshore Agile software development centres
+        bring together highly experienced Agile IT experts and a digital
+        workspace designed for modern Agile collaboration. The result is an
+        innovative community focused on Hiberus success.
+      </p>
+      <p class="text-[#858585] w-10/12 leading-relaxed">
+        Our Spanish development centres are much more than a place to log in and
+        code. They are purpose-built for the highest levels of development,
+        engagement, and collaboration.
+      </p>
+    </div>
+
+    <!-- Right Image -->
+    <div class="relative w-1/2 h-full">
+      <img
+        src="https://squadsasaservice.com/boy.webp"
+        alt="Agile Centre"
+        class="absolute inset-0 object-cover w-full h-full scale-110"
+      />
+    </div>
+  </section>
+
+  <section id="section7" class="relative w-full mx-auto overflow-hidden">
+    <app-contact-us />
+  </section>
+</main>

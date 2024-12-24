@@ -1,4 +1,4 @@
-<div class="w-screen h-full pt-24">
+<div class="w-screen h-full">
   <div class="relative z-40">
     <h1 class="text-5xl leading-tight text-white px-7 md:text-5xl lg:text-8xl">
       Technologies
@@ -9,7 +9,7 @@
       <button
         routerLink="configurator"
         [queryParams]="{ techId: item.id }"
-        class="bg-[#1f2937] hover:bg-gradient-to-r transition-all duration-500 hover:scale-105 flex items-center gap-x-4 px-5 from-pink-400 via-purple-500 to-blue-500 font-semibold ps-3 text-left py-5 text-sm rounded-md text-mainWhite"
+        class="bg-[#1f2937] hover:bg-gradient-to-r transition-all duration-500 hover:scale-105 flex items-center gap-x-4 px-5 from-pink-400 via-purple-500 to-blue-500 font-semibold ps-3 text-left py-4 text-sm rounded-md text-mainWhite"
       >
         <img [src]="item.iconUrl" [alt]="item.name" class="size-6" />
         <span>{{ item.name }}</span>
@@ -17,10 +17,10 @@
       }
     </div>
   </div>
-  <div class="absolute inset-y-0 z-0 left-5 pt-14">
+  <div class="absolute inset-y-0 z-0 pt-8 left-5">
     <img
       src="https://squadsasaservice.com/technologies.webp"
-      class="object-fill w-8/12 h-full"
+      class="object-fill w-full h-full"
       alt="Here Image"
     />
   </div>

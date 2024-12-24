@@ -45,7 +45,7 @@
 
   <div
     [ngStyle]="{
-      height: activeTab === 4 ? 'calc(100vh - 130px)' : 'calc(100vh - 230px)'
+      height: activeTab === 4 ? 'calc(100vh - 110px)' : 'calc(100vh - 230px)'
     }"
     class="relative flex flex-col items-center mx-auto mb-10 overflow-y-auto scroll ps-4 md:gap-y-10 gap-y-6 md:w-8/12"
   >
@@ -511,13 +511,26 @@
         <div class="flex items-center justify-between w-10/12 gap-x-4">
           <button
             (click)="moveLeft(i)"
-            class="flex items-center justify-center px-1.5 border-2 rounded-full size-5"
+            class="flex items-center justify-center"
           >
-            -
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
           </button>
 
           <div
-            class="relative w-full h-1 my-4 rounded bg-gradient-to-r from-fGradient via-sGradient to-tGradient"
+            class="relative w-[314px] h-1 my-4 rounded bg-gradient-to-r from-fGradient via-sGradient to-tGradient"
           >
             <div
               class="absolute left-0 w-4 h-4 top-0.5 transition-all duration-300 rounded-full"
@@ -533,9 +546,22 @@
 
           <button
             (click)="moveRight(i)"
-            class="flex items-center justify-center px-1 border-2 rounded-full size-5"
+            class="flex items-center justify-center"
           >
-            +
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
           </button>
           <div
             class="flex items-center justify-center px-2.5 py-1.5 text-sm font-semibold border-2 rounded-md gap-x-2 border-tGradient text-tGradient"
@@ -554,10 +580,7 @@
       </div>
     </div>
     } @if (activeTab === 4) {
-    <div
-      class="flex flex-col min-h-screen px-8 pt-12 text-mainWhite gap-x-20 lg:flex-row"
-    >
-      <!-- Left Section -->
+    <div class="flex flex-col px-8 pt-10 text-mainWhite gap-x-20 lg:flex-row">
       <div class="flex flex-col w-full gap-y-12 lg:w-[52%]">
         <h1 class="self-start text-3xl text-mainWhite md:text-5xl">
           We will contact you ASAP.
@@ -639,7 +662,6 @@
         </form>
       </div>
 
-      <!-- Right Section -->
       <div
         class="rounded-lg h-fit lg:w-[48%] bg-gradient-to-b from-[#202B4B] via-[#341A41] to-[#3C193A]"
       >
@@ -653,7 +675,9 @@
               <span class="text-base font-semibold">{{
                 order["marketName"]
               }}</span>
-              <a href="#" class="text-lg text-blue-400">Edit</a>
+              <button (click)="backToMarket()" class="text-lg text-blue-400">
+                Edit
+              </button>
             </div>
           </div>
           <div class="flex flex-col w-full gap-y-2">
@@ -664,7 +688,12 @@
               <span class="text-base font-semibold">{{
                 order["areaName"]
               }}</span>
-              <a href="#" class="text-lg text-blue-400">Edit</a>
+              <button
+                (click)="backToArea()"
+                class="text-lg text-blue-400 hover:border-b"
+              >
+                Edit
+              </button>
             </div>
           </div>
 
@@ -676,7 +705,9 @@
               <span class="text-base font-semibold">{{
                 order["techName"]
               }}</span>
-              <a href="#" class="text-lg text-blue-400">Edit</a>
+              <button (click)="backToTech()" class="text-lg text-blue-400">
+                Edit
+              </button>
             </div>
           </div>
           <div class="flex flex-col w-full gap-y-2">
@@ -690,7 +721,12 @@
               <span>{{ item.quantity }}</span>
             </div>
             }
-            <button class="self-end text-lg text-blue-400">Edit</button>
+            <button
+              (click)="activeTab = 3"
+              class="self-end text-lg text-blue-400"
+            >
+              Edit
+            </button>
           </div>
         </div>
         <div class="py-6 mt-8 ps-8 bg-[#8a3c68] rounded-tr-lg rounded-tl-lg">

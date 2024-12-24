@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
   NavigationEnd,
   Router,
@@ -14,6 +14,7 @@ import { filter } from 'rxjs';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit {
+  @Output() scrollEvent = new EventEmitter<string>();
   isOpened: boolean = false;
   router = inject(Router);
   currentPath: string = '';
@@ -28,5 +29,9 @@ export class NavbarComponent implements OnInit {
   constructor() {}
   handleIsOpened(): void {
     this.isOpened = !this.isOpened;
+  }
+
+  scrollTo(sectionId: string): void {
+    this.scrollEvent.emit(sectionId);
   }
 }

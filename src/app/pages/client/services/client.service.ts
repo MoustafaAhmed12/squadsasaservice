@@ -52,4 +52,10 @@ export class ClientService {
       formData
     );
   }
+  contactUs(formData: any): Observable<ResponseHeader> {
+    return this.http.post<ResponseHeader>(
+      `${environment.BASE_URL}/api/ContactUs`,
+      formData
+    );
+  }
 }

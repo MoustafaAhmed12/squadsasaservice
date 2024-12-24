@@ -59,6 +59,7 @@ export class ConfiguratorComponent {
 
   ngOnInit() {
     this.order = {};
+    this.counters = [];
     this.route.queryParams.subscribe((params) => {
       this.marketId = +params['catId'];
       this.areaId = +params['areaId'];
@@ -141,7 +142,6 @@ export class ConfiguratorComponent {
         if (statusCode === 200) {
           this.allAreas = data;
           this.isLoadingA = false;
-          console.log(this.order);
         } else {
           console.log('error');
           this.isLoadingA = false;
@@ -178,7 +178,10 @@ export class ConfiguratorComponent {
       next: ({ statusCode, data }) => {
         if (statusCode === 200) {
           this.allProfiles = data;
-          this.counters = Array(this.allProfiles.length).fill(0);
+          debugger;
+          if (this.counters.length === 0) {
+            this.counters = Array(this.allProfiles.length).fill(0);
+          }
           this.isLoadingP = false;
         } else {
           console.log('error');
@@ -221,17 +224,13 @@ export class ConfiguratorComponent {
       this.getAllProfiles(this.techId);
     }
     this.order['marketId'] = market.id;
-    console.log(this.order);
   }
   navigateFormArea(area: Areas, label: string, nextTab: number): void {
     this.activeTab = nextTab;
-    if (label === 'tech') {
-      this.getAllTechnologiesBelongArea(area.id);
-    } else {
-      this.getAllMarkets();
-    }
+
     this.order['areaId'] = area.id;
-    console.log(this.order);
+    this.getAllMarkets();
+    this.getAllTechnologiesBelongArea(this.order['areaId']);
   }
   navigateFromTechnology(
     tech: Technologies,
@@ -242,11 +241,9 @@ export class ConfiguratorComponent {
     if (label === 'area') {
       this.getAreasByTechnologyId(this.techId);
     } else {
-      this.counters = [];
       this.getAllProfiles(tech.id);
     }
     this.order['technologyId'] = tech.id;
-    console.log(this.order);
   }
 
   moveRight(i: number) {
@@ -284,12 +281,42 @@ export class ConfiguratorComponent {
         this.profiles[existingIndex].quantity = counter;
       } else {
         this.profiles.push({ jobTitleId: id, name: name, quantity: counter });
+        this.counters === this.profiles.map((p) => p.quantity);
       }
     }
     this.totalQuantity = this.profiles.reduce(
       (sum, job) => sum + job.quantity,
       0
     );
+    console.log(this.counters);
+  }
+
+  backToTech() {
+    if (this.techId) {
+      this.activeTab = 0;
+    } else {
+      this.activeTab = 2;
+    }
+  }
+  backToArea() {
+    if (this.areaId) {
+      this.activeTab = 0;
+    } else {
+      this.activeTab = 1;
+    }
+  }
+  backToMarket() {
+    if (this.marketId) {
+      this.activeTab = 0;
+    } else {
+      if (this.areaId) {
+        this.activeTab = 1;
+      } else if (this.techId) {
+        this.activeTab = 2;
+      } else {
+        this.activeTab = 0;
+      }
+    }
   }
 
   handleBack(): void {
@@ -301,6 +328,7 @@ export class ConfiguratorComponent {
       (m) => m.id === this.order['marketId']
     )?.name;
     let mArea = this.allAreas.find((m) => m.id === this.order['areaId'])?.name;
+    debugger;
     let mTech = this.allTechnologiesBelongArea.find(
       (m) => m.id === this.order['technologyId']
     )?.name;
@@ -318,9 +346,7 @@ export class ConfiguratorComponent {
       console.log('first');
       return;
     }
-
     this.isLoading = true;
-
     this.clientService.confirmOrder(this.orderForm.value).subscribe({
       next: ({ statusCode }) => {
         if (statusCode === 200) {

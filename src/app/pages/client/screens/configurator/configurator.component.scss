@@ -24,19 +24,24 @@
 }
 
 .btn:hover {
-  animation: move-border 500ms linear infinite; /* Animation for continuous border movement */
+  animation: move-border 2s linear infinite; /* Animation for continuous border movement */
 }
 
 @keyframes move-border {
   0% {
     transform-origin: right;
     background: linear-gradient(#000 0 0) padding-box,
-      linear-gradient(90deg, #ff0090 0%, #d800f0 50%, #75bbfd 100%) border-box;
+      linear-gradient(180deg, #ff0090, #d800f0, #75bbfd) border-box;
+  }
+  50% {
+    transform-origin: right;
+    background: linear-gradient(#000 0 0) padding-box,
+      linear-gradient(180%, #d800f0, #ff0090, #75bbfd) border-box;
   }
   100% {
-    transform-origin: left;
+    transform-origin: right;
     background: linear-gradient(#000 0 0) padding-box,
-      linear-gradient(90deg, #75bbfd 0%, #d800f0 50%, #ff0090 100%) border-box;
+      linear-gradient(180deg, #75bbfd, #d800f0, #ff0090) border-box;
   }
 }
 
