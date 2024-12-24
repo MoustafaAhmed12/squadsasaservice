@@ -1,0 +1,31 @@
+<div class="grid w-full h-full grid-cols-1">
+  <div class="relative z-50 w-full pt-0 md:w-7/12 ps-4 md:ps-0 md:pt-28">
+    <h1
+      class="text-5xl font-black leading-tight text-white pe-8 md:text-5xl lg:text-6xl"
+    >
+      GET THE REQUIRED
+      <span
+        class="text-transparent bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text"
+        style="-webkit-text-fill-color: transparent"
+        >IT SQUAD </span
+      >WITHIN
+      <br />
+      48-72 HOURS!
+    </h1>
+    <button
+      routerLink="configurator"
+      [queryParams]="{ catId: '0' }"
+      class="mt-10 bg-black border-2 rounded-full text-mainWhite login-btn"
+    >
+      CREATE YOUR SQUAD
+    </button>
+  </div>
+  <div class="absolute inset-y-0 right-0">
+    <img
+      src="https://squadsasaservice.com/header-mobile.webp"
+      class="object-cover w-full h-full"
+      alt="Here Image"
+      loading="lazy"
+    />
+  </div>
+</div>
