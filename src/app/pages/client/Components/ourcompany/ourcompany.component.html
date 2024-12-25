@@ -1,19 +1,19 @@
 <!-- Inside your app-ourcompany component -->
-<div #numberSection class="flex flex-col w-full pt-10 md:pt-0 md:gap-y-6">
+<div #numberSection class="flex flex-col w-full md:gap-y-6">
   <h1
-    class="text-5xl leading-tight text-center text-white px-7 md:text-5xl lg:text-8xl"
+    class="text-4xl leading-tight text-center text-white px-7 md:text-5xl lg:text-8xl"
   >
     Our company
   </h1>
   <div
-    class="flex flex-wrap items-center justify-between w-full gap-y-6 gap-x-36 px-7 lg:px-20"
+    class="flex flex-wrap items-center justify-between w-full gap-x-36 px-7 lg:px-20"
   >
     @for (item of animatedNumbers; track item; let first = $first; let last =
     $last) {
 
     <div class="flex-grow w-full text-center lg:w-auto">
       <h1
-        class="text-transparent text-center font-bold md:text-[130px] text-[80px] font-openSans"
+        class="text-transparent text-center font-bold md:text-[130px] text-[60px] font-openSans"
         [ngClass]="
           first
             ? 'outlined-number '

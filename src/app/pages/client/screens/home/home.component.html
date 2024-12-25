@@ -3,21 +3,24 @@
 >
   @for (item of sections; track i; let i = $index) {
   <button
-    (click)="scrollToSection(i)"
+    (click)="scrollToSection2(i)"
     class="transition-all duration-300 bg-gray-800 rounded-full hover:w-3.5 hover:h-3.5"
     [ngClass]="activeSectionIndex === i ? 'w-3.5 h-3.5 ' : 'w-1 h-1'"
   ></button>
   }
 </aside>
 
-<main class="mx-auto overflow-hidden text-mainWhite" (scroll)="onScroll()">
+<main
+  class="mx-auto overflow-hidden text-mainWhite"
+  (scroll)="onScroll($event)"
+>
   <section
     id="section0"
     class="flex justify-center w-screen h-[calc(100vh-6rem)]"
   >
     <app-hero />
   </section>
-  <section id="section1" class="relative h-screen overflow-hidden">
+  <section id="section1" class="relative h-[calc(100vh-6rem)] overflow-hidden">
     <video
       autoplay
       muted
@@ -33,16 +36,22 @@
     </video>
   </section>
 
-  <section id="section3" class="flex items-center h-screen md:justify-center">
+  <section
+    id="section3"
+    class="flex items-center h-[calc(100vh-6rem)] border md:justify-center"
+  >
     <app-markets />
   </section>
 
-  <section id="section4" class="relative flex h-screen px-2 md:ps-64">
+  <section
+    id="section4"
+    class="relative flex px-2 h-[calc(100vh-6rem)] md:ps-64"
+  >
     <app-services />
   </section>
   <section
     id="section5"
-    class="flex items-center justify-center w-full h-screen mx-auto max-w-7xl"
+    class="flex items-center justify-center w-full h-[calc(100vh-6rem)] mx-auto max-w-7xl"
   >
     <app-ourcompany />
   </section>

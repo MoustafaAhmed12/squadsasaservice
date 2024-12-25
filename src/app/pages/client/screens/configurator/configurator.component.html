@@ -47,7 +47,7 @@
     [ngStyle]="{
       height: activeTab === 4 ? 'calc(100vh - 110px)' : 'calc(100vh - 230px)'
     }"
-    class="relative flex flex-col items-center mx-auto mb-10 overflow-y-auto scroll ps-4 md:gap-y-10 gap-y-6"
+    class="relative flex flex-col items-center mx-auto mb-10 overflow-y-auto scroll md:ps-4 md:gap-y-10 gap-y-6"
     [ngClass]="activeTab === 4 ? 'md:w-9/12' : 'md:w-8/12'"
     [class.hidden]="activeTab === 5"
   >
@@ -583,7 +583,7 @@
     </div>
     } @if (activeTab === 4) {
     <div
-      class="flex flex-col px-8 pt-10 text-mainWhite gap-x-20 gap-y-12 md:gap-y-0 lg:flex-row"
+      class="flex flex-col px-4 pt-10 md:px-8 text-mainWhite gap-x-20 gap-y-12 md:gap-y-0 lg:flex-row"
     >
       <div class="flex flex-col order-2 w-full md:order-1 gap-y-12 lg:w-1/2">
         <h1 class="self-start text-3xl text-mainWhite md:text-5xl">
@@ -644,13 +644,13 @@
           <div class="space-y-2">
             <label class="inline-flex items-center">
               <input type="checkbox" class="text-[#700075] form-checkbox" />
-              <span class="ml-2"
+              <span class="ml-2 text-sm md:text-base"
                 >Subscribe to Fiker today for service updates.</span
               >
             </label>
             <label class="inline-flex items-center">
               <input type="checkbox" class="text-[#700075] form-checkbox" />
-              <span class="ml-2">
+              <span class="ml-2 text-sm md:text-base">
                 I have read and accept the
                 <a href="#" class="text-purple-300 underline">legal notice</a>
                 and the
@@ -665,8 +665,10 @@
       <div
         class="rounded-lg h-fit lg:w-[45%] bg-gradient-to-b from-[#202B4B] via-[#341A41] to-[#3C193A]"
       >
-        <h2 class="pt-6 mb-4 text-xl font-semibold ps-6">ORDER SUMMARY</h2>
-        <div class="space-y-4 text-sm px-7">
+        <h2 class="pt-6 mb-4 text-xl font-semibold md:ps-6 ps-4">
+          ORDER SUMMARY
+        </h2>
+        <div class="px-4 space-y-4 text-sm md:px-7">
           <div class="flex flex-col w-full gap-y-2">
             <span>Market</span>
             <div
@@ -743,7 +745,7 @@
   </div>
 
   <div
-    class="flex items-center justify-start w-full mx-auto mb-10 gap-x-8 ps-4 md:w-8/12"
+    class="flex items-center justify-center w-full mx-auto mb-10 md:justify-start gap-x-8 md:ps-4 md:w-8/12"
     [class.ps-0]="activeTab === 4"
   >
     @if (activeTab !== 0 ) { @if (activeTab === 4 || activeTab == 5 ) {

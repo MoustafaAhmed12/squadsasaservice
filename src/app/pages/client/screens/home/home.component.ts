@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   route = inject(ActivatedRoute);
   sections: HTMLElement[] = [];
   activeSectionIndex = 0;
+  isScrolling = false;
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
@@ -57,21 +58,48 @@ export class HomeComponent implements OnInit, AfterViewInit {
     observer.observe(videoSection);
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onScroll(): void {
-    const offset = 96; // 4rem = 64px
+  @HostListener('window:wheel', ['$event'])
+  onScroll(event: any) {
+    if (this.isScrolling) return;
 
-    this.sections.forEach((section, index) => {
-      const rect = section.getBoundingClientRect();
-      const sectionTop = rect.top + window.scrollY;
+    if (event.deltaY > 0) {
+      this.nextSection();
+    } else {
+      this.previousSection();
+    }
+  }
 
-      if (
-        window.scrollY + offset >= sectionTop &&
-        window.scrollY + offset < sectionTop + section.offsetHeight
-      ) {
-        this.activeSectionIndex = index;
-      }
-    });
+  nextSection() {
+    if (this.activeSectionIndex < this.sections.length - 1) {
+      this.activeSectionIndex++;
+      this.scrollToSection(this.sections[this.activeSectionIndex]);
+    }
+  }
+
+  previousSection() {
+    if (this.activeSectionIndex > 0) {
+      this.activeSectionIndex--;
+      this.scrollToSection(this.sections[this.activeSectionIndex]);
+    }
+  }
+
+  scrollToSection(element: HTMLElement) {
+    this.isScrolling = true;
+
+    const navbarHeight = 6 * 16; // 6rem, assuming the root font-size is 16px
+    if (element) {
+      const elementPosition = element.offsetTop;
+      const scrollPosition = elementPosition - navbarHeight;
+
+      window.scrollTo({
+        top: scrollPosition,
+        behavior: 'smooth',
+      });
+
+      setTimeout(() => {
+        this.isScrolling = false;
+      }, 500); // Adjust time to match scroll duration
+    }
   }
 
   ngAfterViewInit() {
@@ -89,7 +117,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
 
-  scrollToSection(index: number): void {
+  scrollToSection2(index: number): void {
     const offset = 96; // 4rem = 64px
     const section = this.sections[index];
     const sectionTop = section.offsetTop;
