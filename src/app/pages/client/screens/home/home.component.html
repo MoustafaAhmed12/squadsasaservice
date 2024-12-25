@@ -1,5 +1,5 @@
 <aside
-  class="fixed top-0 right-0 z-50 flex flex-col items-center justify-center w-16 h-full space-y-4 text-white"
+  class="fixed top-0 right-0 z-50 flex-col items-center justify-center hidden w-16 h-full space-y-4 text-white md:flex"
 >
   @for (item of sections; track i; let i = $index) {
   <button
@@ -37,7 +37,7 @@
     <app-markets />
   </section>
 
-  <section id="section4" class="relative flex h-screen ps-64">
+  <section id="section4" class="relative flex h-screen px-2 md:ps-64">
     <app-services />
   </section>
   <section
@@ -46,7 +46,7 @@
   >
     <app-ourcompany />
   </section>
-  <section id="section6" class="relative flex w-full h-screen">
+  <section id="section6" class="relative flex w-full h-screen pt-4 md:pt-0">
     <app-technologies />
   </section>
   <section id="section7" class="relative w-full mx-auto overflow-hidden">

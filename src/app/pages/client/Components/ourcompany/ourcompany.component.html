@@ -1,5 +1,5 @@
 <!-- Inside your app-ourcompany component -->
-<div #numberSection class="flex flex-col w-full gap-y-6">
+<div #numberSection class="flex flex-col w-full pt-10 md:pt-0 md:gap-y-6">
   <h1
     class="text-5xl leading-tight text-center text-white px-7 md:text-5xl lg:text-8xl"
   >
@@ -13,7 +13,7 @@
 
     <div class="flex-grow w-full text-center lg:w-auto">
       <h1
-        class="text-transparent text-center font-bold text-[130px] font-openSans"
+        class="text-transparent text-center font-bold md:text-[130px] text-[80px] font-openSans"
         [ngClass]="
           first
             ? 'outlined-number '
@@ -24,7 +24,7 @@
       >
         {{ item.number }}
       </h1>
-      <p class="mt-2 text-xl">{{ item.label }}</p>
+      <p class="mt-0 text-xl md:mt-2">{{ item.label }}</p>
     </div>
     }
   </div>

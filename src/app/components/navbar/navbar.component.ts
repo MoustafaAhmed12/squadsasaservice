@@ -1,4 +1,11 @@
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  OnInit,
+  Output,
+  signal,
+} from '@angular/core';
 import {
   NavigationEnd,
   Router,
@@ -15,7 +22,7 @@ import { filter } from 'rxjs';
 })
 export class NavbarComponent implements OnInit {
   @Output() scrollEvent = new EventEmitter<string>();
-  isOpened: boolean = false;
+  isOpened = signal<boolean>(false);
   router = inject(Router);
   currentPath: string = '';
   ngOnInit() {
@@ -27,7 +34,11 @@ export class NavbarComponent implements OnInit {
   }
   constructor() {}
   handleIsOpened(): void {
-    this.isOpened = !this.isOpened;
+    this.isOpened.set(!this.isOpened());
+  }
+
+  close(): void {
+    this.isOpened.set(false);
   }
 
   navigateToSection(sectionId: string): void {

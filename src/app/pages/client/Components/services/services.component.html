@@ -1,15 +1,15 @@
-<div class="w-[520px]">
-  <div class="relative z-50 flex flex-col pt-10">
+<div class="md:w-[520px] w-full">
+  <div class="relative z-50 flex flex-col pt-2 md:pt-10">
     <h1 class="text-5xl leading-tight text-white px-7 md:text-5xl lg:text-8xl">
       Services
     </h1>
-    <div class="grid w-full grid-cols-2 gap-4 mt-4">
+    <div class="grid w-full grid-cols-2 gap-2 mt-4 md:gap-4">
       @for (item of allAreas; track item.id) {
 
       <button
         routerLink="configurator"
         [queryParams]="{ areaId: item.id }"
-        class="bg-[#1f2937] hover:bg-gradient-to-r transition-all duration-500 hover:scale-105 from-pink-400 via-purple-500 to-blue-500 font-semibold ps-3 text-left py-5 text-lg rounded-md text-mainWhite"
+        class="bg-[#1f2937] hover:bg-gradient-to-r transition-all duration-500 hover:scale-105 from-pink-400 via-purple-500 to-blue-500 font-semibold md:ps-3 ps-2 pe-2 text-left py-5 md:text-lg text-base rounded-md text-mainWhite"
       >
         {{ item.name }}
       </button>
