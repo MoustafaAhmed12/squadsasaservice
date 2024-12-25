@@ -1,17 +1,17 @@
-<!-- <aside
-  class="fixed top-0 right-0 flex z-50 flex-col items-center justify-center w-16 h-full space-y-3.5 text-white"
+<aside
+  class="fixed top-0 right-0 z-50 flex flex-col items-center justify-center w-16 h-full space-y-4 text-white"
 >
   @for (item of sections; track i; let i = $index) {
   <button
     (click)="scrollToSection(i)"
-    class="transition-all duration-300 bg-gray-800 rounded-full"
+    class="transition-all duration-300 bg-gray-800 rounded-full hover:w-3.5 hover:h-3.5"
     [ngClass]="activeSectionIndex === i ? 'w-3.5 h-3.5 ' : 'w-1 h-1'"
   ></button>
   }
-</aside> -->
+</aside>
 
 <!-- (scroll)="onScroll($event)" -->
-<main class="mx-auto overflow-y-auto text-mainWhite">
+<main (scroll)="onScroll()" class="mx-auto overflow-y-auto text-mainWhite">
   <section
     id="section0"
     class="flex justify-center h-[calc(100vh-6rem)] max-w-7xl mx-auto"
@@ -33,7 +33,7 @@
           </span>
         </h1>
         <button
-          routerLink="configurator"
+          routerLink="/configurator"
           [queryParams]="{ catId: '0' }"
           class="mt-10 bg-black border-2 rounded-full text-mainWhite login-btn"
         >
@@ -50,7 +50,8 @@
       </div>
     </div>
   </section>
-  <div
+  <section
+    id="section1"
     class="h-[calc(100vh-6rem)] pt-6 overflow-hidden flex flex-col justify-between text-white bg-black"
   >
     <div
@@ -82,7 +83,7 @@
         class="object-cover w-full bottom-20"
       />
     </div>
-  </div>
+  </section>
 
   <!-- <section class="relative text-white bg-black">
     <div class="py-12 text-center">
@@ -133,7 +134,7 @@
     </div>
   </section> -->
 
-  <section id="section4" class="relative flex h-screen ps-64">
+  <section id="section2" class="relative flex h-screen ps-64">
     <div class="flex items-center justify-center w-full gap-x-6">
       <h2 class="text-5xl font-light text-white pe-14 sm:text-6xl xl:text-8xl">
         Clients
@@ -169,6 +170,7 @@
   </section>
 
   <section
+    id="section3"
     class="h-[calc(100vh-4rem)] overflow-hidden w-11/12 mx-auto flex items-center text-white"
   >
     <!-- Left Content -->

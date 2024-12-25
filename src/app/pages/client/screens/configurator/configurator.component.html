@@ -1,5 +1,5 @@
 <div class="relative w-full h-screen">
-  @if (activeTab !== 4 ) {
+  @if (activeTab !== 4 && activeTab !==5 ) {
   <div class="absolute inset-y-0 right-0">
     <img
       src="https://squadsasaservice.com/market-form.webp"
@@ -17,7 +17,7 @@
     ></div>
 
     <div class="relative flex justify-between w-full md:w-10/12">
-      @for (tab of tabs.slice(0,-1); track tab.id; let i = $index) {
+      @for (tab of tabs.slice(0,-2); track tab.id; let i = $index) {
 
       <div class="flex flex-col items-center">
         <span
@@ -32,10 +32,10 @@
         <button
           class="flex items-center justify-center rounded-full"
           [ngClass]="activeTab === i ? 'size-4' : 'size-3'"
-          [class.bg-pink-400]="i === 0"
+          [class.bg-fGradient]="i === 0"
           [class.bg-[#D800F0]]="i === 1"
-          [class.bg-purple-500]="i === 2"
-          [class.bg-blue-500]="i === 3"
+          [class.bg-sGradient]="i === 2"
+          [class.bg-tGradient]="i === 3"
         ></button>
       </div>
       }
@@ -47,7 +47,8 @@
     [ngStyle]="{
       height: activeTab === 4 ? 'calc(100vh - 110px)' : 'calc(100vh - 230px)'
     }"
-    class="relative flex flex-col items-center mx-auto mb-10 overflow-y-auto scroll ps-4 md:gap-y-10 gap-y-6 md:w-8/12"
+    class="relative flex flex-col items-center mx-auto mb-10 overflow-y-auto scroll ps-4 md:gap-y-10 gap-y-6"
+    [ngClass]="activeTab === 4 ? 'md:w-9/12' : 'md:w-8/12'"
   >
     @if (marketId ) { @switch (activeTab) { @case (0) {
     <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
@@ -581,7 +582,7 @@
     </div>
     } @if (activeTab === 4) {
     <div class="flex flex-col px-8 pt-10 text-mainWhite gap-x-20 lg:flex-row">
-      <div class="flex flex-col w-full gap-y-12 lg:w-[52%]">
+      <div class="flex flex-col w-full gap-y-12 lg:w-1/2">
         <h1 class="self-start text-3xl text-mainWhite md:text-5xl">
           We will contact you ASAP.
         </h1>
@@ -592,7 +593,7 @@
               id="contact-name"
               placeholder="Contact name"
               formControlName="contactName"
-              class="w-full py-2 text-white bg-black border-b border-purple-500 outline-none ps-2 focus:border-purple-300"
+              class="w-full py-2 text-white bg-transparent border-b border-[#700075] outline-none ps-2 focus:border-purple-300"
             />
           </div>
 
@@ -603,7 +604,7 @@
               id="email"
               placeholder="Email"
               formControlName="contactEmail"
-              class="w-full py-2 text-white bg-black border-b border-purple-500 outline-none ps-2 focus:border-purple-300"
+              class="w-full py-2 text-white bg-black border-b border-[#700075] outline-none ps-2 focus:border-purple-300"
             />
           </div>
 
@@ -615,7 +616,7 @@
                 id="telephone"
                 placeholder="Telephone"
                 formControlName="telephone"
-                class="w-full py-2 text-white bg-black border-b border-purple-500 outline-none ps-2 focus:border-purple-300"
+                class="w-full py-2 text-white bg-black border-b border-[#700075] outline-none ps-2 focus:border-purple-300"
               />
             </div>
             <div>
@@ -624,32 +625,28 @@
                 id="company"
                 placeholder="Company"
                 formControlName="company"
-                class="w-full py-2 text-white bg-black border-b border-purple-500 outline-none ps-2 focus:border-purple-300"
+                class="w-full py-2 text-white bg-black border-b border-[#700075] outline-none ps-2 focus:border-purple-300"
               />
             </div>
           </div>
-
-          <!-- Message -->
-          <div>
-            <textarea
-              id="message"
-              rows="3"
-              placeholder="How can we help you?"
-              formControlName="question"
-              class="w-full py-2 text-white bg-black border-b border-purple-500 outline-none ps-2 focus:border-purple-300"
-            ></textarea>
-          </div>
+          <input
+            id="question"
+            type="text"
+            formControlName="question"
+            class="w-full px-4 py-3 mb-4 text-white bg-transparent border-b-2 outline-none border-fGradient focus:ring-0"
+            placeholder="How can we help you?"
+          />
 
           <!-- Checkboxes -->
           <div class="space-y-2">
             <label class="inline-flex items-center">
-              <input type="checkbox" class="text-purple-500 form-checkbox" />
+              <input type="checkbox" class="text-[#700075] form-checkbox" />
               <span class="ml-2"
                 >Subscribe to Hiberus today for service updates.</span
               >
             </label>
             <label class="inline-flex items-center">
-              <input type="checkbox" class="text-purple-500 form-checkbox" />
+              <input type="checkbox" class="text-[#700075] form-checkbox" />
               <span class="ml-2">
                 I have read and accept the
                 <a href="#" class="text-purple-300 underline">legal notice</a>
@@ -663,7 +660,7 @@
       </div>
 
       <div
-        class="rounded-lg h-fit lg:w-[48%] bg-gradient-to-b from-[#202B4B] via-[#341A41] to-[#3C193A]"
+        class="rounded-lg h-fit lg:w-[45%] bg-gradient-to-b from-[#202B4B] via-[#341A41] to-[#3C193A]"
       >
         <h2 class="pt-6 mb-4 text-xl font-semibold ps-6">ORDER SUMMARY</h2>
         <div class="space-y-4 text-sm px-7">
@@ -672,10 +669,13 @@
             <div
               class="flex items-center justify-between pb-2 border-b border-gray-700"
             >
-              <span class="text-base font-semibold">{{
+              <span class="text-lg font-semibold">{{
                 order["marketName"]
               }}</span>
-              <button (click)="backToMarket()" class="text-lg text-blue-400">
+              <button
+                (click)="backToMarket()"
+                class="text-lg font-semibold text-blue-400 hover:underline"
+              >
                 Edit
               </button>
             </div>
@@ -685,12 +685,10 @@
             <div
               class="flex items-center justify-between pb-2 border-b border-gray-700"
             >
-              <span class="text-base font-semibold">{{
-                order["areaName"]
-              }}</span>
+              <span class="text-lg font-semibold">{{ order["areaName"] }}</span>
               <button
                 (click)="backToArea()"
-                class="text-lg text-blue-400 hover:border-b"
+                class="text-lg font-semibold text-blue-400 hover:underline"
               >
                 Edit
               </button>
@@ -702,20 +700,21 @@
             <div
               class="flex items-center justify-between pb-2 border-b border-gray-700"
             >
-              <span class="text-base font-semibold">{{
-                order["techName"]
-              }}</span>
-              <button (click)="backToTech()" class="text-lg text-blue-400">
+              <span class="text-lg font-semibold">{{ order["techName"] }}</span>
+              <button
+                (click)="backToTech()"
+                class="text-lg font-semibold text-blue-400 hover:underline"
+              >
                 Edit
               </button>
             </div>
           </div>
-          <div class="flex flex-col w-full gap-y-2">
-            <span>Profiles</span>
+          <div class="flex flex-col w-full">
+            <span class="mb-1">Profiles</span>
             @for (item of profiles; track item.jobTitleId) {
 
             <div
-              class="flex items-center justify-between pb-2 text-base font-semibold border-b border-gray-700"
+              class="flex items-center justify-between text-lg font-semibold"
             >
               <span>{{ item.name }}</span>
               <span>{{ item.quantity }}</span>
@@ -723,7 +722,7 @@
             }
             <button
               (click)="activeTab = 3"
-              class="self-end text-lg text-blue-400"
+              class="self-end text-lg font-semibold text-blue-400 hover:underline"
             >
               Edit
             </button>

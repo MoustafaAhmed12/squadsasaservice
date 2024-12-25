@@ -25,10 +25,8 @@ export class ContactUsComponent {
       contactName: ['', Validators.required],
       contactEmail: ['', [Validators.required, Validators.email]],
       telphone: ['', Validators.required],
-      company: [''],
-      message: ['', Validators.required],
-      subscribe: [false],
-      acceptPolicy: [false, Validators.requiredTrue],
+      company: ['', [Validators.required]],
+      question: [''],
     });
   }
 

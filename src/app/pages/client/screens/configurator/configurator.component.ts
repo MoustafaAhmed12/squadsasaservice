@@ -350,8 +350,8 @@ export class ConfiguratorComponent {
     this.clientService.confirmOrder(this.orderForm.value).subscribe({
       next: ({ statusCode }) => {
         if (statusCode === 200) {
-          alert('done');
           this.isLoading = false;
+          this.activeTab = 5;
         } else {
           console.log('error');
           this.isLoading = false;
