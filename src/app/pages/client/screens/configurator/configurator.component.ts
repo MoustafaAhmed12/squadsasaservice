@@ -27,7 +27,7 @@ export class ConfiguratorComponent {
   allTechnologiesBelongArea: Technologies[] = [];
   allProfiles: Profiles[] = [];
   tabs: { id: number; label: string }[] = [];
-  activeTab: number = 5;
+  activeTab: number = 0;
   isLoadingM: boolean = false;
   isLoadingA: boolean = false;
   isLoadingT: boolean = false;
@@ -88,7 +88,7 @@ export class ConfiguratorComponent {
             { id: 4, label: 'order' },
           ];
           this.getAllAreas();
-          // this.activeTab = 1;
+          this.activeTab = 1;
           this.getAllMarkets();
         } else if (this.techId) {
           this.order['technologyId'] = this.techId;
@@ -100,7 +100,7 @@ export class ConfiguratorComponent {
             { id: 4, label: 'order' },
           ];
           this.getAreasByTechnologyId(this.techId);
-          // this.activeTab = 1;
+          this.activeTab = 1;
         } else {
           this.tabs = [
             { id: 0, label: 'Markets' },
@@ -110,7 +110,7 @@ export class ConfiguratorComponent {
             { id: 4, label: 'order' },
             { id: 5, label: 'success' },
           ];
-          // this.activeTab = 0;
+          this.activeTab = 0;
           this.getAllMarkets();
         }
       }
