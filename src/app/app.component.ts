@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { CacheService } from './shared/services/cache.service';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
@@ -8,6 +9,16 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'squadsasaservice';
+
+  cacheService = inject(CacheService);
+  constructor() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.cacheService.clearCache();
+      }
+    });
+  }
+
   router = inject(Router);
   ngOnInit(): void {
     this.router.events.subscribe((event) => {

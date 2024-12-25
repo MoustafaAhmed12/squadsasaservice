@@ -1,0 +1,19 @@
+.btn {
+  position: relative;
+  background: linear-gradient(#000 0 0) padding-box,
+    linear-gradient(90deg, #ff0090 0%, #d800f0 50%, #75bbfd 100%) border-box;
+  font-weight: 600;
+  border: 3px solid transparent;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 8px 60px;
+  transition: color 0.4s ease;
+}
+
+@media (max-width: 768px) {
+  .btn {
+    font-size: 18px;
+    padding: 12px 40px;
+    font-weight: 500;
+  }
+}

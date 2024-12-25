@@ -1,0 +1,62 @@
+<div
+  class="fixed inset-0 z-[150] flex items-center justify-center bg-black bg-opacity-50"
+>
+  <div
+    id="pop"
+    class="relative bg-gradient-to-b max-h-[calc(100vh-6rem)] overflow-y-auto min-h-[28rem] from-[#202B4B] text-mainWhite via-[#341A41] to-[#3C193A] items-center justify-center w-full max-w-lg pt-6 border-2 shadow-lg border-mainColor1 rounded-2xl"
+    [ngClass]="isLoading ? 'flex justify-center items-center' : ''"
+  >
+    @if (!isLoading) {
+    <div class="rounded-lg h-fit">
+      <h2 class="pt-4 mb-4 text-xl font-semibold md:text-3xl md:ps-6 ps-4">
+        ORDER DETAILS
+      </h2>
+      <div class="px-4 space-y-4 md:px-7">
+        <div class="flex flex-col w-full gap-y-2">
+          <span>Market</span>
+          <div class="pb-2 border-b border-gray-700">
+            <span class="text-xl font-semibold">{{ order.market }}</span>
+          </div>
+        </div>
+        <div class="flex flex-col w-full gap-y-2">
+          <span>Area</span>
+          <div class="pb-2 border-b border-gray-700">
+            <span class="text-xl font-semibold">{{ order.area }}</span>
+          </div>
+        </div>
+        <div class="flex flex-col w-full gap-y-2">
+          <span>Technology</span>
+          <div class="pb-2 border-b border-gray-700">
+            <span class="text-xl font-semibold">{{ order.technology }}</span>
+          </div>
+        </div>
+        <div class="flex flex-col w-full pb-2 border-b border-gray-700">
+          <span class="mb-1">Profiles</span>
+          @for (item of order.profiles; track item.jobTitle) {
+
+          <div class="flex items-center justify-between text-lg font-semibold">
+            <span>{{ item.jobTitle }}</span>
+            <span>{{ item.quantity }}</span>
+          </div>
+          }
+        </div>
+        <div class="flex flex-col w-full gap-y-2">
+          <span>Message</span>
+          <div class="pb-2 border-b border-gray-700">
+            <span class="font-semibold">{{ order.question }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="py-6 mt-8 ps-8 bg-[#8a3c68] rounded-tr-lg rounded-tl-lg">
+      <span class="text-lg font-bold"
+        >Subtotal: {{ totalQuantity }} profiles</span
+      >
+    </div>
+    }@else {
+    <div
+      class="w-12 h-12 border-[6px] border-solid rounded-full border-fGradient animate-spin border-t-transparent"
+    ></div>
+    }
+  </div>
+</div>

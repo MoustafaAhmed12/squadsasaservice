@@ -72,6 +72,7 @@ export class ConfiguratorComponent {
           { id: 2, label: 'Technology' },
           { id: 3, label: 'Profiles' },
           { id: 4, label: 'order' },
+          { id: 5, label: 'success' },
         ];
         this.order['marketId'] = this.marketId;
         this.getAllMarkets();
@@ -86,6 +87,7 @@ export class ConfiguratorComponent {
             { id: 2, label: 'Technology' },
             { id: 3, label: 'Profiles' },
             { id: 4, label: 'order' },
+            { id: 5, label: 'success' },
           ];
           this.getAllAreas();
           this.activeTab = 1;
@@ -98,6 +100,7 @@ export class ConfiguratorComponent {
             { id: 2, label: 'Markets' },
             { id: 3, label: 'Profiles' },
             { id: 4, label: 'order' },
+            { id: 5, label: 'success' },
           ];
           this.getAreasByTechnologyId(this.techId);
           this.activeTab = 1;
@@ -292,7 +295,6 @@ export class ConfiguratorComponent {
       (sum, job) => sum + job.quantity,
       0
     );
-    console.log(this.counters);
   }
 
   backToTech() {

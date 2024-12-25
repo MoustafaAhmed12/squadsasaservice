@@ -1,0 +1,33 @@
+<header
+  class="sticky top-0 inset-x-0 flex justify-start h-20 z-10 w-full bg-mainColor4 text-sm pt-2.5 ps-[260px]"
+>
+  <nav class="flex items-center w-full px-10 basis-full text-mainColor1">
+    <div
+      class="flex items-center justify-end w-full sm:pe-10 pb-2.5 border-b-2 border-mainColor1 gap-x-3"
+    >
+      <div class="flex flex-row items-center justify-end gap-1">
+        <!-- Dropdown -->
+        <div class="relative inline-flex">
+          <div class="flex items-center">
+            <div class="relative cursor-pointer">
+              <img
+                class="object-cover w-10 h-10 border rounded-full border-mainColor1"
+                src="user.png"
+                alt="Avatar"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 rounded-full shadow-inner"></div>
+            </div>
+            <div class="ml-4">
+              <h2 class="font-medium text-mainblue">
+                {{ currentUser.firstName }}
+                {{ currentUser.lastName }}
+              </h2>
+            </div>
+          </div>
+        </div>
+        <!-- End Dropdown -->
+      </div>
+    </div>
+  </nav>
+</header>

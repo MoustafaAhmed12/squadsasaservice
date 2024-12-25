@@ -8,9 +8,21 @@ export interface ResponseHeader {
 export interface CurrentUser {
   id: string;
   firstName: string;
-  middleName: string;
-  roles: string[];
+  lastName: string;
+  role: string;
   token: string;
-  photoUrl: any;
-  communityLogo: string;
+}
+
+export interface RootResponse {
+  currentPage: number;
+  totalPages: number;
+  totalCount: number;
+  pageSize: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+  statusCode: number;
+  message: any;
+  data: any;
+  isSuccess: boolean;
+  errors: any;
 }
