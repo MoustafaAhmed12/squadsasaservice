@@ -24,14 +24,14 @@ export class NavbarComponent implements OnInit {
       .subscribe((event: any) => {
         this.currentPath = event.urlAfterRedirects;
       });
-    console.log(this.currentPath);
   }
   constructor() {}
   handleIsOpened(): void {
     this.isOpened = !this.isOpened;
   }
 
-  scrollTo(sectionId: string): void {
+  navigateToSection(sectionId: string): void {
     this.scrollEvent.emit(sectionId);
+    this.router.navigate(['/'], { fragment: sectionId });
   }
 }

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-layout-client',
@@ -10,6 +10,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './layout-client.component.scss',
 })
 export class LayoutClientComponent {
+  router = inject(Router);
   onScrollToSection(sectionId: string): void {
     const targetElement = document.getElementById(sectionId);
     if (targetElement) {

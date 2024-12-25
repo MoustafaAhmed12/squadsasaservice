@@ -1,8 +1,10 @@
 import { NgClass } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   HostListener,
+  inject,
   OnInit,
   Renderer2,
 } from '@angular/core';
@@ -12,6 +14,7 @@ import { ServicesComponent } from '../../Components/services/services.component'
 import { OurcompanyComponent } from '../../Components/ourcompany/ourcompany.component';
 import { TechnologiesComponent } from '../../Components/technologies/technologies.component';
 import { ContactUsComponent } from '../../Components/contact-us/contact-us.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +30,8 @@ import { ContactUsComponent } from '../../Components/contact-us/contact-us.compo
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
+  route = inject(ActivatedRoute);
   sections: HTMLElement[] = [];
   activeSectionIndex = 0;
   constructor(private el: ElementRef) {}
@@ -66,6 +70,21 @@ export class HomeComponent implements OnInit {
         window.scrollY + offset < sectionTop + section.offsetHeight
       ) {
         this.activeSectionIndex = index;
+      }
+    });
+  }
+
+  ngAfterViewInit() {
+    window.scrollTo(0, 0); // Scroll to the top of the page
+    this.route.fragment.subscribe((fragment) => {
+      if (fragment) {
+        const element = document.getElementById(fragment);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
       }
     });
   }

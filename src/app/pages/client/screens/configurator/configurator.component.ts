@@ -9,10 +9,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { SuccessMsgComponent } from '../../Components/success-msg/success-msg.component';
 
 @Component({
   selector: 'app-configurator',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, SuccessMsgComponent],
   templateUrl: './configurator.component.html',
   styleUrl: './configurator.component.scss',
 })
@@ -40,7 +41,7 @@ export class ConfiguratorComponent {
   techId: number = 0;
   totalQuantity: number = 0;
   order: { [key: string]: any } = {};
-  profiles: { jobTitleId: number; name: string; quantity: number }[] = [];
+  profiles: { jobTitleId: number; jobTitle: string; quantity: number }[] = [];
   counters: number[] = [];
 
   constructor() {
@@ -178,7 +179,6 @@ export class ConfiguratorComponent {
       next: ({ statusCode, data }) => {
         if (statusCode === 200) {
           this.allProfiles = data;
-          debugger;
           if (this.counters.length === 0) {
             this.counters = Array(this.allProfiles.length).fill(0);
           }
@@ -280,7 +280,11 @@ export class ConfiguratorComponent {
       if (existingIndex !== -1) {
         this.profiles[existingIndex].quantity = counter;
       } else {
-        this.profiles.push({ jobTitleId: id, name: name, quantity: counter });
+        this.profiles.push({
+          jobTitleId: id,
+          jobTitle: name,
+          quantity: counter,
+        });
         this.counters === this.profiles.map((p) => p.quantity);
       }
     }
@@ -328,7 +332,6 @@ export class ConfiguratorComponent {
       (m) => m.id === this.order['marketId']
     )?.name;
     let mArea = this.allAreas.find((m) => m.id === this.order['areaId'])?.name;
-    debugger;
     let mTech = this.allTechnologiesBelongArea.find(
       (m) => m.id === this.order['technologyId']
     )?.name;
