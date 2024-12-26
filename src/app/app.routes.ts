@@ -25,14 +25,17 @@ export const routes: Routes = [
       {
         path: '',
         component: HomeComponent,
+        title: 'Fiker - Home',
       },
       {
         path: 'configurator',
         component: ConfiguratorComponent,
+        title: 'Fiker - Configurator',
       },
       {
         path: 'it-services',
         component: ItServicesComponent,
+        title: 'Fiker - IT Services',
       },
     ],
   },

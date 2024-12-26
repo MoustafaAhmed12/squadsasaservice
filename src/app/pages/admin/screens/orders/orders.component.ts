@@ -3,8 +3,6 @@ import { AdminService } from '../../services/admin.service';
 import { Orders } from '../../models/admins';
 import { NgClass } from '@angular/common';
 import { OrderDetailsComponent } from '../../Components/order-details/order-details.component';
-import { SuperAdminService } from '../../services/super-admin.service';
-import { AuthService } from '../../../../authentication/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -14,9 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './orders.component.scss',
 })
 export class OrdersComponent implements OnInit {
-  authService = inject(AuthService);
   adminService = inject(AdminService);
-  superAdminService = inject(SuperAdminService);
   toastr = inject(ToastrService);
   isLoading: boolean = false;
   allOrders: Orders[] = [] as Orders[];
@@ -95,7 +91,7 @@ export class OrdersComponent implements OnInit {
   deleteOrder(id: number) {
     this.orderId = id;
     this.isDeleted = true;
-    this.superAdminService.deleteOrder(id).subscribe({
+    this.adminService.deleteOrder(id).subscribe({
       next: ({ message, statusCode }) => {
         if (statusCode === 200) {
           this.allOrders = this.allOrders.filter((o) => o.id !== id);

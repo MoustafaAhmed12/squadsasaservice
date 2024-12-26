@@ -41,21 +41,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.sections = Array.from(
       this.el.nativeElement.querySelectorAll('section')
     );
-    const videoSection = this.el.nativeElement.querySelector('#section1');
-    const videoElement: HTMLVideoElement = videoSection.querySelector('video');
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          videoElement.play();
-        } else {
-          videoElement.pause();
-        }
-      },
-      { threshold: 0.5 } // Adjust threshold as needed
-    );
-
-    observer.observe(videoSection);
   }
 
   @HostListener('window:wheel', ['$event'])
@@ -98,7 +83,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
       setTimeout(() => {
         this.isScrolling = false;
-      }, 500); // Adjust time to match scroll duration
+      }, 600);
     }
   }
 

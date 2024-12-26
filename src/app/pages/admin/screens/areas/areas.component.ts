@@ -5,10 +5,12 @@ import { SuperAdminService } from '../../services/super-admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { Areas, Technologies } from '../../models/admins';
 import { AdminService } from '../../services/admin.service';
+import { NgClass } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-areas',
-  imports: [],
+  imports: [NgClass, FormsModule],
   templateUrl: './areas.component.html',
   styleUrl: './areas.component.scss',
 })
@@ -25,8 +27,12 @@ export class AreasComponent {
   isLoading: boolean = false;
   isDeleted: boolean = false;
   isLoadingAdd: boolean = false;
+  isLoadingDetails: boolean = false;
   isDropdownOpen: boolean = false;
   selectedTech: string[] = [];
+  checked: boolean = false;
+  rows: { id: number; name: string; iconUrl: string; isAvailable: false }[][] =
+    [];
 
   ngOnInit() {
     this.getAllAreas();
@@ -77,7 +83,7 @@ export class AreasComponent {
     }
   }
 
-  addMarket(areaNameInput: HTMLInputElement): void {
+  addArea(areaNameInput: HTMLInputElement): void {
     const marketName = areaNameInput.value.trim();
     if (!marketName && this.technologiesIds.length) return;
     this.isLoadingAdd = true;
@@ -89,7 +95,6 @@ export class AreasComponent {
       next: ({ statusCode, message }) => {
         if (statusCode === 200) {
           this.getAllAreas();
-          // this.allUniversities.push({ name: universityName });
           this.toastr.success(message);
           this.selectedTech = [];
           this.technologiesIds = [];
@@ -127,6 +132,51 @@ export class AreasComponent {
         this.isDeleted = false;
       },
     });
+  }
+
+  toggleExpand(areaId: number): void {
+    if (this.areaId === areaId) {
+      this.areaId = 0;
+    } else {
+      this.areaId = areaId;
+      this.isLoadingDetails = true;
+      this.adminService.getAreaById(areaId).subscribe({
+        next: ({ statusCode, data }) => {
+          if (statusCode === 200) {
+            this.rows = [];
+            for (let i = 0; i < data.length; i += 3) {
+              this.rows.push(data.slice(i, i + 3));
+            }
+            this.isLoadingDetails = false;
+          } else {
+            console.log('error');
+            this.isLoadingDetails = false;
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isLoadingDetails = false;
+        },
+      });
+    }
+  }
+
+  onCheckboxChange(technologyId: number): void {
+    this.superAdminService
+      .changeTechnologiesOfArea({ areaId: this.areaId, technologyId })
+      .subscribe({
+        next: ({ statusCode, message }) => {
+          if (statusCode === 200) {
+            this.toastr.success(message);
+          } else {
+            this.toastr.error(message);
+            console.log('error');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   @HostListener('document:click', ['$event'])

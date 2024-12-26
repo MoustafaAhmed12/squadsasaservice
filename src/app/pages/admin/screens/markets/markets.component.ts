@@ -57,7 +57,6 @@ export class MarketsComponent implements OnInit {
       next: ({ statusCode, message }) => {
         if (statusCode === 200) {
           this.getAllMarkets();
-          // this.allUniversities.push({ name: universityName });
           this.toastr.success(message);
           marketNameInput.value = '';
           this.icon = '';

@@ -107,15 +107,16 @@
                 </button>
                 @if (isDropdownOpen) {
                 <div
-                  class="absolute right-0 top-[80px] z-10 w-full mt-2 bg-white border border-gray-300 rounded-md shadow-lg focus:outline-none"
+                  class="absolute right-0 top-[80px] z-10 w-full mt-2 bg-white rounded-md shadow-lg focus:outline-none"
                 >
                   <ul>
-                    @for (option of ['Admin', 'SuperAdmin']; track option) {
+                    @for (option of ['Admin', 'Super Admin']; track option) {
 
                     <li
                       (click)="selectRole(option)"
-                      [class.text-subColor1]="option === roleName"
-                      class="px-3 py-2 font-semibold cursor-pointer text-mainColor1 hover:bg-blue-100"
+                      [class.text-mainColor4]="option === roleName"
+                      [class.bg-mainColor1]="option === roleName"
+                      class="px-3 py-2.5 font-semibold cursor-pointer border-b border-mainColor1 text-mainColor1"
                     >
                       {{ option }}
                     </li>

@@ -36,6 +36,7 @@ export class ConfiguratorComponent {
   isLoadingP: boolean = false;
   isLoading: boolean = false;
   step: number = 15;
+  stepM: number = 7;
   minPosition: number = 0;
   maxPosition: number = 20;
   marketId: number = 0;

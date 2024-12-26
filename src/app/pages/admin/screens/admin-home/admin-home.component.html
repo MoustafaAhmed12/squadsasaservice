@@ -1,6 +1,6 @@
 <div class="flex flex-col w-full">
   <h1
-    class="absolute top-7 hidden md:block z-[50] text-xl left-80 transition-all duration-500 font-medium"
+    class="absolute top-7 hidden md:block z-[50] text-2xl left-80 transition-all duration-500 font-semibold"
   >
     All Administrators : {{ !isLoading ? allAdmins.length : 0 }}
   </h1>
@@ -27,7 +27,7 @@
     </button>
     }
     <div class="flex flex-col">
-      <div class="overflow-x-auto rounded-lg">
+      <div class="rounded-lg">
         <table
           class="w-full text-left bg-white rounded-lg table-auto text-mainColor1"
         >
@@ -35,17 +35,17 @@
             class="text-sm font-semibold uppercase bg-mainColor1 text-mainWhite"
           >
             <tr>
-              <th class="py-4 ps-8">First Name</th>
-              <th class="py-4 ps-8">Last Name</th>
+              <th class="py-4 ps-8">Full Name</th>
+              <!-- <th class="py-4 ps-8">Last Name</th> -->
               <th class="py-4 ps-8">email</th>
-              <th class="py-4 ps-8">role</th>
+              <th class="py-4 text-center ps-8">role</th>
               @if (authService.getRole() === 'SuperAdmin') {
 
               <th class="p-4 text-center">Delete</th>
               }
             </tr>
           </thead>
-          <tbody>
+          <tbody class="relative">
             @if (!isLoading) { @for (row of allAdmins; track i; let i = $index;
             let first = $first) {
 
@@ -53,10 +53,54 @@
               class="font-semibold border-b-8 border-mainColor4 hover:bg-mainColor3"
               [class.border-t-8]="first"
             >
-              <td class="py-4 ps-8">{{ row.firstName }}</td>
-              <td class="py-4 ps-8">{{ row.lastName }}</td>
+              <td class="py-4 ps-8">{{ row.firstName }} {{ row.lastName }}</td>
               <td class="py-4 ps-8">{{ row.email }}</td>
-              <td class="py-4 ps-8">{{ row.role }}</td>
+              <td id="role" class="text-center ps-8">
+                <div id="dropdown" class="relative flex flex-col gap-y-1">
+                  <button
+                    type="button"
+                    (click)="toggleDropdown(row.id)"
+                    class="flex items-center justify-between px-4 py-2 text-lg font-semibold bg-white border rounded-md outline-none text-mainColor1 border-mainColor1 focus:border-subColor1"
+                  >
+                    <span class="font-semibold text-mainColor1">{{
+                      row.role
+                    }}</span>
+
+                    <svg
+                      class="ml-2 transition-transform rotate-0 size-4"
+                      [class.rotate-180]="
+                        isDropdownOpen == true && userId === row.id
+                      "
+                      viewBox="0 0 11 7"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M7.58027 5.31922L10.6603 2.23923C11.1103 1.78923 11.1103 1.04922 10.6603 0.599219C10.2103 0.149219 9.47027 0.149219 9.02027 0.599219L6.10029 3.52921C5.86029 3.73921 5.48028 3.76921 5.25028 3.52921L2.32029 0.599219C1.87029 0.149219 1.13027 0.149219 0.680273 0.599219C0.230273 1.04922 0.230273 1.78923 0.680273 2.23923L3.76029 5.31922C5.08029 6.63922 6.21028 6.69922 7.59028 5.31922H7.58027Z"
+                        fill="#285C6A"
+                      />
+                    </svg>
+                  </button>
+                  @if (isDropdownOpen && row.id === userId) {
+                  <div
+                    class="absolute right-0 top-[50px] z-[50] w-full mt-2 border border-mainColor1 bg-white rounded-md shadow-lg focus:outline-none"
+                  >
+                    <ul>
+                      @for (option of ['Admin', 'Super Admin']; track option) {
+                      <li
+                        (click)="selectRole(option, row.id)"
+                        [class.text-mainColor4]="option === roleName"
+                        [class.bg-mainColor1]="option === roleName"
+                        class="px-3 py-2.5 font-semibold cursor-pointer border-b border-mainColor1 text-mainColor1"
+                      >
+                        {{ option }}
+                      </li>
+                      }
+                    </ul>
+                  </div>
+                  }
+                </div>
+              </td>
               @if (authService.getRole() === 'SuperAdmin') {
               <td class="p-4 text-center">
                 <button
@@ -87,25 +131,19 @@
               </td>
               }
             </tr>
-            } }@else { @for ( i of [1, 2, 3, 4 ,5]; track i) {
-            <tr class="border-b-8 animate-pulse border-mainColor4">
-              <td class="py-4 ps-8">
-                <div class="h-6 rounded md:w-64 w-44 bg-mainColor3"></div>
-              </td>
-              @if (authService.getRole() === 'SuperAdmin') {
-
-              <td class="flex justify-center p-4">
-                <div class="w-8 h-8 rounded bg-mainColor3"></div>
-              </td>
-              }
-            </tr>
-            } }
+            } }@else {
+            <div
+              class="w-12 h-12 absolute border-[6px] top-20 left-1/2 border-solid rounded-full border-fGradient animate-spin border-t-transparent"
+            ></div>
+            }
           </tbody>
+          @if(!isLoading){
           <tfoot class="rounded-lg bg-mainColor1">
             <tr>
-              <td colspan="5" class="p-3 rounded-bl-lg rounded-br-lg"></td>
+              <td colspan="4" class="p-3 rounded-bl-lg rounded-br-lg"></td>
             </tr>
           </tfoot>
+          }
         </table>
       </div>
     </div>

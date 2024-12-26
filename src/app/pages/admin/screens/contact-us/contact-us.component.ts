@@ -1,8 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { AuthService } from '../../../../authentication/services/auth.service';
 import { AdminService } from '../../services/admin.service';
-import { SuperAdminService } from '../../services/super-admin.service';
 import { ContactUs } from '../../models/admins';
 import { ToastrService } from 'ngx-toastr';
 
@@ -13,9 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './contact-us.component.scss',
 })
 export class ContactUsComponent implements OnInit {
-  authService = inject(AuthService);
   adminService = inject(AdminService);
-  superAdminService = inject(SuperAdminService);
   toastr = inject(ToastrService);
   isLoading: boolean = false;
   allContacts: ContactUs[] = [] as ContactUs[];
@@ -83,7 +79,7 @@ export class ContactUsComponent implements OnInit {
   deleteContact(id: number) {
     this.contactId = id;
     this.isDeleted = true;
-    this.superAdminService.deleteContactUs(id).subscribe({
+    this.adminService.deleteContactUs(id).subscribe({
       next: ({ message, statusCode }) => {
         if (statusCode === 200) {
           this.allContacts = this.allContacts.filter((o) => o.id !== id);

@@ -5,10 +5,12 @@ import { AdminService } from '../../services/admin.service';
 import { SuperAdminService } from '../../services/super-admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { Profiles, Technologies } from '../../models/admins';
+import { NgClass } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-technologies',
-  imports: [],
+  imports: [NgClass, FormsModule],
   templateUrl: './technologies.component.html',
   styleUrl: './technologies.component.scss',
 })
@@ -29,6 +31,9 @@ export class TechnologiesComponent implements OnInit {
   selectedProfiles: string[] = [];
   allJobTitles: Profiles[] = [];
   jobTitlesIds: number[] = [];
+  checked: boolean = false;
+  isLoadingDetails: boolean = false;
+  rows: { id: number; name: string; isAvailable: false }[][] = [];
   ngOnInit() {
     this.getAllTechnologies();
     this.getAllJobTitles();
@@ -66,7 +71,7 @@ export class TechnologiesComponent implements OnInit {
     });
   }
 
-  addMarket(techNameInput: HTMLInputElement): void {
+  addTech(techNameInput: HTMLInputElement): void {
     const techName = techNameInput.value.trim();
     if (!techName && Object.keys(this.iconFile).length === 0) return;
     this.isLoadingAdd = true;
@@ -161,6 +166,51 @@ export class TechnologiesComponent implements OnInit {
         this.isDeleted = false;
       },
     });
+  }
+
+  toggleExpand(techId: number): void {
+    if (this.techId === techId) {
+      this.techId = 0;
+    } else {
+      this.techId = techId;
+      this.isLoadingDetails = true;
+      this.adminService.getTechnologyById(techId).subscribe({
+        next: ({ statusCode, data }) => {
+          if (statusCode === 200) {
+            this.rows = [];
+            for (let i = 0; i < data.length; i += 3) {
+              this.rows.push(data.slice(i, i + 3));
+            }
+            this.isLoadingDetails = false;
+          } else {
+            console.log('error');
+            this.isLoadingDetails = false;
+          }
+        },
+        error: (err) => {
+          console.log(err);
+          this.isLoadingDetails = false;
+        },
+      });
+    }
+  }
+
+  onCheckboxChange(jobTitleId: number): void {
+    this.superAdminService
+      .changeProfileOfTech({ technologyId: this.techId, jobTitleId })
+      .subscribe({
+        next: ({ statusCode, message }) => {
+          if (statusCode === 200) {
+            this.toastr.success(message);
+          } else {
+            this.toastr.error(message);
+            console.log('error');
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   @HostListener('document:click', ['$event'])

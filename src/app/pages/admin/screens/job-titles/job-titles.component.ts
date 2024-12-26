@@ -55,7 +55,6 @@ export class JobTitlesComponent implements OnInit {
       next: ({ statusCode, message }) => {
         if (statusCode === 200) {
           this.getAllJobTitles();
-          // this.allJobTitles.push({ name: universityName });
           jobNameInput.value = '';
           this.toastr.success(message);
           this.isLoadingAdd = false;

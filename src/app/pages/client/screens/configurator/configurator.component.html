@@ -505,12 +505,13 @@
     <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
       Select your squad
     </h1>
-    <div class="grid w-full grid-cols-1 ps-6 md:ps-0 gap-y-6">
+    <div class="grid w-full grid-cols-1 px-4 md:ps-0 gap-y-6">
       <div class="flex flex-col w-full md:w-3/5 gap-y-2 text-mainWhite">
         @if (!isLoadingP) { @for (profile of allProfiles; track profile.id; let
         i = $index) {
         <h4 class="text-sm font-semibold">{{ profile.name }}</h4>
-        <div class="flex items-center justify-between w-10/12 gap-x-4">
+        <div class="flex items-center justify-between w-full gap-x-4">
+          <!-- ( - ) -->
           <button
             (click)="moveLeft(i)"
             class="flex items-center justify-center"
@@ -532,10 +533,10 @@
           </button>
 
           <div
-            class="relative !w-[314px] h-1 my-4 rounded bg-gradient-to-r from-fGradient via-sGradient to-tGradient"
+            class="relative h-1 my-4 rounded bg-gradient-to-r from-fGradient via-sGradient to-tGradient"
           >
             <div
-              class="absolute left-0 w-4 h-4 top-0.5 transition-all duration-300 rounded-full"
+              class="hidden h-4 transition-all duration-300 rounded-full md:block"
               [ngStyle]="{
                 transform:
                   'translateX(' + counters[i] * step + 'px) translateY(-50%)'
@@ -544,6 +545,16 @@
               [class.bg-sGradient]="counters[i] > 8 && counters[i] <= 15"
               [class.bg-tGradient]="counters[i] > 15 && counters[i] <= 20"
             ></div>
+            <!-- <div
+              class="absolute left-0 md:hidden w-4 h-4 top-0.5 transition-all duration-300 rounded-full"
+              [ngStyle]="{
+                transform:
+                  'translateX(' + counters[i] * stepM + 'px) translateY(-50%)'
+              }"
+              [class.bg-fGradient]="counters[i] <= 8"
+              [class.bg-sGradient]="counters[i] > 8 && counters[i] <= 15"
+              [class.bg-tGradient]="counters[i] > 15 && counters[i] <= 20"
+            ></div> -->
           </div>
 
           <button

@@ -22,11 +22,10 @@ export class SuperAdminService {
       `${environment.BASE_URL}/api/SuperAdmin/admin/${id}`
     );
   }
-
-  // order
-  deleteOrder(id: number): Observable<ResponseHeader> {
-    return this.http.delete<ResponseHeader>(
-      `${environment.BASE_URL}/api/SuperAdmin/orders/${id}`
+  editRole(info: any): Observable<ResponseHeader> {
+    return this.http.put<ResponseHeader>(
+      `${environment.BASE_URL}/api/SuperAdmin/users/role`,
+      info
     );
   }
 
@@ -44,6 +43,13 @@ export class SuperAdminService {
     );
   }
 
+  changeTechnologiesOfArea(info: any): Observable<ResponseHeader> {
+    return this.http.put<ResponseHeader>(
+      `${environment.BASE_URL}/api/SuperAdmin/areas/technology`,
+      info
+    );
+  }
+
   // Tech
   deletetechnology(id: number): Observable<ResponseHeader> {
     return this.http.delete<ResponseHeader>(
@@ -51,17 +57,17 @@ export class SuperAdminService {
     );
   }
 
+  changeProfileOfTech(info: any): Observable<ResponseHeader> {
+    return this.http.put<ResponseHeader>(
+      `${environment.BASE_URL}/api/SuperAdmin/technogolies/profile`,
+      info
+    );
+  }
+
   //job Titles
   deleteJobTitles(id: number): Observable<ResponseHeader> {
     return this.http.delete<ResponseHeader>(
       `${environment.BASE_URL}/api/SuperAdmin/jobTitle/${id}`
-    );
-  }
-
-  //contact us
-  deleteContactUs(id: number): Observable<ResponseHeader> {
-    return this.http.delete<ResponseHeader>(
-      `${environment.BASE_URL}/api/SuperAdmin/contactUs/${id}`
     );
   }
 }

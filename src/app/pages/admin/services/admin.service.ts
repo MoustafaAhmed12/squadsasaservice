@@ -16,7 +16,7 @@ export class AdminService {
   cacheService = inject(CacheService);
   getAllAdmins(): Observable<ResponseHeader> {
     return this.http.get<ResponseHeader>(
-      `${environment.BASE_URL}/api/Admin/admins/pagination`
+      `${environment.BASE_URL}/api/admin/admins`
     );
   }
 
@@ -39,6 +39,12 @@ export class AdminService {
     );
   }
 
+  deleteOrder(id: number): Observable<ResponseHeader> {
+    return this.http.delete<ResponseHeader>(
+      `${environment.BASE_URL}/api/SuperAdmin/orders/${id}`
+    );
+  }
+
   //Markets
   addMarket(info: any): Observable<ResponseHeader> {
     return this.http.post<ResponseHeader>(
@@ -52,6 +58,11 @@ export class AdminService {
     return this.http.post<ResponseHeader>(
       `${environment.BASE_URL}/api/admin/areas`,
       info
+    );
+  }
+  getAreaById(id: number): Observable<ResponseHeader> {
+    return this.http.get<ResponseHeader>(
+      `${environment.BASE_URL}/api/admin/areas/${id}`
     );
   }
   //job Titles
@@ -73,6 +84,11 @@ export class AdminService {
       info
     );
   }
+  getTechnologyById(id: number): Observable<ResponseHeader> {
+    return this.http.get<ResponseHeader>(
+      `${environment.BASE_URL}/api/admin/technologies/${id}`
+    );
+  }
 
   getAllContactUs(
     currentPage: number,
@@ -84,6 +100,13 @@ export class AdminService {
     return this.cacheService.get<RootResponse>(
       `${environment.BASE_URL}/api/admin/contactUs/pagination`,
       params
+    );
+  }
+
+  //contact us
+  deleteContactUs(id: number): Observable<ResponseHeader> {
+    return this.http.delete<ResponseHeader>(
+      `${environment.BASE_URL}/api/SuperAdmin/contactUs/${id}`
     );
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { SuperAdminService } from '../../services/super-admin.service';
@@ -21,7 +21,10 @@ export class AdminHomeComponent implements OnInit {
   allAdmins: Admins[] = [];
   isDeleted: boolean = false;
   adminId: string = '';
+  isDropdownOpen: boolean = false;
 
+  userId: string = '';
+  roleName: string = '';
   ngOnInit() {
     this.getAllAdmins();
   }
@@ -62,6 +65,44 @@ export class AdminHomeComponent implements OnInit {
       error: (err) => {
         console.log(err);
         this.isDeleted = false;
+      },
+    });
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    const targetElement = event.target as HTMLElement;
+    const isInsideDropdown = targetElement.closest('#dropdown');
+    if (!isInsideDropdown) {
+      this.isDropdownOpen = false;
+    }
+  }
+
+  toggleDropdown(userId: string) {
+    this.userId = userId;
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+  selectRole(role: string, userId: string): void {
+    this.roleName = role;
+    const info = { userId, role };
+
+    this.editRole(info);
+  }
+
+  editRole(info: any): void {
+    this.superAdminService.editRole(info).subscribe({
+      next: ({ statusCode, message }) => {
+        if (statusCode === 200) {
+          this.toastr.success(message);
+          this.isDropdownOpen = false;
+          this.getAllAdmins();
+        } else {
+          console.log('error');
+          this.toastr.error(message);
+        }
+      },
+      error: (err) => {
+        console.log(err);
       },
     });
   }

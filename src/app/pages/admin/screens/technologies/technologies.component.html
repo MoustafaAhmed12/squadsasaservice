@@ -11,7 +11,6 @@
       <input
         type="file"
         (change)="onFileSelected($event)"
-        placeholder="Type a new university here"
         class="py-3 font-medium bg-white border outline-none appearance-none rounded-tl-xl rounded-bl-xl pe-6 ps-4 w-72 focus:outline-none placeholder:font-normal"
       />
 
@@ -66,13 +65,13 @@
       <div class="flex items-center justify-center">
         <input
           type="text"
-          #marketName
-          (keydown.enter)="addMarket(marketName)"
-          placeholder="Type a new university here"
+          #techName
+          (keydown.enter)="addTech(techName)"
+          placeholder="Type a new technology here"
           class="px-6 py-3 text-lg font-semibold bg-white border outline-none appearance-none w-72 focus:outline-none placeholder:font-normal"
         />
         <button
-          (click)="addMarket(marketName)"
+          (click)="addTech(techName)"
           class="flex items-center px-6 py-3 transition-colors rounded-tr-xl rounded-br-xl hover:bg-subColor1 w-fit bg-mainColor1 text-mainColor4"
         >
           @if (isLoadingAdd) {
@@ -101,11 +100,7 @@
       </div>
       @if (icon) {
       <div class="size-14 p-1.5 ms-12 bg-[#f4f4f4] rounded-lg">
-        <img
-          [src]="icon"
-          class="object-cover w-full h-full"
-          [alt]="marketName"
-        />
+        <img [src]="icon" class="object-cover w-full h-full" [alt]="techName" />
       </div>
       }
     </div>
@@ -122,6 +117,7 @@
 
               <th class="p-4 text-center">Delete</th>
               }
+              <th class="p-4 text-center">Details</th>
             </tr>
           </thead>
           <tbody>
@@ -171,8 +167,90 @@
                 </button>
               </td>
               }
+              <td
+                (click)="toggleExpand(row.id)"
+                class="flex items-center justify-center p-4 cursor-pointer"
+              >
+                <svg
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                  [ngClass]="
+                    techId === row.id
+                      ? 'rotate-180 transition-transform'
+                      : ' transition-transform'
+                  "
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19.9201 8.9502L13.4001 15.4702C12.6301 16.2402 11.3701 16.2402 10.6001 15.4702L4.08008 8.9502"
+                    stroke="#333"
+                    stroke-width="1.5"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </td>
             </tr>
-            } }@else { @for ( i of [1, 2, 3, 4 ,5]; track i) {
+            @if (techId === row.id) {
+            <tr>
+              <td
+                colspan="6"
+                class="p-2 rounded-md bg-mainColor2 text-mainWhite"
+              >
+                <div
+                  class="overflow-hidden overflow-y-auto transition-all duration-300 ease-in-out scroll-host-table"
+                  [style.max-height]="techId === row.id ? '250px' : '0px'"
+                >
+                  <table class="w-full border-gray-200 table-auto">
+                    @if (isLoadingDetails) {
+                    <tr
+                      class="flex items-center justify-center w-full bg-opacity-60"
+                    >
+                      <td colspan="6" class="flex items-center justify-center">
+                        <div
+                          class="w-8 h-8 border-4 border-blue-600 border-dashed rounded-full animate-spin"
+                        ></div>
+                      </td>
+                    </tr>
+                    }@else {
+                    <tbody>
+                      @for (r of rows; track $index;let last = $last) {
+                      <tr>
+                        @for (item of r; track $index) {
+
+                        <td
+                          class="p-3 text-left border-b border-mainColor4"
+                          [class.border-b]="!last"
+                        >
+                          <div class="flex items-center space-x-2">
+                            <input
+                              type="checkbox"
+                              id="customCheckbox-{{ item.name }}"
+                              class="hidden peer"
+                              [(ngModel)]="item.isAvailable"
+                              (change)="onCheckboxChange(item.id)"
+                            />
+                            <label
+                              for="customCheckbox-{{ item.name }}"
+                              class="flex items-center justify-center w-5 h-5 border-2 border-gray-400 rounded-md cursor-pointer peer-checked:bg-blue-600 peer-checked:border-blue-600 dark:border-gray-600 dark:peer-checked:bg-blue-500 dark:peer-checked:border-blue-500"
+                            >
+                            </label>
+                            <span>{{ item.name }}</span>
+                          </div>
+                        </td>
+                        }
+                      </tr>
+                      }
+                    </tbody>
+                    }
+                  </table>
+                </div>
+              </td>
+            </tr>
+            } } }@else { @for ( i of [1, 2, 3, 4 ,5]; track i) {
             <tr class="border-b-8 animate-pulse border-mainColor4">
               <td class="flex items-center py-4 ps-6 pe-3">
                 <div class="w-32 h-4 rounded bg-mainColor3"></div>
@@ -191,7 +269,7 @@
           </tbody>
           <tfoot class="bg-mainColor1">
             <tr>
-              <td colspan="3" class="p-4"></td>
+              <td colspan="4" class="p-4"></td>
             </tr>
           </tfoot>
         </table>

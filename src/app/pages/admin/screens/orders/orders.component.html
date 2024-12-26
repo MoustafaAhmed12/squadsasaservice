@@ -18,10 +18,7 @@
               </th>
               <th class="hidden p-4 md:table-cell">Phone</th>
               <th class="hidden p-4 text-center md:table-cell">Company</th>
-              @if (authService.getRole() === 'SuperAdmin') {
-
               <th class="p-4 text-center">Delete</th>
-              }
             </tr>
           </thead>
           <tbody>
@@ -47,8 +44,6 @@
               <td class="hidden py-4 text-center ps-6 pe-3 md:table-cell">
                 {{ row.company }}
               </td>
-              @if (authService.getRole() === 'SuperAdmin') {
-
               <td class="py-4 text-center ps-6 pe-3">
                 <button
                   (click)="deleteOrder(row.id)"
@@ -77,7 +72,6 @@
                   }
                 </button>
               </td>
-              }
             </tr>
             } }@else { @for ( i of [1, 2, 3, 4 ,5]; track i) {
             <tr class="border-b-8 animate-pulse border-mainColor4">
@@ -93,12 +87,9 @@
               <td class="hidden py-4 text-center md:table-cell ps-16 pe-3">
                 <div class="w-24 h-4 rounded bg-mainColor3"></div>
               </td>
-              @if (authService.getRole() === 'SuperAdmin') {
-
               <td class="py-4 text-center ps-20 pe-3">
                 <div class="w-8 h-8 rounded bg-mainColor3"></div>
               </td>
-              }
             </tr>
             } }
           </tbody>
