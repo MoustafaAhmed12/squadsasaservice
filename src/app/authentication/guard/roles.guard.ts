@@ -9,17 +9,19 @@ export const rolesGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const { path } = routeConfig as Route;
 
-  debugger;
+  // debugger;
 
   if (path === '' && !authService.isAuth()) {
     return true;
   }
 
-  if (path === 'admin' && role === 'Admin') {
+  if (path === 'admin' && (role === 'Admin' || role === 'SuperAdmin')) {
     return true;
   }
 
-  router.navigateByUrl(role === 'Admin' ? 'admin' : '/');
+  router.navigateByUrl(
+    role === 'Admin' || role === 'SuperAdmin' ? 'admin' : '/'
+  );
 
   return false;
 };

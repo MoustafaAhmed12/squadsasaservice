@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ClientService } from '../../services/client.service';
 import { Technologies } from '../../models/clients';
 import { RouterLink } from '@angular/router';
+import { SharedService } from '../../../../shared/services/shared.service';
 
 @Component({
   selector: 'app-technologies',
@@ -10,14 +10,14 @@ import { RouterLink } from '@angular/router';
   styleUrl: './technologies.component.scss',
 })
 export class TechnologiesComponent implements OnInit {
-  clientService = inject(ClientService);
+  sharedService = inject(SharedService);
   allTechnologies: Technologies[] = [];
   ngOnInit() {
     this.getAllTechnologies();
   }
 
   getAllTechnologies(): void {
-    this.clientService.getTechnologies().subscribe({
+    this.sharedService.getTechnologies().subscribe({
       next: ({ statusCode, data }) => {
         if (statusCode === 200) {
           this.allTechnologies = data;

@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ClientService } from '../../services/client.service';
 import { Areas } from '../../models/clients';
 import { RouterLink } from '@angular/router';
+import { SharedService } from '../../../../shared/services/shared.service';
 
 @Component({
   selector: 'app-services',
@@ -10,14 +11,14 @@ import { RouterLink } from '@angular/router';
   styleUrl: './services.component.scss',
 })
 export class ServicesComponent implements OnInit {
-  clientService = inject(ClientService);
+  sharedService = inject(SharedService);
   allAreas: Areas[] = [];
   ngOnInit() {
     this.getAllAreas();
   }
 
   getAllAreas(): void {
-    this.clientService.getAreas().subscribe({
+    this.sharedService.getAreas().subscribe({
       next: ({ statusCode, data }) => {
         if (statusCode === 200) {
           this.allAreas = data;

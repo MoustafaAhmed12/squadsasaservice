@@ -55,6 +55,9 @@ export class AuthService {
   getToken(): string {
     return localStorage.getItem(this.JWT_TOKEN) || '';
   }
+  getRole(): string {
+    return this.currentUser().role;
+  }
 
   setToken(token: string): void {
     localStorage.setItem(this.JWT_TOKEN, token);

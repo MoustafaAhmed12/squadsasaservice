@@ -50,7 +50,7 @@ export class LoginComponent {
       next: ({ statusCode, data, message }) => {
         if (statusCode === 200) {
           console.log(data);
-          if (data.role === 'Admin') {
+          if (data.role === 'Admin' || data.role === 'SuperAdmin') {
             this.router.navigate(['/admin']);
           } else {
             this.router.navigate(['/']);

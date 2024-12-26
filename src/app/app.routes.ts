@@ -9,6 +9,12 @@ import { AdminHomeComponent } from './pages/admin/screens/admin-home/admin-home.
 import { rolesGuard } from './authentication/guard/roles.guard';
 import { LayoutAdminComponent } from './layouts/layout-admin/layout-admin.component';
 import { OrdersComponent } from './pages/admin/screens/orders/orders.component';
+import { AreasComponent } from './pages/admin/screens/areas/areas.component';
+import { MarketsComponent } from './pages/admin/screens/markets/markets.component';
+import { TechnologiesComponent } from './pages/admin/screens/technologies/technologies.component';
+import { JobTitlesComponent } from './pages/admin/screens/job-titles/job-titles.component';
+import { AddAdminComponent } from './pages/admin/screens/add-admin/add-admin.component';
+import { ContactUsComponent } from './pages/admin/screens/contact-us/contact-us.component';
 
 export const routes: Routes = [
   {
@@ -49,9 +55,39 @@ export const routes: Routes = [
         component: AdminHomeComponent,
       },
       {
+        path: 'add-admin',
+        component: AddAdminComponent,
+        title: 'Fiker - Add a new admin',
+      },
+      {
         path: 'orders',
         component: OrdersComponent,
-        title: 'Fiker - Order',
+        title: 'Fiker - Orders',
+      },
+      {
+        path: 'market',
+        component: MarketsComponent,
+        title: 'Fiker - Markets',
+      },
+      {
+        path: 'areas',
+        component: AreasComponent,
+        title: 'Fiker - Areas',
+      },
+      {
+        path: 'technologies',
+        component: TechnologiesComponent,
+        title: 'Fiker - Technologies',
+      },
+      {
+        path: 'job-titles',
+        component: JobTitlesComponent,
+        title: 'Fiker - Job Titles',
+      },
+      {
+        path: 'contact-us',
+        component: ContactUsComponent,
+        title: 'Fiker - Contact-Us',
       },
     ],
   },

@@ -10,6 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { SuccessMsgComponent } from '../../Components/success-msg/success-msg.component';
+import { SharedService } from '../../../../shared/services/shared.service';
 
 @Component({
   selector: 'app-configurator',
@@ -18,6 +19,7 @@ import { SuccessMsgComponent } from '../../Components/success-msg/success-msg.co
   styleUrl: './configurator.component.scss',
 })
 export class ConfiguratorComponent {
+  sharedService = inject(SharedService);
   clientService = inject(ClientService);
   route = inject(ActivatedRoute);
   fb = inject(FormBuilder);
@@ -122,7 +124,7 @@ export class ConfiguratorComponent {
 
   getAllMarkets(): void {
     this.isLoadingM = true;
-    this.clientService.getMarkets().subscribe({
+    this.sharedService.getMarkets().subscribe({
       next: ({ statusCode, data }) => {
         if (statusCode === 200) {
           this.allMarkets = data;
@@ -141,7 +143,7 @@ export class ConfiguratorComponent {
 
   getAllAreas(): void {
     this.isLoadingA = true;
-    this.clientService.getAreas().subscribe({
+    this.sharedService.getAreas().subscribe({
       next: ({ statusCode, data }) => {
         if (statusCode === 200) {
           this.allAreas = data;

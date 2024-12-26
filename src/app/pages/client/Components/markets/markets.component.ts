@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Markets } from '../../models/clients';
-import { ClientService } from '../../services/client.service';
 import { RouterLink } from '@angular/router';
+import { SharedService } from '../../../../shared/services/shared.service';
 
 @Component({
   selector: 'app-markets',
@@ -10,14 +10,14 @@ import { RouterLink } from '@angular/router';
   styleUrl: './markets.component.scss',
 })
 export class MarketsComponent implements OnInit {
-  clientService = inject(ClientService);
+  sharedService = inject(SharedService);
   allMarkets: Markets[] = [];
   ngOnInit() {
     this.getAllMarkets();
   }
 
   getAllMarkets(): void {
-    this.clientService.getMarkets().subscribe({
+    this.sharedService.getMarkets().subscribe({
       next: ({ statusCode, data }) => {
         if (statusCode === 200) {
           this.allMarkets = data;

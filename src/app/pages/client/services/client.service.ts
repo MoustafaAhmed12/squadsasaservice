@@ -20,17 +20,6 @@ export class ClientService {
   //     })
   //   );;
 
-  getMarkets(): Observable<ResponseHeader> {
-    return this.http.get<ResponseHeader>(`${environment.BASE_URL}/api/Markets`);
-  }
-  getAreas(): Observable<ResponseHeader> {
-    return this.http.get<ResponseHeader>(`${environment.BASE_URL}/api/Areas`);
-  }
-  getTechnologies(): Observable<ResponseHeader> {
-    return this.http.get<ResponseHeader>(
-      `${environment.BASE_URL}/api/Technologies`
-    );
-  }
   getTechnologiesByAreaId(areaId: number): Observable<ResponseHeader> {
     return this.http.get<ResponseHeader>(
       `${environment.BASE_URL}/api/Technologies/area/${areaId}`

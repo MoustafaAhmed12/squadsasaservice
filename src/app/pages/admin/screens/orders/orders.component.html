@@ -10,7 +10,7 @@
         <table
           class="w-full text-left bg-white rounded-lg table-auto text-mainColor1"
         >
-          <thead class="font-semibold bg-[#DEDFE1]">
+          <thead class="font-semibold bg-mainColor1 text-mainWhite">
             <tr>
               <th class="p-4">Contact Name</th>
               <th class="hidden py-4 md:ps-6 ps-3 pe-3 md:table-cell">
@@ -18,7 +18,10 @@
               </th>
               <th class="hidden p-4 md:table-cell">Phone</th>
               <th class="hidden p-4 text-center md:table-cell">Company</th>
+              @if (authService.getRole() === 'SuperAdmin') {
+
               <th class="p-4 text-center">Delete</th>
+              }
             </tr>
           </thead>
           <tbody>
@@ -44,6 +47,8 @@
               <td class="hidden py-4 text-center ps-6 pe-3 md:table-cell">
                 {{ row.company }}
               </td>
+              @if (authService.getRole() === 'SuperAdmin') {
+
               <td class="py-4 text-center ps-6 pe-3">
                 <button
                   (click)="deleteOrder(row.id)"
@@ -72,6 +77,7 @@
                   }
                 </button>
               </td>
+              }
             </tr>
             } }@else { @for ( i of [1, 2, 3, 4 ,5]; track i) {
             <tr class="border-b-8 animate-pulse border-mainColor4">
@@ -87,16 +93,19 @@
               <td class="hidden py-4 text-center md:table-cell ps-16 pe-3">
                 <div class="w-24 h-4 rounded bg-mainColor3"></div>
               </td>
+              @if (authService.getRole() === 'SuperAdmin') {
+
               <td class="py-4 text-center ps-20 pe-3">
                 <div class="w-8 h-8 rounded bg-mainColor3"></div>
               </td>
+              }
             </tr>
             } }
           </tbody>
         </table>
       </div>
       <div
-        class="flex items-center justify-center w-full p-2 bg-[#DEDFE1] space-x-2 text-sm font-semibold rounded-lg"
+        class="flex items-center justify-center w-full p-2 space-x-2 text-sm font-semibold rounded-lg bg-mainColor1 text-mainWhite"
         [class.mt-4]="totalCount === 0"
       >
         <button
@@ -125,7 +134,7 @@
           [ngClass]="
             currentPage === page
               ? 'bg-mainColor1 text-mainColor4 font-bold'
-              : 'bg-mainColor4 hover:bg-gray-100'
+              : 'bg-mainColor3 hover:bg-mainColor2'
           "
           (click)="changePage(page)"
         >

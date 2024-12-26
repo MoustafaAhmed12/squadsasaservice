@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import "ngx-toastr/toastr";
 
 html,
 body {
@@ -15,4 +15,95 @@ body {
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+// toast
+#toast-container {
+  margin: 20px 0;
+
+  .toast-error,
+  .toast-success,
+  .toast-info,
+  .toast-warning {
+    display: flex;
+    min-width: 450px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    width: fit-content;
+    padding: 6px 30px 6px 60px;
+    border-left-width: 10px;
+    box-shadow: none;
+    .toast-message {
+      font-size: 20px;
+      padding-right: 24px;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #toast-container {
+    margin: 20px 0;
+
+    .toast-error,
+    .toast-success,
+    .toast-info,
+    .toast-warning {
+      display: flex;
+      min-width: 250px;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 8px;
+      width: fit-content;
+      padding: 6px 20px 6px 60px;
+      border-left-width: 10px;
+      box-shadow: none;
+      .toast-message {
+        font-size: 16px;
+        padding-right: 18px;
+      }
+    }
+    .toast-success,
+    .toast-warning,
+    .toast-error {
+      background-size: 28px !important;
+    }
+    .toast-close-button {
+      font-size: 30px;
+    }
+  }
+}
+
+.toast-success {
+  background: #dff2e3 url("./../public/Success.png") no-repeat 15px center;
+  background-size: 36px !important;
+  border-color: #28a745;
+  color: #28a745 !important;
+}
+.toast-error {
+  background: #fae1e3 url("./../public/Error.png") no-repeat 15px center;
+  background-size: 36px !important;
+  border-color: #dc3545;
+  color: #dc3545 !important;
+  .toast-progress {
+    background-color: #dc3545;
+  }
+}
+.toast-warning {
+  background: #fff5d9 url("./../public/warning.png") no-repeat 15px center;
+  background-size: 36px !important;
+  border-color: #ffbf00;
+  color: #ffbf00 !important;
+  .toast-progress {
+    background-color: #ffbf00;
+  }
+}
+
+.toast-close-button {
+  color: #111;
+  font-size: 40px;
+  padding: 0 4px;
+  font-weight: 200 !important;
+  order: 1;
+  top: 0px !important;
 }

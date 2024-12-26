@@ -1,1 +1,201 @@
-<p>technologies works!</p>
+<div class="flex flex-col w-full">
+  <h1
+    class="absolute top-7 hidden md:block z-[50] text-2xl left-80 transition-all duration-500 font-semibold"
+  >
+    All Technologies : {{ !isLoading ? allTechnologies.length : 0 }}
+  </h1>
+  <div class="flex flex-col space-y-6">
+    <div
+      class="flex flex-col items-center justify-start gap-x-4 gap-y-4 md:flex-row"
+    >
+      <input
+        type="file"
+        (change)="onFileSelected($event)"
+        placeholder="Type a new university here"
+        class="py-3 font-medium bg-white border outline-none appearance-none rounded-tl-xl rounded-bl-xl pe-6 ps-4 w-72 focus:outline-none placeholder:font-normal"
+      />
+
+      <div id="dropdown" class="relative flex flex-col gap-y-1">
+        <button
+          type="button"
+          (click)="toggleDropdown()"
+          class="flex items-center justify-between px-6 py-3 text-lg font-semibold truncate bg-white border outline-none appearance-none w-96 focus:outline-none placeholder:font-normal"
+        >
+          <span class="truncate">
+            {{
+              selectedProfiles.length > 0
+                ? selectedProfiles.join(", ")
+                : "Select technologies"
+            }}
+          </span>
+          <svg
+            class="ml-2 transition-transform rotate-0 size-4"
+            [class.rotate-180]="isDropdownOpen"
+            viewBox="0 0 11 7"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.58027 5.31922L10.6603 2.23923C11.1103 1.78923 11.1103 1.04922 10.6603 0.599219C10.2103 0.149219 9.47027 0.149219 9.02027 0.599219L6.10029 3.52921C5.86029 3.73921 5.48028 3.76921 5.25028 3.52921L2.32029 0.599219C1.87029 0.149219 1.13027 0.149219 0.680273 0.599219C0.230273 1.04922 0.230273 1.78923 0.680273 2.23923L3.76029 5.31922C5.08029 6.63922 6.21028 6.69922 7.59028 5.31922H7.58027Z"
+              fill="#285C6A"
+            />
+          </svg>
+        </button>
+        @if (isDropdownOpen) {
+
+        <div
+          class="absolute right-0 top-[60px] max-h-[295px] overflow-y-auto z-10 w-full mt-2 bg-white border border-gray-300 rounded-md shadow-lg focus:outline-none"
+        >
+          <ul>
+            @for (option of allJobTitles; track option.id) {
+
+            <li
+              (click)="toggleProfile(option)"
+              class="flex items-center p-3 font-semibold border-b cursor-pointer border-mainColor1 text-mainColor1 hover:bg-mainColor1 hover:text-mainWhite"
+              [class.bg-mainColor2]="jobTitlesIds.includes(option.id)"
+              [class.text-mainColor4]="jobTitlesIds.includes(option.id)"
+            >
+              {{ option.name }}
+            </li>
+            }
+          </ul>
+        </div>
+        }
+      </div>
+
+      <div class="flex items-center justify-center">
+        <input
+          type="text"
+          #marketName
+          (keydown.enter)="addMarket(marketName)"
+          placeholder="Type a new university here"
+          class="px-6 py-3 text-lg font-semibold bg-white border outline-none appearance-none w-72 focus:outline-none placeholder:font-normal"
+        />
+        <button
+          (click)="addMarket(marketName)"
+          class="flex items-center px-6 py-3 transition-colors rounded-tr-xl rounded-br-xl hover:bg-subColor1 w-fit bg-mainColor1 text-mainColor4"
+        >
+          @if (isLoadingAdd) {
+          <div class="flex items-center justify-center w-full bg-opacity-60">
+            <div class="flex items-center justify-center">
+              <div
+                class="border-4 border-dashed rounded-full border-subColor2 w-7 h-7 animate-spin"
+              ></div>
+            </div>
+          </div>
+          }@else {
+          <svg
+            width="29"
+            height="28"
+            viewBox="0 0 20 19"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10.0104 0C5.00044 0 0.94043 4.06 0.94043 9.07C0.94043 14.08 5.00044 18.14 10.0104 18.14C15.0204 18.14 19.0804 14.08 19.0804 9.07C19.0804 4.06 15.0204 0 10.0104 0ZM14.5404 10.21H11.1404V13.61H8.88043V10.19H5.48044V7.93H8.88043V4.53H11.1404V7.93H14.5404V10.21Z"
+              fill="#F7F8F3"
+            />
+          </svg>
+          }
+        </button>
+      </div>
+      @if (icon) {
+      <div class="size-14 p-1.5 ms-12 bg-[#f4f4f4] rounded-lg">
+        <img
+          [src]="icon"
+          class="object-cover w-full h-full"
+          [alt]="marketName"
+        />
+      </div>
+      }
+    </div>
+    <div class="flex flex-col">
+      <div class="overflow-x-auto rounded-lg">
+        <table
+          class="w-full text-left bg-white rounded-lg table-auto text-mainColor1"
+        >
+          <thead class="font-semibold bg-mainColor1 text-mainWhite">
+            <tr>
+              <th class="p-4">Technology Name</th>
+              <th class="p-4">Icon</th>
+              @if (authService.getRole() === 'SuperAdmin') {
+
+              <th class="p-4 text-center">Delete</th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @if (!isLoading) { @for (row of allTechnologies; track i; let i =
+            $index; let first = $first) {
+
+            <tr
+              class="font-semibold border-b-8 border-mainColor4 hover:bg-mainColor3"
+              [class.border-t-8]="first"
+            >
+              <th class="p-4">{{ row.name }}</th>
+              <td class="p-4">
+                <div class="size-10 p-1.5 bg-[#f4f4f4] rounded-lg">
+                  <img
+                    [src]="row.iconUrl"
+                    class="object-cover w-full h-full"
+                    [alt]="row.name"
+                  />
+                </div>
+              </td>
+              @if (authService.getRole() === 'SuperAdmin') {
+              <td class="py-4 text-center ps-6 pe-3">
+                <button
+                  (click)="deleteTech(row.id)"
+                  class="text-red-500 bg-[#f4f4f4] rounded-lg p-2 hover:text-red-700"
+                >
+                  @if (isDeleted && techId === row.id) {
+                  <div
+                    class="w-4 h-4 border-2 border-[#3c193a] border-solid rounded-full animate-spin border-t-transparent"
+                  ></div>
+                  }@else {
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22m-7 0V5a2 2 0 00-2-2H9a2 2 0 00-2 2v2m8 0H7"
+                    />
+                  </svg>
+                  }
+                </button>
+              </td>
+              }
+            </tr>
+            } }@else { @for ( i of [1, 2, 3, 4 ,5]; track i) {
+            <tr class="border-b-8 animate-pulse border-mainColor4">
+              <td class="flex items-center py-4 ps-6 pe-3">
+                <div class="w-32 h-4 rounded bg-mainColor3"></div>
+              </td>
+              <td class="hidden py-4 text-center md:table-cell ps-16 pe-3">
+                <div class="w-24 h-4 rounded bg-mainColor3"></div>
+              </td>
+              @if (authService.getRole() === 'SuperAdmin') {
+              <td class="py-4 text-center ps-20 pe-3">
+                <div class="w-8 h-8 rounded bg-mainColor3"></div>
+              </td>
+              }
+            </tr>
+
+            } }
+          </tbody>
+          <tfoot class="bg-mainColor1">
+            <tr>
+              <td colspan="3" class="p-4"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

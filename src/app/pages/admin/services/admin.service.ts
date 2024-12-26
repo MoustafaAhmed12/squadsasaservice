@@ -14,25 +14,9 @@ import { CacheService } from '../../../shared/services/cache.service';
 export class AdminService {
   http = inject(HttpClient);
   cacheService = inject(CacheService);
-  getAllAdminsPagination(
-    currentPage: number,
-    pageSize: number
-  ): Observable<any> {
-    return this.http.get<any>(
+  getAllAdmins(): Observable<ResponseHeader> {
+    return this.http.get<ResponseHeader>(
       `${environment.BASE_URL}/api/Admin/admins/pagination`
-    );
-  }
-
-  deleteAdmin(id: string): Observable<ResponseHeader> {
-    return this.http.delete<ResponseHeader>(
-      `${environment.BASE_URL}/api/Admin/admins/${id}`
-    );
-  }
-
-  actionsAdmin(formData: any): Observable<ResponseHeader> {
-    return this.http.post<any>(
-      `${environment.BASE_URL}/api/Admin/admins`,
-      formData
     );
   }
 
@@ -54,9 +38,52 @@ export class AdminService {
       `${environment.BASE_URL}/api/admin/orders/${id}`
     );
   }
-  deleteOrder(id: number): Observable<ResponseHeader> {
-    return this.http.delete<ResponseHeader>(
-      `${environment.BASE_URL}/api/admin/orders/${id}`
+
+  //Markets
+  addMarket(info: any): Observable<ResponseHeader> {
+    return this.http.post<ResponseHeader>(
+      `${environment.BASE_URL}/api/admin/markets`,
+      info
+    );
+  }
+
+  //Area
+  addArea(info: any): Observable<ResponseHeader> {
+    return this.http.post<ResponseHeader>(
+      `${environment.BASE_URL}/api/admin/areas`,
+      info
+    );
+  }
+  //job Titles
+  addJobTitle(name: { name: string }): Observable<ResponseHeader> {
+    return this.http.post<ResponseHeader>(
+      `${environment.BASE_URL}/api/admin/jobTitles`,
+      name
+    );
+  }
+  getjobTitles(): Observable<ResponseHeader> {
+    return this.http.get<ResponseHeader>(
+      `${environment.BASE_URL}/api/jobTitles`
+    );
+  }
+
+  addTechnology(info: any): Observable<ResponseHeader> {
+    return this.http.post<ResponseHeader>(
+      `${environment.BASE_URL}/api/admin/technologies`,
+      info
+    );
+  }
+
+  getAllContactUs(
+    currentPage: number,
+    pageSize: number
+  ): Observable<RootResponse> {
+    const params = new HttpParams()
+      .set('PageNumber', currentPage)
+      .set('PageSize', pageSize);
+    return this.cacheService.get<RootResponse>(
+      `${environment.BASE_URL}/api/admin/contactUs/pagination`,
+      params
     );
   }
 }
