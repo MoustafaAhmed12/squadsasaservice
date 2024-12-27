@@ -7,6 +7,7 @@ import {
   inject,
   OnInit,
   Renderer2,
+  ViewChild,
 } from '@angular/core';
 import { HeroComponent } from '../../Components/hero/hero.component';
 import { MarketsComponent } from '../../Components/markets/markets.component';
@@ -43,9 +44,27 @@ export class HomeComponent implements OnInit, AfterViewInit {
     );
   }
 
+  ngAfterViewInit() {
+    this.route.fragment.subscribe((fragment) => {
+      if (fragment) {
+        const element = document.getElementById(fragment);
+        if (element) {
+          window.scrollTo({
+            top: 3950,
+            behavior: 'smooth',
+          });
+          this.activeSectionIndex = 6;
+        }
+      }
+    });
+  }
+
   @HostListener('window:wheel', ['$event'])
   onScroll(event: any) {
+    console.log(this.isScrolling);
     if (this.isScrolling) return;
+
+    console.log(event);
 
     if (event.deltaY > 0) {
       this.nextSection();
@@ -70,8 +89,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   scrollToSection(element: HTMLElement) {
     this.isScrolling = true;
-
-    const navbarHeight = 6 * 16; // 6rem, assuming the root font-size is 16px
+    const navbarHeight = 6 * 16;
     if (element) {
       const elementPosition = element.offsetTop;
       const scrollPosition = elementPosition - navbarHeight;
@@ -85,21 +103,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.isScrolling = false;
       }, 600);
     }
-  }
-
-  ngAfterViewInit() {
-    window.scrollTo(0, 0); // Scroll to the top of the page
-    this.route.fragment.subscribe((fragment) => {
-      if (fragment) {
-        const element = document.getElementById(fragment);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-          setTimeout(() => {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }, 100);
-        }
-      }
-    });
   }
 
   scrollToSection2(index: number): void {

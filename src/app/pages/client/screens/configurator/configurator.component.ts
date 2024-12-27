@@ -1,4 +1,4 @@
-import { CommonModule, formatCurrency } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, HostListener, inject } from '@angular/core';
 import { ClientService } from '../../services/client.service';
 import { Areas, Markets, Profiles, Technologies } from '../../models/clients';

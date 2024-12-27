@@ -10,18 +10,21 @@
   }
 </aside>
 
-<main
-  class="mx-auto overflow-hidden text-mainWhite"
-  (scroll)="onScroll($event)"
->
+<main class="mx-auto overflow-hidden text-mainWhite">
   <section
     id="section0"
     class="flex justify-center w-screen h-[calc(100vh-6rem)]"
   >
     <app-hero />
   </section>
-  <section id="section1" class="relative h-[calc(100vh-6rem)] overflow-hidden">
-    <video autoplay muted loop control class="w-full h-full">
+  <section id="section1" class="h-[calc(100vh-6rem)] overflow-hidden">
+    <video
+      [muted]="true"
+      [autoplay]="true"
+      loop
+      preload="auto"
+      class="w-full h-full"
+    >
       <source src="video.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>

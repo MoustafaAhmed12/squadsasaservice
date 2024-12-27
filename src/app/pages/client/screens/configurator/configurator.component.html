@@ -1,4 +1,7 @@
-<div [ngClass]="activeTab === 5 ? '' : 'w-full h-screen'" class="relative">
+<div
+  [ngClass]="activeTab === 5 || activeTab === 4 ? '' : 'w-full h-screen'"
+  class="relative"
+>
   @if (activeTab !== 4 && activeTab !==5 ) {
   <div class="absolute inset-y-0 right-0">
     <img
@@ -45,10 +48,10 @@
 
   <div
     [ngStyle]="{
-      height: activeTab === 4 ? 'calc(100vh - 110px)' : 'calc(100vh - 230px)'
+      height: activeTab === 4 ? '' : 'calc(100vh - 230px)'
     }"
     class="relative flex flex-col items-center mx-auto mb-10 overflow-y-auto scroll md:ps-4 md:gap-y-10 gap-y-6"
-    [ngClass]="activeTab === 4 ? 'md:w-9/12' : 'md:w-8/12'"
+    [ngClass]="activeTab === 4 ? 'md:w-10/12' : 'md:w-8/12'"
     [class.hidden]="activeTab === 5"
   >
     @if (marketId ) { @switch (activeTab) { @case (0) {
@@ -590,9 +593,9 @@
     </div>
     } @if (activeTab === 4) {
     <div
-      class="flex flex-col px-4 pt-10 md:px-8 text-mainWhite gap-x-20 gap-y-12 md:gap-y-0 lg:flex-row"
+      class="flex flex-col px-4 pt-10 text-mainWhite gap-x-20 gap-y-12 lg:gap-y-0 lg:flex-row"
     >
-      <div class="flex flex-col order-2 w-full md:order-1 gap-y-12 lg:w-1/2">
+      <div class="flex flex-col order-2 w-full gap-y-12 lg:order-1 lg:w-1/2">
         <h1 class="self-start text-3xl text-mainWhite md:text-5xl">
           We will contact you ASAP.
         </h1>
@@ -679,7 +682,7 @@
       </div>
 
       <div
-        class="rounded-lg h-fit lg:w-[45%] bg-gradient-to-b from-[#202B4B] via-[#341A41] to-[#3C193A]"
+        class="rounded-lg h-fit lg:w-[45%] order-1 lg:order-2 bg-gradient-to-b from-[#202B4B] via-[#341A41] to-[#3C193A]"
       >
         <h2 class="pt-6 mb-4 text-xl font-semibold md:ps-6 ps-4">
           ORDER SUMMARY

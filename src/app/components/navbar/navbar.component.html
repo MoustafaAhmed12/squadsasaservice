@@ -36,7 +36,8 @@
     </li>
     <li class="cursor-pointer borer-b-4">
       <button
-        (click)="navigateToSection('section7')"
+        [routerLink]="['/']"
+        [fragment]="'section7'"
         class="relative text-white text-lg tracking-wide no-underline after:content-[''] after:block after:w-full after:h-[4px] after:bg-gradient-to-r after:from-blue-500 after:via-purple-500 after:to-pink-500 after:mt-1 after:transition-all after:origin-left after:scale-x-0 hover:after:scale-x-100 hover:after:duration-700"
       >
         CONTACT US
@@ -110,6 +111,8 @@
     </li>
     <li
       (click)="close()"
+      [routerLink]="['/']"
+      [fragment]="'section7'"
       class="relative w-full pb-5 text-xl tracking-wide text-white border-b border-gray-400 cursor-pointer"
     >
       CONTACT US

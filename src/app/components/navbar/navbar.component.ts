@@ -41,9 +41,4 @@ export class NavbarComponent implements OnInit {
   close(): void {
     this.isOpened.set(false);
   }
-
-  navigateToSection(sectionId: string): void {
-    this.scrollEvent.emit(sectionId);
-    this.router.navigate(['/'], { fragment: sectionId });
-  }
 }
