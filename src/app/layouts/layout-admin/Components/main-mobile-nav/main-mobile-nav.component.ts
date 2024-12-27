@@ -12,10 +12,7 @@ export class MainMobileNavComponent {
   ocSidebarService = inject(OcSidebarService);
 
   show(): void {
-    if (this.ocSidebarService.isOpen() === true) {
-      this.ocSidebarService.openSidebar(false);
-    } else {
-      this.ocSidebarService.openSidebar(true);
-    }
+    debugger;
+    this.ocSidebarService.openSidebar(this.ocSidebarService.isOpen());
   }
 }

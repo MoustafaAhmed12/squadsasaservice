@@ -24,9 +24,8 @@
           <tbody>
             @if (!isLoading) { @for (row of allContacts; track i; let i =
             $index; let first = $first) {
-
             <tr
-              class="font-semibold border-b-8 border-mainColor4 hover:bg-mainColor3"
+              class="font-semibold border-mainColor4 hover:bg-mainColor3"
               [class.border-t-8]="first"
             >
               <td class="py-4 cursor-pointer md:ps-6 ps-3">
@@ -51,7 +50,6 @@
                     class="w-4 h-4 border-2 border-[#3c193a] border-solid rounded-full animate-spin border-t-transparent"
                   ></div>
                   }@else {
-
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="w-5 h-5"
@@ -68,6 +66,11 @@
                   </svg>
                   }
                 </button>
+              </td>
+            </tr>
+            <tr class="font-semibold border-b-8 border-mainColor4">
+              <td colspan="5" class="py-4 cursor-pointer md:ps-6 ps-3">
+                <span class="font-bold">Message:</span> {{ row.question }}
               </td>
             </tr>
             } }@else { @for ( i of [1, 2, 3, 4 ,5]; track i) {

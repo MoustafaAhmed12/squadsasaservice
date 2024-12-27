@@ -1,9 +1,18 @@
-<div class="md:w-[520px] w-full">
-  <div class="relative z-50 flex flex-col pt-2 md:pt-10">
+<div class="w-full">
+  <div class="relative z-50 flex flex-col w-full pt-2 overflow-y-auto">
     <h1 class="text-5xl leading-tight text-white px-7 md:text-5xl lg:text-8xl">
       Services
     </h1>
-    <div class="grid w-full grid-cols-2 gap-2 mt-4 md:gap-4">
+    <div
+      class="grid w-full grid-cols-2 gap-2 mt-4 md:gap-4"
+      [ngClass]="
+        allAreas.length > 18
+          ? 'md:grid-cols-4'
+          : allAreas.length > 12
+          ? 'md:grid-cols-3'
+          : 'md:grid-cols-2'
+      "
+    >
       @for (item of allAreas; track item.id) {
 
       <button

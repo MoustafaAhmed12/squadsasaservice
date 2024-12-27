@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Markets } from '../../models/clients';
 import { RouterLink } from '@angular/router';
 import { SharedService } from '../../../../shared/services/shared.service';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-markets',
-  imports: [RouterLink],
+  imports: [RouterLink, NgClass],
   templateUrl: './markets.component.html',
   styleUrl: './markets.component.scss',
 })

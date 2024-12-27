@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
@@ -75,6 +75,26 @@ export class AuthService {
       this.currentUser.set(userData);
       localStorage.setItem(this.CURRENT_USER, JSON.stringify(userData));
     }
+  }
+
+  forgetPassword(email: string): Observable<ResponseHeader> {
+    return this.http.post<ResponseHeader>(
+      `${environment.BASE_URL}/api/Auth/forget-password?email=${email}`,
+      ''
+    );
+  }
+  resetPassword(info: any): Observable<ResponseHeader> {
+    return this.http.post<ResponseHeader>(
+      `${environment.BASE_URL}/api/Auth/reset-password`,
+      info
+    );
+  }
+  checkResetOtp(email: any, otp: string): Observable<ResponseHeader> {
+    const params = new HttpParams().set('Email', email).set('Otp', otp);
+    return this.http.get<ResponseHeader>(
+      `${environment.BASE_URL}/api/Auth/checkResetOtp`,
+      { params }
+    );
   }
 
   // LogOut Fun.

@@ -3,10 +3,11 @@ import { ClientService } from '../../services/client.service';
 import { Areas } from '../../models/clients';
 import { RouterLink } from '@angular/router';
 import { SharedService } from '../../../../shared/services/shared.service';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-services',
-  imports: [RouterLink],
+  imports: [RouterLink, NgClass],
   templateUrl: './services.component.html',
   styleUrl: './services.component.scss',
 })

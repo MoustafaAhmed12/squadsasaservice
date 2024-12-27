@@ -55,22 +55,29 @@
       <!-- Subscribe -->
       <div class="flex flex-col gap-y-4">
         <div class="flex items-center mb-4">
-          <input id="subscribe" type="checkbox" class="mr-2" />
-          <!-- formControlName="subscribe" -->
+          <input
+            id="subscribe"
+            type="checkbox"
+            formControlName="subscribe"
+            class="mr-2 focus:ring-pink-500 accent-pink-500"
+          />
           <label for="subscribe" class="text-sm">
             Subscribe to Fiker today for service updates.
           </label>
         </div>
 
-        <!-- Accept Policy -->
         <div class="flex items-center mb-4">
-          <input id="acceptPolicy" type="checkbox" class="mr-2" />
-          <!-- formControlName="acceptPolicy" -->
+          <input
+            id="acceptPolicy"
+            type="checkbox"
+            class="mr-2"
+            formControlName="acceptPolicy"
+            class="mr-2 focus:ring-pink-500 accent-pink-500"
+          />
           <label for="acceptPolicy" class="text-sm">
             I have read and accept the
-            <a href="#" class="text-purple-500 underline">legal notice</a> and
-            the
-            <a href="#" class="text-purple-500 underline">privacy policy</a>.
+            <a class="text-purple-500 underline">legal notice</a> and the
+            <a class="text-purple-500 underline">privacy policy</a>.
           </label>
         </div>
       </div>

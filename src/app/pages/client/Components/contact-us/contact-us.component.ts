@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ClientService } from '../../services/client.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-contact-us',
@@ -16,6 +17,7 @@ import { ClientService } from '../../services/client.service';
 })
 export class ContactUsComponent {
   clientService = inject(ClientService);
+  toastr = inject(ToastrService);
   fb = inject(FormBuilder);
   contactForm!: FormGroup;
   isLoading: boolean = false;
@@ -27,21 +29,40 @@ export class ContactUsComponent {
       telphone: ['', Validators.required],
       company: ['', [Validators.required]],
       question: [''],
+      subscribe: [false],
+      acceptPolicy: [false],
     });
   }
 
   onSubmit() {
     if (this.contactForm.invalid) {
+      this.displayFormErrors();
+      return;
+    }
+    if (this.contactForm.get('acceptPolicy')?.value === false) {
+      this.toastr.warning(
+        'You should accept the legal notice and the privacy policy.'
+      );
       return;
     }
     this.isLoading = true;
+    console.log(this.contactForm.value);
     this.clientService.contactUs(this.contactForm.value).subscribe({
-      next: ({ statusCode }) => {
+      next: ({ statusCode, message, errors }) => {
         if (statusCode === 200) {
-          alert('done');
+          this.toastr.success(message);
+          this.contactForm.reset();
+          this.isLoading = false;
+        } else if (statusCode === 400) {
+          this.toastr.error(message);
+          this.isLoading = false;
+        } else if (statusCode === 500) {
+          this.toastr.warning(message);
           this.isLoading = false;
         } else {
-          console.log('error');
+          errors.forEach((error: any) => {
+            this.toastr.error(error);
+          });
           this.isLoading = false;
         }
       },
@@ -49,6 +70,17 @@ export class ContactUsComponent {
         console.log(err);
         this.isLoading = false;
       },
+    });
+  }
+
+  displayFormErrors() {
+    Object.keys(this.contactForm.controls).forEach((field) => {
+      const control = this.contactForm.get(field);
+      if (control?.invalid) {
+        if (control.errors?.['required']) {
+          this.toastr.error(`${field} is required`);
+        }
+      }
     });
   }
 }

@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Technologies } from '../../models/clients';
 import { RouterLink } from '@angular/router';
 import { SharedService } from '../../../../shared/services/shared.service';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-technologies',
-  imports: [RouterLink],
+  imports: [RouterLink, NgClass],
   templateUrl: './technologies.component.html',
   styleUrl: './technologies.component.scss',
 })

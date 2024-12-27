@@ -1,5 +1,5 @@
 import { CommonModule, formatCurrency } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { ClientService } from '../../services/client.service';
 import { Areas, Markets, Profiles, Technologies } from '../../models/clients';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { SuccessMsgComponent } from '../../Components/success-msg/success-msg.component';
 import { SharedService } from '../../../../shared/services/shared.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-configurator',
@@ -23,6 +24,7 @@ export class ConfiguratorComponent {
   clientService = inject(ClientService);
   route = inject(ActivatedRoute);
   fb = inject(FormBuilder);
+  toastr = inject(ToastrService);
   orderForm!: FormGroup;
   allMarkets: Markets[] = [];
   allAreas: Areas[] = [];
@@ -46,14 +48,21 @@ export class ConfiguratorComponent {
   order: { [key: string]: any } = {};
   profiles: { jobTitleId: number; jobTitle: string; quantity: number }[] = [];
   counters: number[] = [];
+  isDragging: boolean[] = [false, false, false, false, false];
+  positionX: number[] = [0, 0, 0, 0, 0];
+  screenWidth: number = window.innerWidth;
+  lineWidth: number = 0;
+  startX: number = 0;
 
   constructor() {
     this.orderForm = this.fb.group({
       contactName: ['', [Validators.required]],
       contactEmail: ['', [Validators.required, Validators.email]],
       telephone: ['', [Validators.required]],
-      company: ['', [Validators.required]],
-      question: ['', [Validators.required]],
+      company: [''],
+      question: [''],
+      subscribe: [false],
+      acceptPolicy: [false],
       areaId: ['', [Validators.required]],
       marketId: ['', [Validators.required]],
       technologyId: ['', [Validators.required]],
@@ -64,6 +73,7 @@ export class ConfiguratorComponent {
   ngOnInit() {
     this.order = {};
     this.counters = [];
+    this.calculateStep();
     this.route.queryParams.subscribe((params) => {
       this.marketId = +params['catId'];
       this.areaId = +params['areaId'];
@@ -188,6 +198,12 @@ export class ConfiguratorComponent {
           if (this.counters.length === 0) {
             this.counters = Array(this.allProfiles.length).fill(0);
           }
+          if (this.positionX.length === 0) {
+            this.positionX = Array(this.allProfiles.length).fill(0);
+          }
+          if (this.isDragging.length === 0) {
+            this.isDragging = Array(this.allProfiles.length).fill(false);
+          }
           this.isLoadingP = false;
         } else {
           console.log('error');
@@ -300,6 +316,87 @@ export class ConfiguratorComponent {
     );
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.screenWidth = window.innerWidth;
+    this.calculateStep();
+  }
+
+  getStepValue(i: number): number {
+    return this.counters[i] * this.step;
+  }
+
+  calculateStep() {
+    if (this.screenWidth >= 1024) {
+      this.lineWidth = 390;
+      this.step = 390 / 20;
+    } else if (this.screenWidth >= 768) {
+      this.lineWidth = 290;
+      this.step = 290 / 20;
+    } else if (this.screenWidth >= 640) {
+      this.lineWidth = 405;
+      this.step = 405 / 20;
+    } else {
+      this.lineWidth = 135;
+      this.step = 135 / 20;
+    }
+  }
+
+  onClickLine(event: MouseEvent, i: number) {
+    const line = event.currentTarget as HTMLElement;
+    const mouseX = event.clientX - line.getBoundingClientRect().left;
+    const percentage = (mouseX / line.offsetWidth) * 100;
+    const newStep = Math.round((percentage / 100) * 20);
+    this.positionX[i] = newStep * this.step;
+    if (this.positionX[i] > this.lineWidth) {
+      this.positionX[i] = this.lineWidth;
+    }
+    if (this.positionX[i] < 0) {
+      this.positionX[i] = 0;
+    }
+    this.counters[i] = Math.round(newStep);
+    this.updateSelectedArray(
+      this.allProfiles[i].id,
+      this.allProfiles[i].name,
+      this.counters[i]
+    );
+  }
+
+  onMouseDown(event: MouseEvent, i: number) {
+    event.stopPropagation();
+    this.isDragging[i] = true;
+    this.startX = event.clientX;
+    document.addEventListener('mousemove', (e) => this.onMouseMove(e, i));
+    document.addEventListener('mouseup', () => this.onMouseUp(i));
+  }
+
+  onMouseMove(event: MouseEvent, i: number) {
+    if (!this.isDragging[i]) return;
+
+    const deltaX = event.clientX - this.startX;
+    this.positionX[i] = Math.max(
+      0,
+      Math.min(this.lineWidth, this.positionX[i] + deltaX)
+    );
+
+    const percentage = (this.positionX[i] / this.lineWidth) * 100;
+    const counterValue = Math.round((percentage / 100) * 20);
+    this.counters[i] = counterValue;
+    this.updateSelectedArray(
+      this.allProfiles[i].id,
+      this.allProfiles[i].name,
+      this.counters[i]
+    );
+
+    this.startX = event.clientX;
+  }
+
+  onMouseUp(i: number) {
+    this.isDragging[i] = false;
+    document.removeEventListener('mousemove', (e) => this.onMouseMove(e, i));
+    document.removeEventListener('mouseup', () => this.onMouseUp(i));
+  }
+
   backToTech() {
     if (this.techId) {
       this.activeTab = 0;
@@ -347,6 +444,7 @@ export class ConfiguratorComponent {
     this.order['marketName'] = mName;
     this.order['areaName'] = mArea;
     this.order['techName'] = mTech;
+    console.log(this.profiles);
   }
 
   confirmOrder(): void {
@@ -355,21 +453,34 @@ export class ConfiguratorComponent {
     this.orderForm.get('technologyId')?.setValue(this.order['technologyId']);
     this.orderForm.get('profiles')?.setValue(this.profiles);
     if (this.orderForm.invalid) {
-      console.log('first');
+      this.displayFormErrors();
+      return;
+    }
+    if (this.orderForm.get('acceptPolicy')?.value === false) {
+      this.toastr.warning('Should accept the privacy policy.');
       return;
     }
     this.isLoading = true;
     this.clientService.confirmOrder(this.orderForm.value).subscribe({
-      next: ({ statusCode }) => {
+      next: ({ statusCode, message, errors }) => {
         if (statusCode === 200) {
-          this.isLoading = false;
+          this.toastr.success(message);
           this.activeTab = 5;
           window.scrollTo({
             top: 0,
             behavior: 'smooth',
           });
+          this.isLoading = false;
+        } else if (statusCode === 400) {
+          this.toastr.error(message);
+          this.isLoading = false;
+        } else if (statusCode === 500) {
+          this.toastr.warning(message);
+          this.isLoading = false;
         } else {
-          console.log('error');
+          errors.forEach((error: any) => {
+            this.toastr.error(error);
+          });
           this.isLoading = false;
         }
       },
@@ -377,6 +488,17 @@ export class ConfiguratorComponent {
         console.log(err);
         this.isLoading = false;
       },
+    });
+  }
+
+  displayFormErrors() {
+    Object.keys(this.orderForm.controls).forEach((field) => {
+      const control = this.orderForm.get(field);
+      if (control?.invalid) {
+        if (control.errors?.['required']) {
+          this.toastr.error(`${field} is required`);
+        }
+      }
     });
   }
 }

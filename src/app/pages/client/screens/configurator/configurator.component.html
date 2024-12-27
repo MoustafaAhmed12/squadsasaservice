@@ -510,72 +510,68 @@
         @if (!isLoadingP) { @for (profile of allProfiles; track profile.id; let
         i = $index) {
         <h4 class="text-sm font-semibold">{{ profile.name }}</h4>
-        <div class="flex items-center justify-between w-full gap-x-4">
-          <!-- ( - ) -->
-          <button
-            (click)="moveLeft(i)"
-            class="flex items-center justify-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-6"
+        <div
+          class="flex items-center w-[300px] sm:w-[450px] md:w-[500px] xl:w-[550px] gap-x-6"
+        >
+          <div class="flex items-center gap-x-2 md:gap-x-4">
+            <button
+              (click)="moveLeft(i)"
+              class="flex items-center justify-center"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+            </button>
 
-          <div
-            class="relative h-1 my-4 rounded bg-gradient-to-r from-fGradient via-sGradient to-tGradient"
-          >
             <div
-              class="hidden h-4 transition-all duration-300 rounded-full md:block"
-              [ngStyle]="{
-                transform:
-                  'translateX(' + counters[i] * step + 'px) translateY(-50%)'
-              }"
-              [class.bg-fGradient]="counters[i] <= 8"
-              [class.bg-sGradient]="counters[i] > 8 && counters[i] <= 15"
-              [class.bg-tGradient]="counters[i] > 15 && counters[i] <= 20"
-            ></div>
-            <!-- <div
-              class="absolute left-0 md:hidden w-4 h-4 top-0.5 transition-all duration-300 rounded-full"
-              [ngStyle]="{
-                transform:
-                  'translateX(' + counters[i] * stepM + 'px) translateY(-50%)'
-              }"
-              [class.bg-fGradient]="counters[i] <= 8"
-              [class.bg-sGradient]="counters[i] > 8 && counters[i] <= 15"
-              [class.bg-tGradient]="counters[i] > 15 && counters[i] <= 20"
-            ></div> -->
+              (click)="onClickLine($event, i)"
+              class="relative w-[150px] sm:w-[420px] cursor-pointer md:w-[300px] lg:w-[400px] h-1 my-4 rounded bg-gradient-to-r from-fGradient via-sGradient to-tGradient"
+            >
+              <div
+                (mousedown)="onMouseDown($event, i)"
+                class="h-4 transition-all duration-300 rounded-full size-4"
+                [ngStyle]="{
+                  transform:
+                    'translateX(' + getStepValue(i) + 'px) translateY(-50%)'
+                }"
+                [class.bg-fGradient]="counters[i] <= 8"
+                [class.bg-sGradient]="counters[i] > 8 && counters[i] <= 15"
+                [class.bg-tGradient]="counters[i] > 15 && counters[i] <= 20"
+              ></div>
+            </div>
+
+            <button
+              (click)="moveRight(i)"
+              class="flex items-center justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+            </button>
           </div>
 
-          <button
-            (click)="moveRight(i)"
-            class="flex items-center justify-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-          </button>
           <div
             class="flex items-center justify-center px-2.5 py-1.5 text-sm font-semibold border-2 rounded-md gap-x-2 border-tGradient text-tGradient"
           >
@@ -651,24 +647,33 @@
             placeholder="How can we help you?"
           />
 
-          <!-- Checkboxes -->
-          <div class="space-y-2">
-            <label class="inline-flex items-center">
-              <input type="checkbox" class="text-[#700075] form-checkbox" />
-              <span class="ml-2 text-sm md:text-base"
-                >Subscribe to Fiker today for service updates.</span
-              >
-            </label>
-            <label class="inline-flex items-center">
-              <input type="checkbox" class="text-[#700075] form-checkbox" />
-              <span class="ml-2 text-sm md:text-base">
+          <div class="flex flex-col gap-y-4">
+            <div class="flex items-center mb-4">
+              <input
+                id="subscribe"
+                type="checkbox"
+                formControlName="subscribe"
+                class="mr-2 focus:ring-pink-500 accent-pink-500"
+              />
+              <label for="subscribe" class="text-sm">
+                Subscribe to Fiker today for service updates.
+              </label>
+            </div>
+
+            <div class="flex items-center mb-4">
+              <input
+                id="acceptPolicy"
+                type="checkbox"
+                class="mr-2"
+                formControlName="acceptPolicy"
+                class="mr-2 focus:ring-pink-500 accent-pink-500"
+              />
+              <label for="acceptPolicy" class="text-sm">
                 I have read and accept the
-                <a href="#" class="text-purple-300 underline">legal notice</a>
-                and the
-                <a href="#" class="text-purple-300 underline">privacy policy</a>
-                *
-              </span>
-            </label>
+                <a class="text-purple-500 underline">legal notice</a> and the
+                <a class="text-purple-500 underline">privacy policy</a>.
+              </label>
+            </div>
           </div>
         </form>
       </div>

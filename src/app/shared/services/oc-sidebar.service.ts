@@ -15,10 +15,10 @@ export class OcSidebarService {
   }
 
   openSidebar(isOpen: boolean): void {
-    if (isOpen === false && window.innerWidth > 768) {
+    if (isOpen === false) {
       this.isOpen.set(true);
     } else {
-      this.isOpen.set(isOpen);
+      this.isOpen.set(false);
     }
   }
 }

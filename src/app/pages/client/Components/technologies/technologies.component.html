@@ -4,7 +4,8 @@
       Technologies
     </h1>
     <div
-      class="grid grid-cols-2 gap-2 px-4 mx-auto mt-8 md:gap-4 md:grid-cols-4 lg:grid-cols-6 md:ps-8 max-w-7xl"
+      class="grid grid-cols-2 gap-2 px-4 mx-auto mt-8 md:gap-4 md:grid-cols-4 lg:grid-cols-6"
+      [ngClass]="allTechnologies.length > 42 ? 'w-11/12' : 'max-w-7xl'"
     >
       @for (item of allTechnologies; track item.id) {
 

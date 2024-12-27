@@ -47,4 +47,5 @@ export interface ContactUs {
   contactEmail: string;
   telphone: string;
   company: string;
+  question: string;
 }
