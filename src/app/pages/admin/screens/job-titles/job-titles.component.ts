@@ -48,7 +48,10 @@ export class JobTitlesComponent implements OnInit {
 
   addjobTitle(jobNameInput: HTMLInputElement): void {
     const jobName = jobNameInput.value.trim();
-    if (!jobName) return;
+    if (!jobName) {
+      this.toastr.error('Name field is required');
+      return;
+    }
     this.isLoadingAdd = true;
     this.adminService.addJobTitle({ name: jobName }).subscribe({
       next: ({ statusCode, message }) => {

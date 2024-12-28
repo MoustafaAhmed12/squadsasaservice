@@ -25,8 +25,9 @@ export class TechnologiesComponent implements OnInit {
   isLoading: boolean = false;
   isDeleted: boolean = false;
   isLoadingAdd: boolean = false;
-  iconFile!: { fileName: string; base64: string };
   icon: string = '';
+  fileName: string = '';
+  iconReview: string = '';
   isDropdownOpen: boolean = false;
   selectedProfiles: string[] = [];
   allJobTitles: Profiles[] = [];
@@ -71,28 +72,63 @@ export class TechnologiesComponent implements OnInit {
     });
   }
 
+  isPNG(fileName: any) {
+    const fileExtension = fileName.split('.').pop().toLowerCase();
+    return fileExtension === 'png';
+  }
+
   addTech(techNameInput: HTMLInputElement): void {
     const techName = techNameInput.value.trim();
-    if (!techName && Object.keys(this.iconFile).length === 0) return;
+    if (!techName) {
+      this.toastr.error('Name field is required');
+      return;
+    }
+    if (!this.icon && !this.fileName) {
+      console.log(this.icon);
+      this.toastr.error('choose icon png');
+      return;
+    }
+    if (!this.isPNG(this.fileName)) {
+      this.toastr.error('Only PNG files are allowed.');
+      return;
+    }
+    if (this.jobTitlesIds.length == 0) {
+      this.toastr.error('Technology should have at least one job title');
+      return;
+    }
     this.isLoadingAdd = true;
     const info = {
       name: techName,
-      iconFile: this.iconFile,
+      iconFile: {
+        fileName: this.fileName,
+        base64: this.icon,
+      },
+      jobTitlesIds: this.jobTitlesIds,
     };
+    console.log(info);
     this.adminService.addTechnology(info).subscribe({
-      next: ({ statusCode, message }) => {
+      next: ({ statusCode, message, errors }) => {
         if (statusCode === 200) {
           this.getAllTechnologies();
           this.toastr.success(message);
           techNameInput.value = '';
           this.icon = '';
-          this.iconFile = { base64: '', fileName: '' };
+          this.fileName = '';
+          this.iconReview = '';
           this.jobTitlesIds = [];
           this.selectedProfiles = [];
           this.isLoadingAdd = false;
-        } else {
-          this.isLoadingAdd = false;
+        } else if (statusCode === 400) {
           this.toastr.error(message);
+          this.isLoadingAdd = false;
+        } else if (statusCode === 500) {
+          this.toastr.warning(message);
+          this.isLoadingAdd = false;
+        } else {
+          errors.forEach((error: any) => {
+            this.toastr.error(error);
+          });
+          this.isLoadingAdd = false;
         }
       },
       error: (err) => {
@@ -125,13 +161,9 @@ export class TechnologiesComponent implements OnInit {
 
       const reader = new FileReader();
       reader.onload = () => {
-        this.icon = reader.result as string;
-        const cleanedBase64 = this.icon.replace(/^data:image\/\w+;base64,/, '');
-
-        this.iconFile = {
-          fileName: file.name,
-          base64: cleanedBase64,
-        };
+        this.iconReview = reader.result as string;
+        this.icon = this.iconReview.replace(/^data:image\/\w+;base64,/, '');
+        this.fileName = file.name;
       };
 
       reader.onerror = (error) => {

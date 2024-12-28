@@ -84,11 +84,18 @@ export class AreasComponent {
   }
 
   addArea(areaNameInput: HTMLInputElement): void {
-    const marketName = areaNameInput.value.trim();
-    if (!marketName && this.technologiesIds.length) return;
+    const areaName = areaNameInput.value.trim();
+    if (!areaName) {
+      this.toastr.error('Name is required');
+      return;
+    }
+    if (this.technologiesIds.length == 0) {
+      this.toastr.error('Area should have at least one technology');
+      return;
+    }
     this.isLoadingAdd = true;
     const info = {
-      name: marketName,
+      name: areaName,
       technologiesIds: this.technologiesIds,
     };
     this.adminService.addArea(info).subscribe({
