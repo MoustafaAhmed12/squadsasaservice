@@ -48,7 +48,6 @@ export class MarketsComponent implements OnInit {
     const marketName = marketNameInput.value.trim();
     if (!marketName && Object.keys(this.iconFile).length === 0) return;
     this.isLoadingAdd = true;
-    console.log(marketName, this.iconFile);
     const info = {
       name: marketName,
       iconFile: this.iconFile,
@@ -88,8 +87,6 @@ export class MarketsComponent implements OnInit {
           fileName: file.name,
           base64: cleanedBase64,
         };
-        console.log(this.iconFile);
-        console.log(this.icon);
       };
 
       reader.onerror = (error) => {

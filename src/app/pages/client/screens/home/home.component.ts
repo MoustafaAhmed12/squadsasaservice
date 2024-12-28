@@ -6,8 +6,6 @@ import {
   HostListener,
   inject,
   OnInit,
-  Renderer2,
-  ViewChild,
 } from '@angular/core';
 import { HeroComponent } from '../../Components/hero/hero.component';
 import { MarketsComponent } from '../../Components/markets/markets.component';
@@ -61,11 +59,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   @HostListener('window:wheel', ['$event'])
   onScroll(event: any) {
-    console.log(this.isScrolling);
     if (this.isScrolling) return;
-
-    console.log(event);
-
     if (event.deltaY > 0) {
       this.nextSection();
     } else {

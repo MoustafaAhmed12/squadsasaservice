@@ -50,7 +50,6 @@ export class JobTitlesComponent implements OnInit {
     const jobName = jobNameInput.value.trim();
     if (!jobName) return;
     this.isLoadingAdd = true;
-    debugger;
     this.adminService.addJobTitle({ name: jobName }).subscribe({
       next: ({ statusCode, message }) => {
         if (statusCode === 200) {

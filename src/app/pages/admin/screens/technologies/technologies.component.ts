@@ -75,7 +75,6 @@ export class TechnologiesComponent implements OnInit {
     const techName = techNameInput.value.trim();
     if (!techName && Object.keys(this.iconFile).length === 0) return;
     this.isLoadingAdd = true;
-    console.log(techName, this.iconFile);
     const info = {
       name: techName,
       iconFile: this.iconFile,
@@ -133,8 +132,6 @@ export class TechnologiesComponent implements OnInit {
           fileName: file.name,
           base64: cleanedBase64,
         };
-        console.log(this.iconFile);
-        console.log(this.icon);
       };
 
       reader.onerror = (error) => {

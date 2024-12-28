@@ -106,7 +106,7 @@ export class AdminService {
   //contact us
   deleteContactUs(id: number): Observable<ResponseHeader> {
     return this.http.delete<ResponseHeader>(
-      `${environment.BASE_URL}/api/SuperAdmin/contactUs/${id}`
+      `${environment.BASE_URL}/api/admin/contactUs/${id}`
     );
   }
 }

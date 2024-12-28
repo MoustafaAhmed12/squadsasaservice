@@ -5,13 +5,11 @@
     </h1>
     <div
       class="grid w-full grid-cols-2 gap-2 mt-4 md:gap-4"
-      [ngClass]="
-        allAreas.length > 18
-          ? 'md:grid-cols-4'
-          : allAreas.length > 12
-          ? 'md:grid-cols-3'
-          : 'md:grid-cols-2'
-      "
+      [ngClass]="{
+        'md:grid-cols-5': allAreas.length > 18,
+        'md:grid-cols-3': allAreas.length > 12 && allAreas.length <= 18,
+        'md:grid-cols-2': allAreas.length <= 12
+      }"
     >
       @for (item of allAreas; track item.id) {
 

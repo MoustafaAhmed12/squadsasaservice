@@ -15,9 +15,6 @@ import { OcSidebarService } from '../../../../shared/services/oc-sidebar.service
 export class MainSidebarComponent {
   ocSidebarService = inject(OcSidebarService);
   authService = inject(AuthService);
-  constructor() {
-    console.log(this.ocSidebarService.isOpen());
-  }
   hideSidebar(): void {
     this.ocSidebarService.openSidebar(false);
   }

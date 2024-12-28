@@ -45,8 +45,11 @@ export class ContactUsComponent {
       );
       return;
     }
+    if (this.contactForm.get('subscribe')?.value === false) {
+      this.toastr.warning('subscribe shoud be checked ');
+      return;
+    }
     this.isLoading = true;
-    console.log(this.contactForm.value);
     this.clientService.contactUs(this.contactForm.value).subscribe({
       next: ({ statusCode, message, errors }) => {
         if (statusCode === 200) {

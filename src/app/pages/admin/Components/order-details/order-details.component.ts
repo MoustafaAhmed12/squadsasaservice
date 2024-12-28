@@ -36,12 +36,8 @@ export class OrderDetailsComponent implements OnChanges {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     const targetElement = event.target as HTMLElement;
-
-    // التحقق إذا كان النقر داخل العنصر المستهدف
     const isInsideDropdown = targetElement.closest('#pop');
-
     if (!isInsideDropdown) {
-      console.log('first');
       this.closeModal.emit(false);
     }
   }

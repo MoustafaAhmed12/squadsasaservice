@@ -9,7 +9,11 @@
 
   <div
     class="md:border-l-[3px] grid grid-cols-1 pt-4 md:pt-0 ms-10 md:ms-0 w-screen md:w-full md:border-t-0 border-t-[3px] border-white md:ps-3"
-    [ngClass]="allMarkets.length > 9 ? 'md:grid-cols-2' : ''"
+    [ngClass]="{
+      'md:grid-cols-3': allMarkets.length > 18,
+      'md:grid-cols-2': allMarkets.length > 9 && allMarkets.length <= 18,
+      'md:grid-cols-1': allMarkets.length <= 9
+    }"
   >
     @for (market of allMarkets; track market.id) {
     <div class="block">

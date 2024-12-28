@@ -40,7 +40,6 @@ export class OrdersComponent implements OnInit {
           this.totalCount = totalCount;
           this.currentPage = currentPage;
           this.generatePages();
-          console.log(data);
           this.isLoading = false;
         } else {
           this.isLoading = false;

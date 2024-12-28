@@ -444,7 +444,6 @@ export class ConfiguratorComponent {
     this.order['marketName'] = mName;
     this.order['areaName'] = mArea;
     this.order['techName'] = mTech;
-    console.log(this.profiles);
   }
 
   confirmOrder(): void {
@@ -465,6 +464,9 @@ export class ConfiguratorComponent {
       next: ({ statusCode, message, errors }) => {
         if (statusCode === 200) {
           this.toastr.success(message);
+          this.counters = [];
+          this.profiles = [];
+          this.order = {};
           this.activeTab = 5;
           window.scrollTo({
             top: 0,

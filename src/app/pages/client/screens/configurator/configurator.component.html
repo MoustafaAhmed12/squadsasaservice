@@ -543,7 +543,7 @@
             >
               <div
                 (mousedown)="onMouseDown($event, i)"
-                class="h-4 transition-all duration-300 rounded-full size-4"
+                class="relative h-4 transition-all duration-300 rounded-full top-[1px] size-4"
                 [ngStyle]="{
                   transform:
                     'translateX(' + getStepValue(i) + 'px) translateY(-50%)'
