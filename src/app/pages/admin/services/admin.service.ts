@@ -41,7 +41,7 @@ export class AdminService {
 
   deleteOrder(id: number): Observable<ResponseHeader> {
     return this.http.delete<ResponseHeader>(
-      `${environment.BASE_URL}/api/SuperAdmin/orders/${id}`
+      `${environment.BASE_URL}/api/admin/orders/${id}`
     );
   }
 
