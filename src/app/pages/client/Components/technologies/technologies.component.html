@@ -1,6 +1,8 @@
 <div class="w-screen h-full md:pt-0">
   <div class="relative z-40">
-    <h1 class="text-5xl leading-tight text-white px-7 md:text-5xl lg:text-8xl">
+    <h1
+      class="text-5xl leading-tight text-mainBlack px-7 md:text-5xl lg:text-8xl"
+    >
       Technologies
     </h1>
     <div
@@ -12,7 +14,7 @@
       <button
         routerLink="configurator"
         [queryParams]="{ techId: item.id }"
-        class="bg-[#1f2937] hover:bg-gradient-to-r transition-all duration-500 hover:scale-105 flex items-center gap-x-4 px-5 from-pink-400 via-purple-500 to-blue-500 font-semibold ps-3 text-left py-4 text-sm rounded-md text-mainWhite"
+        class="bg-[#1f2937] hover:bg-gradient-to-r transition-all duration-500 hover:scale-105 flex items-center gap-x-4 px-5 from-mainGreen via-secondaryGreen to-tertiartGreen font-semibold ps-3 text-left py-4 text-sm rounded-md text-mainWhite hover:text-mainBlack"
       >
         <img [src]="item.iconUrl" [alt]="item.name" class="size-6" />
         <span>{{ item.name }}</span>
@@ -20,11 +22,7 @@
       }
     </div>
   </div>
-  <div class="absolute inset-y-0 z-0 pt-28 md:left-5">
-    <img
-      src="3.png"
-      class="object-fill w-full h-full opacity-80"
-      alt="Here Image"
-    />
+  <div class="absolute right-0 flex items-center justify-end">
+    <img src="tech.png" class="object-contain w-full h-full" alt="Here Image" />
   </div>
 </div>

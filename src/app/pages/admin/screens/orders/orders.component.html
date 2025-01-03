@@ -37,10 +37,10 @@
                 {{ row.contactEmail }}
               </td>
               <td class="hidden py-4 ps-6 pe-3 md:table-cell">
-                {{ row.telephone }}
+                {{ row.telephone || "-" }}
               </td>
               <td class="hidden py-4 text-center ps-6 pe-3 md:table-cell">
-                {{ row.company }}
+                {{ row.company || "-" }}
               </td>
               <td
                 (click)="showPop(row.id)"

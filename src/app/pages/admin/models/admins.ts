@@ -19,6 +19,8 @@ export interface Order {
   market: string;
   technology: string;
   profiles: { jobTitle: string; quantity: number }[];
+  cost: number;
+  monthsCount: number;
 }
 
 export interface Markets {
@@ -39,6 +41,7 @@ export interface Technologies {
 export interface Profiles {
   id: number;
   name: string;
+  price: number;
 }
 
 export interface ContactUs {

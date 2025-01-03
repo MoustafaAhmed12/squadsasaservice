@@ -39,18 +39,25 @@
           </div>
           }
         </div>
+        <div class="flex items-center justify-between text-lg font-semibold">
+          <span>Period</span>
+          <span>{{ order.monthsCount }} Months</span>
+        </div>
+        @if (order.question) {
         <div class="flex flex-col w-full gap-y-2">
           <span>Message</span>
           <div class="pb-2 border-b border-gray-700">
             <span class="font-semibold">{{ order.question }}</span>
           </div>
         </div>
+        }
       </div>
     </div>
-    <div class="py-6 mt-8 ps-8 bg-[#8a3c68] rounded-tr-lg rounded-tl-lg">
-      <span class="text-lg font-bold"
-        >Subtotal: {{ totalQuantity }} profiles</span
-      >
+    <div
+      class="py-6 mt-8 px-6 flex text-lg justify-between items-center bg-[#8a3c68] rounded-tr-lg rounded-tl-lg"
+    >
+      <span class="font-bold">Subtotal: {{ totalQuantity }} profiles</span>
+      <span class="font-bold">Total price: {{ order.cost | currency }}</span>
     </div>
     }@else {
     <div

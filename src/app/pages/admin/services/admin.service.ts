@@ -66,7 +66,10 @@ export class AdminService {
     );
   }
   //job Titles
-  addJobTitle(name: { name: string }): Observable<ResponseHeader> {
+  addJobTitle(name: {
+    name: string;
+    price: number;
+  }): Observable<ResponseHeader> {
     return this.http.post<ResponseHeader>(
       `${environment.BASE_URL}/api/admin/jobTitles`,
       name
@@ -75,6 +78,12 @@ export class AdminService {
   getjobTitles(): Observable<ResponseHeader> {
     return this.http.get<ResponseHeader>(
       `${environment.BASE_URL}/api/jobTitles`
+    );
+  }
+  updatejobTitles(info: any): Observable<ResponseHeader> {
+    return this.http.put<ResponseHeader>(
+      `${environment.BASE_URL}/api/admin/jobTitles`,
+      info
     );
   }
 

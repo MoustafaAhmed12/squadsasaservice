@@ -10,10 +10,9 @@
   }
 </aside>
 
-<!-- (scroll)="onScroll($event)" -->
 <main
   (scroll)="onScroll($event)"
-  class="mx-auto overflow-y-auto text-mainWhite"
+  class="mx-auto overflow-y-auto text-mainBlack"
 >
   <section
     id="section0"
@@ -22,14 +21,14 @@
     <div class="grid w-full h-full grid-cols-1">
       <div class="relative z-50 w-full pt-0 md:w-7/12 ps-4 md:ps-0 md:pt-28">
         <h1
-          class="pt-16 text-3xl font-black leading-tight text-white md:pt-0 pe-8 md:text-5xl lg:text-6xl"
+          class="pt-16 text-3xl font-black leading-tight md:pt-0 pe-8 md:text-5xl lg:text-6xl"
         >
           GLOBAL SUPPORT &
           <br />
 
           DEVELOPMENT
           <span
-            class="text-transparent bg-gradient-to-r from-blue-500 to-red-600 bg-clip-text"
+            class="text-transparent bg-gradient-to-r from-mainGreen to-tertiartGreen bg-clip-text"
             style="-webkit-text-fill-color: transparent"
           >
             DELIVERY MODEL
@@ -38,14 +37,14 @@
         <button
           routerLink="/configurator"
           [queryParams]="{ catId: '0' }"
-          class="mt-10 bg-black border-2 rounded-full text-mainWhite login-btn"
+          class="px-10 py-4 mt-10 text-lg font-bold transition-colors rounded-lg outline-none md:text-2xl hover:bg-tertiartGreen text-mainWhite bg-mainGreen"
         >
           CREATE YOUR SQUAD
         </button>
       </div>
       <div class="absolute inset-y-0 right-0 w-screen">
         <img
-          src="6.png"
+          src="here-iti.png"
           class="object-cover w-full h-full opacity-80"
           alt="Here Image"
           loading="lazy"
@@ -55,7 +54,7 @@
   </section>
   <section
     id="section1"
-    class="h-[calc(100vh-6rem)] pt-6 overflow-hidden flex flex-col justify-between text-white bg-black"
+    class="h-[calc(100vh-6rem)] pt-6 overflow-hidden flex flex-col justify-between text-mainBlack"
   >
     <div
       class="flex flex-col justify-center flex-grow w-full px-6 mx-auto md:w-10/12 lg:px-10"
@@ -87,7 +86,7 @@
         </p>
       </div>
     </div>
-    <div class="relative w-full">
+    <div class="relative hidden w-full md:block">
       <img
         src="https://squadsasaservice.com/city.webp"
         alt="City View"
@@ -95,56 +94,6 @@
       />
     </div>
   </section>
-
-  <!-- <section class="relative text-white bg-black">
-    <div class="py-12 text-center">
-      <h2 class="text-5xl font-bold">Why Us?</h2>
-    </div>
-
-    <div class="relative">
-      <div
-        class="absolute inset-0 z-10 flex flex-col items-start justify-center gap-8 p-6 lg:px-24"
-      >
-        <div class="bg-[#1E293B] bg-opacity-75 p-6 rounded-lg shadow-lg">
-          <h3 class="mb-4 text-2xl font-semibold">Cost-effectiveness</h3>
-          <p class="text-base">
-            Our squads allow you to pay only for the on-demand work and required
-            skills, when you need them.
-          </p>
-        </div>
-        <div class="bg-[#1E293B] bg-opacity-75 p-6 rounded-lg shadow-lg">
-          <h3 class="mb-4 text-2xl font-semibold">Flexibility</h3>
-          <p class="text-base">
-            Scale your team without formalities and additional processes with
-            squads as a service model.
-          </p>
-        </div>
-        <div class="bg-[#1E293B] bg-opacity-75 p-6 rounded-lg shadow-lg">
-          <h3 class="mb-4 text-2xl font-semibold">Control</h3>
-          <p class="text-base">
-            The Project Manager, assigned by Hiberus, will manage the team's
-            tasks and responsibilities to achieve the highest performance.
-          </p>
-        </div>
-        <div class="bg-[#1E293B] bg-opacity-75 p-6 rounded-lg shadow-lg">
-          <h3 class="mb-4 text-2xl font-semibold">Lower risk</h3>
-          <p class="text-base">
-            Remain the talent and processes in-house, since provided experts are
-            a part of your team. Control the situation and react in the blink of
-            an eye.
-          </p>
-        </div>
-      </div>
-      <div class="h-[600px] w-7/12 flex justify-end">
-        <img
-          src="https://squadsasaservice.com/boy-lights.webp"
-          alt="Background"
-          class="object-cover w-full h-full opacity-50"
-        />
-      </div>
-    </div>
-  </section> -->
-
   <section
     id="section2"
     class="relative flex h-[calc(100vh-6rem)] md:ps-64 ps-10"
@@ -153,12 +102,12 @@
       class="flex flex-col items-center justify-center w-full md:flex-row gap-x-6"
     >
       <h2
-        class="mb-4 text-5xl font-light text-white md:mb-0 pe-14 sm:text-6xl xl:text-8xl"
+        class="mb-4 text-5xl font-light text-mainBlack md:mb-0 pe-14 sm:text-6xl xl:text-8xl"
       >
         Clients
       </h2>
       <div
-        class="md:border-l-[3px] border-t-[3px] md:border-t-0 pt-4 md:pt-0 flex flex-col md:gap-y-12 gap-y-6 border-white ps-16"
+        class="md:border-l-[3px] border-t-[3px] md:border-t-0 pt-4 md:pt-0 flex flex-col md:gap-y-12 gap-y-6 border-mainBlack ps-16"
       >
         <img
           alt="Santander"
@@ -191,20 +140,20 @@
 
   <section
     id="section3"
-    class="h-[calc(100vh-4rem)] relative overflow-hidden w-full mx-auto flex items-center text-white"
+    class="h-[calc(100vh-4rem)] relative overflow-hidden w-full mx-auto flex items-center text-mainBlack"
   >
     <!-- Left Content -->
     <div class="relative z-40 w-screen px-6 md:w-full md:px-8 lg:ps-16">
-      <h1 class="mb-8 text-4xl md:text-8xl">Nearshore Agile Center</h1>
+      <h1 class="mb-8 text-4xl md:w-1/2 md:text-8xl">Nearshore Agile Center</h1>
       <p
-        class="w-full mb-6 font-semibold leading-relaxed text-white md:w-10/12"
+        class="w-full mb-6 font-semibold leading-relaxed text-mainBlack md:w-1/2"
       >
         Fiker’ Agile software development centres bring together highly
         experienced Agile IT experts and a digital workspace designed for modern
         Agile collaboration. The result is an innovative community focused on
         Fiker success.
       </p>
-      <p class="w-full font-semibold leading-relaxed text-white md:w-10/12">
+      <p class="w-full font-semibold leading-relaxed text-mainBlack md:w-1/2">
         Our development centres are much more than a place to log in and code.
         They are purpose-built for the highest levels of development,
         engagement, and collaboration.
@@ -212,11 +161,11 @@
     </div>
 
     <!-- Right Image -->
-    <div class="absolute z-10 w-screen h-full md:static">
+    <div class="absolute right-0 items-center justify-end hidden md:flex">
       <img
-        src="man.png"
-        alt="Agile Centre"
-        class="absolute inset-0 object-cover w-full h-full -skew-x-1"
+        src="iti-man.png"
+        class="object-contain w-full h-full -scale-x-100"
+        alt="Here Image"
       />
     </div>
   </section>

@@ -3,14 +3,15 @@
   class="relative"
 >
   @if (activeTab !== 4 && activeTab !==5 ) {
-  <div class="absolute inset-y-0 right-0">
+  <!-- <div class="absolute inset-y-0 right-0">
     <img
       src="https://squadsasaservice.com/market-form.webp"
       alt="market-form"
       loading="lazy"
       class="object-cover w-full h-full"
     />
-  </div>
+  </div> -->
+
   <div
     class="relative flex items-center justify-center w-11/12 mx-auto my-10 md:w-8/12"
   >
@@ -26,7 +27,7 @@
         <span
           [ngClass]="
             activeTab === i
-              ? 'font-medium text-mainWhite md:text-xl text-base'
+              ? 'font-medium text-mainBlack md:text-xl text-base'
               : 'text-gray-500 text-sm md:mb-2 mb-[5px]'
           "
         >
@@ -48,14 +49,14 @@
 
   <div
     [ngStyle]="{
-      height: activeTab === 4 ? '' : 'calc(100vh - 230px)'
+      height: activeTab !== 3 ? '' : 'calc(100vh - 230px)'
     }"
     class="relative flex flex-col items-center mx-auto mb-10 overflow-y-auto scroll md:ps-4 md:gap-y-10 gap-y-6"
-    [ngClass]="activeTab === 4 ? 'md:w-10/12' : 'md:w-8/12'"
+    [ngClass]="activeTab === 4 ? 'md:w-full' : 'md:w-8/12'"
     [class.hidden]="activeTab === 5"
   >
     @if (marketId ) { @switch (activeTab) { @case (0) {
-    <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
+    <h1 class="self-start text-3xl text-mainBlack md:text-6xl">
       Choose your market
     </h1>
     <div
@@ -64,8 +65,8 @@
       @if (!isLoadingM) { @for (market of allMarkets; track market.id) {
       <button
         (click)="navigateFromMarket(market, 'area', 1)"
-        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite"
-        [class.bg-[#374151]]="order['marketId'] === market.id"
+        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack"
+        [class.bg-gray-700]="order['marketId'] === market.id"
       >
         <div class="size-8">
           <img
@@ -87,7 +88,7 @@
       </button>
       } }@else { @for (market of [1, 2, 3, 4]; track market) {
       <div
-        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite hover:scale-105"
+        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack hover:scale-105"
       >
         <div class="bg-gray-700 rounded-md size-12 animate-pulse"></div>
         <span class="w-2/3 h-12 bg-gray-700 rounded-md animate-pulse"></span>
@@ -96,7 +97,7 @@
     </div>
     } @case (1) {
 
-    <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
+    <h1 class="self-start text-3xl text-mainBlack md:text-6xl">
       Select the area
     </h1>
     <div
@@ -105,8 +106,8 @@
       @if (!isLoadingA) { @for (area of allAreas; track area.id) {
       <button
         (click)="navigateFormArea(area, 'tech', 2)"
-        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite"
-        [class.bg-[#374151]]="order['areaId'] === area.id"
+        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack"
+        [class.bg-gray-700]="order['areaId'] === area.id"
       >
         <span
           class="text-lg transition duration-500 origin-left group-hover:text-transparent group-hover:bg-clip-text group-hover:scale-x-125 group-hover:bg-gradient-to-r group-hover:from-fGradient group-hover:via-sGradient group-hover:to-tGradient group-hover:scale-y-105"
@@ -120,14 +121,14 @@
       </button>
       } }@else { @for (market of [1, 2, 3, 4]; track market) {
       <div
-        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite hover:scale-105"
+        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack hover:scale-105"
       >
         <span class="w-2/3 h-12 bg-gray-700 rounded-md animate-pulse"></span>
       </div>
       } }
     </div>
     } @case (2) {
-    <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
+    <h1 class="self-start text-3xl text-mainBlack md:text-6xl">
       Select the technology
     </h1>
     <div
@@ -137,8 +138,8 @@
       tech.id) {
       <button
         (click)="navigateFromTechnology(tech, 'profile', 3)"
-        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite"
-        [class.bg-[#374151]]="order['technologyId'] === tech.id"
+        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack"
+        [class.bg-gray-700]="order['technologyId'] === tech.id"
       >
         <div class="size-8">
           <img
@@ -160,7 +161,7 @@
       </button>
       } }@else { @for (market of [1, 2, 3, 4]; track market) {
       <div
-        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite hover:scale-105"
+        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack hover:scale-105"
       >
         <div class="bg-gray-700 rounded-md size-12 animate-pulse"></div>
         <span class="w-2/3 h-12 bg-gray-700 rounded-md animate-pulse"></span>
@@ -168,7 +169,7 @@
       } }
     </div>
     } } }@else { @if (areaId) { @switch (activeTab) { @case (1) {
-    <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
+    <h1 class="self-start text-3xl text-mainBlack md:text-6xl">
       Choose your market
     </h1>
     <div
@@ -177,8 +178,8 @@
       @if (!isLoadingM) { @for (market of allMarkets; track market.id) {
       <button
         (click)="navigateFromMarket(market, 'tech', 2)"
-        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite"
-        [class.bg-[#374151]]="order['marketId'] === market.id"
+        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack"
+        [class.bg-gray-700]="order['marketId'] === market.id"
       >
         <div class="size-8">
           <img
@@ -200,7 +201,7 @@
       </button>
       } }@else { @for (market of [1, 2, 3, 4]; track market) {
       <div
-        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite hover:scale-105"
+        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack hover:scale-105"
       >
         <div class="bg-gray-700 rounded-md size-12 animate-pulse"></div>
         <span class="w-2/3 h-12 bg-gray-700 rounded-md animate-pulse"></span>
@@ -208,7 +209,7 @@
       } }
     </div>
     } @case (0) {
-    <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
+    <h1 class="self-start text-3xl text-mainBlack md:text-6xl">
       Select the area
     </h1>
     <div
@@ -217,8 +218,8 @@
       @if (!isLoadingA) { @for (area of allAreas; track area.id) {
       <button
         (click)="navigateFormArea(area, 'market', 1)"
-        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite"
-        [class.bg-[#374151]]="order['areaId'] === area.id"
+        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack"
+        [class.bg-gray-700]="order['areaId'] === area.id"
       >
         <span
           class="text-lg transition duration-500 origin-left group-hover:text-transparent group-hover:bg-clip-text group-hover:scale-x-125 group-hover:bg-gradient-to-r group-hover:from-fGradient group-hover:via-sGradient group-hover:to-tGradient group-hover:scale-y-105"
@@ -232,14 +233,14 @@
       </button>
       } }@else { @for (market of [1, 2, 3, 4]; track market) {
       <div
-        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite hover:scale-105"
+        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack hover:scale-105"
       >
         <span class="w-2/3 h-12 bg-gray-700 rounded-md animate-pulse"></span>
       </div>
       } }
     </div>
     } @case (2) {
-    <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
+    <h1 class="self-start text-3xl text-mainBlack md:text-6xl">
       Select the technology
     </h1>
     <div
@@ -249,8 +250,8 @@
       tech.id) {
       <button
         (click)="navigateFromTechnology(tech, 'profile', 3)"
-        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite"
-        [class.bg-[#374151]]="order['technologyId'] === tech.id"
+        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack"
+        [class.bg-gray-700]="order['technologyId'] === tech.id"
       >
         <div class="size-8">
           <img
@@ -272,7 +273,7 @@
       </button>
       } }@else { @for (market of [1, 2, 3, 4]; track market) {
       <div
-        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite hover:scale-105"
+        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack hover:scale-105"
       >
         <div class="bg-gray-700 rounded-md size-12 animate-pulse"></div>
         <span class="w-2/3 h-12 bg-gray-700 rounded-md animate-pulse"></span>
@@ -280,7 +281,7 @@
       } }
     </div>
     } } } @else if(techId) { @switch (activeTab) { @case (2) {
-    <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
+    <h1 class="self-start text-3xl text-mainBlack md:text-6xl">
       Choose your market
     </h1>
     <div
@@ -289,8 +290,8 @@
       @if (!isLoadingM) { @for (market of allMarkets; track market.id) {
       <button
         (click)="navigateFromMarket(market, 'profile', 3)"
-        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite"
-        [class.bg-[#374151]]="order['marketId'] === market.id"
+        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack"
+        [class.bg-gray-700]="order['marketId'] === market.id"
       >
         <div class="size-8">
           <img
@@ -312,7 +313,7 @@
       </button>
       } }@else { @for (market of [1, 2, 3, 4]; track market) {
       <div
-        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite hover:scale-105"
+        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack hover:scale-105"
       >
         <div class="bg-gray-700 rounded-md size-12 animate-pulse"></div>
         <span class="w-2/3 h-12 bg-gray-700 rounded-md animate-pulse"></span>
@@ -320,7 +321,7 @@
       } }
     </div>
     } @case (1) {
-    <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
+    <h1 class="self-start text-3xl text-mainBlack md:text-6xl">
       Select the area
     </h1>
     <div
@@ -329,8 +330,8 @@
       @if (!isLoadingA) { @for (area of allAreas; track area.id) {
       <button
         (click)="navigateFormArea(area, 'market', 2)"
-        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite"
-        [class.bg-[#374151]]="order['areaId'] === area.id"
+        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack"
+        [class.bg-gray-700]="order['areaId'] === area.id"
       >
         <span
           class="text-lg transition duration-500 origin-left group-hover:text-transparent group-hover:bg-clip-text group-hover:scale-x-125 group-hover:bg-gradient-to-r group-hover:from-fGradient group-hover:via-sGradient group-hover:to-tGradient group-hover:scale-y-105"
@@ -344,14 +345,14 @@
       </button>
       } }@else { @for (market of [1, 2, 3, 4]; track market) {
       <div
-        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite hover:scale-105"
+        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack hover:scale-105"
       >
         <span class="w-2/3 h-12 bg-gray-700 rounded-md animate-pulse"></span>
       </div>
       } }
     </div>
     } @case (0) {
-    <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
+    <h1 class="self-start text-3xl text-mainBlack md:text-6xl">
       Select the technology
     </h1>
     <div
@@ -361,8 +362,8 @@
       tech.id) {
       <button
         (click)="navigateFromTechnology(tech, 'area', 1)"
-        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite"
-        [class.bg-[#374151]]="order['technologyId'] === tech.id"
+        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack"
+        [class.bg-gray-700]="order['technologyId'] === tech.id"
       >
         <div class="size-8">
           <img
@@ -384,7 +385,7 @@
       </button>
       } }@else { @for (market of [1, 2, 3, 4]; track market) {
       <div
-        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite hover:scale-105"
+        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack hover:scale-105"
       >
         <div class="bg-gray-700 rounded-md size-12 animate-pulse"></div>
         <span class="w-2/3 h-12 bg-gray-700 rounded-md animate-pulse"></span>
@@ -392,7 +393,7 @@
       } }
     </div>
     } } } @else { @switch (activeTab) { @case (0) {
-    <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
+    <h1 class="self-start text-3xl text-mainBlack md:text-6xl">
       Choose your market
     </h1>
     <div
@@ -401,8 +402,8 @@
       @if (!isLoadingM) { @for (market of allMarkets; track market.id) {
       <button
         (click)="navigateFromMarket(market, 'area', 1)"
-        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite"
-        [class.bg-[#374151]]="order['marketId'] === market.id"
+        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack"
+        [class.bg-gray-700]="order['marketId'] === market.id"
       >
         <div class="size-8">
           <img
@@ -424,7 +425,7 @@
       </button>
       } }@else { @for (market of [1, 2, 3, 4]; track market) {
       <div
-        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite hover:scale-105"
+        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack hover:scale-105"
       >
         <div class="bg-gray-700 rounded-md size-12 animate-pulse"></div>
         <span class="w-2/3 h-12 bg-gray-700 rounded-md animate-pulse"></span>
@@ -433,7 +434,7 @@
     </div>
     } @case (1) {
 
-    <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
+    <h1 class="self-start text-3xl text-mainBlack md:text-6xl">
       Select the area
     </h1>
     <div
@@ -442,8 +443,8 @@
       @if (!isLoadingA) { @for (area of allAreas; track area.id) {
       <button
         (click)="navigateFormArea(area, 'tech', 2)"
-        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite"
-        [class.bg-[#374151]]="order['areaId'] === area.id"
+        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack"
+        [class.bg-gray-700]="order['areaId'] === area.id"
       >
         <span
           class="text-lg transition duration-500 origin-left group-hover:text-transparent group-hover:bg-clip-text group-hover:scale-x-125 group-hover:bg-gradient-to-r group-hover:from-fGradient group-hover:via-sGradient group-hover:to-tGradient group-hover:scale-y-105"
@@ -457,14 +458,14 @@
       </button>
       } }@else { @for (market of [1, 2, 3, 4]; track market) {
       <div
-        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite hover:scale-105"
+        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack hover:scale-105"
       >
         <span class="w-2/3 h-12 bg-gray-700 rounded-md animate-pulse"></span>
       </div>
       } }
     </div>
     } @case (2) {
-    <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
+    <h1 class="self-start text-3xl text-mainBlack md:text-6xl">
       Select the technology
     </h1>
     <div
@@ -474,8 +475,8 @@
       tech.id) {
       <button
         (click)="navigateFromTechnology(tech, 'profile', 3)"
-        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite"
-        [class.bg-[#374151]]="order['technologyId'] === tech.id"
+        class="flex items-center p-4 font-semibold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack"
+        [class.bg-gray-700]="order['technologyId'] === tech.id"
       >
         <div class="size-8">
           <img
@@ -497,7 +498,7 @@
       </button>
       } }@else { @for (market of [1, 2, 3, 4]; track market) {
       <div
-        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite hover:scale-105"
+        class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack hover:scale-105"
       >
         <div class="bg-gray-700 rounded-md size-12 animate-pulse"></div>
         <span class="w-2/3 h-12 bg-gray-700 rounded-md animate-pulse"></span>
@@ -505,14 +506,14 @@
       } }
     </div>
     } } } } @if (activeTab === 3) {
-    <h1 class="self-start text-3xl text-mainWhite md:text-6xl">
+    <h1 class="self-start text-3xl text-mainBlack md:text-6xl">
       Select your squad
     </h1>
     <div class="grid w-full grid-cols-1 px-4 md:ps-0 gap-y-6">
-      <div class="flex flex-col w-full md:w-3/5 gap-y-2 text-mainWhite">
+      <div class="flex flex-col w-full md:w-3/5 gap-y-2 text-mainBlack">
         @if (!isLoadingP) { @for (profile of allProfiles; track profile.id; let
         i = $index) {
-        <h4 class="text-sm font-semibold">{{ profile.name }}</h4>
+        <h4 class="text-sm font-bold">{{ profile.name }}</h4>
         <div
           class="flex items-center w-[300px] sm:w-[450px] md:w-[500px] xl:w-[550px] gap-x-6"
         >
@@ -576,14 +577,14 @@
           </div>
 
           <div
-            class="flex items-center justify-center px-2.5 py-1.5 text-sm font-semibold border-2 rounded-md gap-x-2 border-tGradient text-tGradient"
+            class="flex items-center justify-center px-2.5 py-1.5 text-sm font-bold border-2 rounded-md gap-x-2 border-tGradient text-mainGreen"
           >
             <span>{{ counters[i] }}</span> <span>profiles</span>
           </div>
         </div>
         } }@else { @for (market of [1, 2, 3, 4]; track market) {
         <div
-          class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-[#374151] text-mainWhite hover:scale-105"
+          class="flex items-center px-4 py-3 text-lg font-bold transition rounded-md duration-500 border-b border-[#252C37] cursor-pointer group md:text-2xl gap-x-4 hover:bg-gray-700 text-mainBlack hover:scale-105"
         >
           <div class="bg-gray-700 rounded-md size-12 animate-pulse"></div>
           <span class="w-2/3 h-12 bg-gray-700 rounded-md animate-pulse"></span>
@@ -593,10 +594,10 @@
     </div>
     } @if (activeTab === 4) {
     <div
-      class="flex flex-col px-4 pt-10 text-mainWhite gap-x-20 gap-y-12 lg:gap-y-0 lg:flex-row"
+      class="flex flex-col px-4 pt-10 font-semibold text-mainBlack gap-x-16 gap-y-12 lg:gap-y-0 lg:flex-row"
     >
       <div class="flex flex-col order-2 w-full gap-y-12 lg:order-1 lg:w-1/2">
-        <h1 class="self-start text-3xl text-mainWhite md:text-5xl">
+        <h1 class="self-start text-3xl md:text-5xl">
           We will contact you ASAP.
         </h1>
         <form [formGroup]="orderForm" class="space-y-8">
@@ -605,8 +606,8 @@
               type="text"
               id="contact-name"
               placeholder="Contact name"
-              formControlName="contactName"
-              class="w-full py-2 text-white bg-transparent border-b border-[#700075] outline-none ps-2 focus:border-purple-300"
+              formControlName="ContactName"
+              class="w-full py-2 bg-transparent border-b border-[#700075] outline-none ps-2 focus:border-purple-300"
             />
           </div>
 
@@ -616,8 +617,8 @@
               type="email"
               id="email"
               placeholder="Email"
-              formControlName="contactEmail"
-              class="w-full py-2 text-white bg-black border-b border-[#700075] outline-none ps-2 focus:border-purple-300"
+              formControlName="ContactEmail"
+              class="w-full py-2 border-b border-[#700075] outline-none ps-2 focus:border-purple-300"
             />
           </div>
 
@@ -628,8 +629,8 @@
                 type="text"
                 id="telephone"
                 placeholder="Telephone"
-                formControlName="telephone"
-                class="w-full py-2 text-white bg-black border-b border-[#700075] outline-none ps-2 focus:border-purple-300"
+                formControlName="Telephone"
+                class="w-full py-2 border-b border-[#700075] outline-none ps-2 focus:border-purple-300"
               />
             </div>
             <div>
@@ -637,16 +638,16 @@
                 type="text"
                 id="company"
                 placeholder="Company"
-                formControlName="company"
-                class="w-full py-2 text-white bg-black border-b border-[#700075] outline-none ps-2 focus:border-purple-300"
+                formControlName="Company"
+                class="w-full py-2 border-b border-[#700075] outline-none ps-2 focus:border-purple-300"
               />
             </div>
           </div>
           <input
             id="question"
             type="text"
-            formControlName="question"
-            class="w-full px-4 py-3 mb-4 text-white bg-transparent border-b-2 outline-none border-fGradient focus:ring-0"
+            formControlName="Question"
+            class="w-full px-4 py-3 mb-4 bg-transparent border-b-2 outline-none border-fGradient focus:ring-0"
             placeholder="How can we help you?"
           />
 
@@ -655,7 +656,7 @@
               <input
                 id="subscribe"
                 type="checkbox"
-                formControlName="subscribe"
+                formControlName="Subscribe"
                 class="mr-2 focus:ring-pink-500 accent-pink-500"
               />
               <label for="subscribe" class="text-sm">
@@ -663,7 +664,7 @@
               </label>
             </div>
 
-            <div class="flex items-center mb-4">
+            <div class="flex items-center">
               <input
                 id="acceptPolicy"
                 type="checkbox"
@@ -682,7 +683,9 @@
       </div>
 
       <div
-        class="rounded-lg h-fit lg:w-[45%] order-1 lg:order-2 bg-gradient-to-b from-[#202B4B] via-[#341A41] to-[#3C193A]"
+        id="pdf-content"
+        #pdfContent
+        class="rounded-lg h-fit lg:w-1/2 text-mainWhite order-1 lg:order-2 bg-gradient-to-b from-[#202B4B] via-[#341A41] to-[#3C193A]"
       >
         <h2 class="pt-6 mb-4 text-xl font-semibold md:ps-6 ps-4">
           ORDER SUMMARY
@@ -751,10 +754,20 @@
               Edit
             </button>
           </div>
+
+          <div class="flex items-center justify-between text-lg font-semibold">
+            <span>Period</span>
+            <span>{{ period }} Months</span>
+          </div>
         </div>
-        <div class="py-6 mt-8 ps-8 bg-[#8a3c68] rounded-tr-lg rounded-tl-lg">
+        <div
+          class="py-6 mt-8 px-6 bg-[#8a3c68] flex justify-between items-center rounded-tr-lg rounded-tl-lg"
+        >
           <span class="text-lg font-bold"
             >Subtotal: {{ totalQuantity }} profiles</span
+          >
+          <span class="text-lg font-bold"
+            >Total price: {{ totalPrice | currency }}</span
           >
         </div>
       </div>
@@ -763,15 +776,33 @@
     }
   </div>
 
+  @if (activeTab == 3) {
   <div
-    class="flex items-center justify-center w-full mx-auto mb-10 md:justify-start gap-x-8 md:ps-4 md:w-8/12"
+    class="flex items-center justify-center w-full mx-auto mb-10 text-mainBlack md:justify-start md:gap-x-4 gap-x-2 md:ps-4 md:w-8/12"
+  >
+    <input
+      type="number"
+      name="period"
+      id="period"
+      [(ngModel)]="period"
+      placeholder="Months"
+      class="w-32 py-2 text-lg font-semibold border rounded-md outline-none md:w-40 ps-8 pe-2 focus:outline-none border-mainBlack"
+    />
+    <label for="period" class="font-semibold md:text-lg"
+      >Number of months</label
+    >
+  </div>
+  }
+
+  <div
+    class="flex items-center justify-center w-full mx-auto md:justify-start gap-x-8 md:ps-4 md:w-8/12"
     [class.ps-0]="activeTab === 4"
   >
     @if (activeTab !== 0 ) { @if (activeTab === 4 || activeTab == 5 ) {
     <button
       (click)="confirmOrder()"
       type="submit"
-      class="flex items-center justify-center text-lg rounded-full gap-x-3 text-mainWhite btn"
+      class="flex items-center justify-center px-10 py-3 text-lg font-semibold transition-colors rounded-full hover:bg-tertiartGreen gap-x-3 text-mainWhite bg-mainGreen"
       [class.hidden]="activeTab === 5"
     >
       @if (isLoading) {
@@ -784,14 +815,15 @@
     }@else {
     <button
       (click)="handleBack()"
-      class="text-lg rounded-full text-mainWhite btn"
+      class="px-10 py-3 text-lg font-semibold transition-colors rounded-lg text-mainWhite hover:bg-tertiartGreen bg-mainGreen"
     >
       BACK
     </button>
     } } @if (activeTab == 3) {
     <button
       (click)="handleNext()"
-      class="text-lg rounded-full text-mainWhite btn"
+      [disabled]="profiles.length === 0"
+      class="px-10 py-3 text-lg font-semibold transition-colors rounded-lg disabled:bg-slate-500 disabled:cursor-not-allowed hover:bg-tertiartGreen text-mainWhite bg-mainGreen"
     >
       NEXT
     </button>
@@ -800,5 +832,5 @@
 </div>
 
 @if (activeTab === 5) {
-
-<app-success-msg />}
+<app-success-msg />
+}

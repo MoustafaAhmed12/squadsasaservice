@@ -11,11 +11,11 @@ import {
 } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
 import { Order } from '../../models/admins';
-import { NgClass } from '@angular/common';
+import { CurrencyPipe, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-order-details',
-  imports: [NgClass],
+  imports: [NgClass, CurrencyPipe],
   templateUrl: './order-details.component.html',
   styleUrl: './order-details.component.scss',
 })

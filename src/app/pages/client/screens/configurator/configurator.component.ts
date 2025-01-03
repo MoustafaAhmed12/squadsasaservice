@@ -1,11 +1,19 @@
-import { CommonModule } from '@angular/common';
-import { Component, HostListener, inject } from '@angular/core';
+import { CommonModule, CurrencyPipe } from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ClientService } from '../../services/client.service';
 import { Areas, Markets, Profiles, Technologies } from '../../models/clients';
 import { ActivatedRoute } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -15,11 +23,17 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-configurator',
-  imports: [CommonModule, ReactiveFormsModule, SuccessMsgComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    SuccessMsgComponent,
+    CurrencyPipe,
+  ],
   templateUrl: './configurator.component.html',
   styleUrl: './configurator.component.scss',
 })
-export class ConfiguratorComponent {
+export class ConfiguratorComponent implements OnInit {
   sharedService = inject(SharedService);
   clientService = inject(ClientService);
   route = inject(ActivatedRoute);
@@ -45,28 +59,37 @@ export class ConfiguratorComponent {
   areaId: number = 0;
   techId: number = 0;
   totalQuantity: number = 0;
+  totalPrice: number = 0;
   order: { [key: string]: any } = {};
-  profiles: { jobTitleId: number; jobTitle: string; quantity: number }[] = [];
+  profiles: {
+    jobTitleId: number;
+    jobTitle: string;
+    quantity: number;
+    price: number;
+  }[] = [];
   counters: number[] = [];
   isDragging: boolean[] = [false, false, false, false, false];
   positionX: number[] = [0, 0, 0, 0, 0];
   screenWidth: number = window.innerWidth;
   lineWidth: number = 0;
   startX: number = 0;
+  period: number = 1;
+  fileName: string = '';
+  date: any;
 
   constructor() {
     this.orderForm = this.fb.group({
-      contactName: ['', [Validators.required]],
-      contactEmail: ['', [Validators.required, Validators.email]],
-      telephone: ['', [Validators.required]],
-      company: [''],
-      question: [''],
-      subscribe: [false],
+      ContactName: ['', [Validators.required]],
+      ContactEmail: ['', [Validators.required, Validators.email]],
+      Telephone: ['', [Validators.required]],
+      Company: ['', [Validators.required]],
+      Question: [''],
+      Subscribe: [false],
       acceptPolicy: [false],
-      areaId: ['', [Validators.required]],
-      marketId: ['', [Validators.required]],
-      technologyId: ['', [Validators.required]],
-      profiles: ['', [Validators.required]],
+      AreaId: ['', [Validators.required]],
+      MarketId: ['', [Validators.required]],
+      TechnologyId: ['', [Validators.required]],
+      Profiles: ['', [Validators.required]],
     });
   }
 
@@ -274,6 +297,7 @@ export class ConfiguratorComponent {
       this.updateSelectedArray(
         this.allProfiles[i].id,
         this.allProfiles[i].name,
+        this.allProfiles[i].price,
         this.counters[i]
       );
     }
@@ -285,12 +309,18 @@ export class ConfiguratorComponent {
       this.updateSelectedArray(
         this.allProfiles[i].id,
         this.allProfiles[i].name,
+        this.allProfiles[i].price,
         this.counters[i]
       );
     }
   }
 
-  updateSelectedArray(id: number, name: string, counter: number) {
+  updateSelectedArray(
+    id: number,
+    name: string,
+    price: number,
+    counter: number
+  ) {
     const existingIndex = this.profiles.findIndex(
       (item) => item.jobTitleId === id
     );
@@ -305,6 +335,7 @@ export class ConfiguratorComponent {
         this.profiles.push({
           jobTitleId: id,
           jobTitle: name,
+          price: price,
           quantity: counter,
         });
         this.counters === this.profiles.map((p) => p.quantity);
@@ -312,6 +343,10 @@ export class ConfiguratorComponent {
     }
     this.totalQuantity = this.profiles.reduce(
       (sum, job) => sum + job.quantity,
+      0
+    );
+    this.totalPrice = this.profiles.reduce(
+      (sum, job) => sum + job.price * job.quantity,
       0
     );
   }
@@ -324,22 +359,6 @@ export class ConfiguratorComponent {
 
   getStepValue(i: number): number {
     return this.counters[i] * this.step;
-  }
-
-  calculateStep() {
-    if (this.screenWidth >= 1024) {
-      this.lineWidth = 390;
-      this.step = 390 / 20;
-    } else if (this.screenWidth >= 768) {
-      this.lineWidth = 290;
-      this.step = 290 / 20;
-    } else if (this.screenWidth >= 640) {
-      this.lineWidth = 405;
-      this.step = 405 / 20;
-    } else {
-      this.lineWidth = 135;
-      this.step = 135 / 20;
-    }
   }
 
   onClickLine(event: MouseEvent, i: number) {
@@ -358,6 +377,7 @@ export class ConfiguratorComponent {
     this.updateSelectedArray(
       this.allProfiles[i].id,
       this.allProfiles[i].name,
+      this.allProfiles[i].price,
       this.counters[i]
     );
   }
@@ -372,22 +392,20 @@ export class ConfiguratorComponent {
 
   onMouseMove(event: MouseEvent, i: number) {
     if (!this.isDragging[i]) return;
-
     const deltaX = event.clientX - this.startX;
     this.positionX[i] = Math.max(
       0,
       Math.min(this.lineWidth, this.positionX[i] + deltaX)
     );
-
     const percentage = (this.positionX[i] / this.lineWidth) * 100;
     const counterValue = Math.round((percentage / 100) * 20);
     this.counters[i] = counterValue;
     this.updateSelectedArray(
       this.allProfiles[i].id,
       this.allProfiles[i].name,
+      this.allProfiles[i].price,
       this.counters[i]
     );
-
     this.startX = event.clientX;
   }
 
@@ -397,38 +415,15 @@ export class ConfiguratorComponent {
     document.removeEventListener('mouseup', () => this.onMouseUp(i));
   }
 
-  backToTech() {
-    if (this.techId) {
-      this.activeTab = 0;
-    } else {
-      this.activeTab = 2;
-    }
-  }
-  backToArea() {
-    if (this.areaId) {
-      this.activeTab = 0;
-    } else {
-      this.activeTab = 1;
-    }
-  }
-  backToMarket() {
-    if (this.marketId) {
-      this.activeTab = 0;
-    } else {
-      if (this.areaId) {
-        this.activeTab = 1;
-      } else if (this.techId) {
-        this.activeTab = 2;
-      } else {
-        this.activeTab = 0;
-      }
-    }
-  }
-
   handleBack(): void {
     this.activeTab -= 1;
   }
+
   handleNext(): void {
+    if (this.period === 0) {
+      this.toastr.warning('Period must be greater than 1 month.');
+      return;
+    }
     this.activeTab = 4;
     window.scrollTo({
       top: 0,
@@ -444,23 +439,67 @@ export class ConfiguratorComponent {
     this.order['marketName'] = mName;
     this.order['areaName'] = mArea;
     this.order['techName'] = mTech;
+    this.totalPrice = this.totalPrice * this.period;
+    this.clientService
+      .generatePdfFromData(
+        this.order,
+        this.profiles,
+        this.totalQuantity,
+        this.totalPrice,
+        this.period
+      )
+      .then((pdfData) => {
+        this.date = pdfData;
+      });
+  }
+
+  filterNullValues(form: FormGroup): { [key: string]: any } {
+    const filteredData: { [key: string]: any } = {};
+    Object.keys(form.value).forEach((key) => {
+      const value = form.get(key)?.value;
+      if (value !== null && value !== undefined) {
+        filteredData[key] = value;
+      }
+    });
+    return filteredData;
   }
 
   confirmOrder(): void {
-    this.orderForm.get('marketId')?.setValue(this.order['marketId']);
-    this.orderForm.get('areaId')?.setValue(this.order['areaId']);
-    this.orderForm.get('technologyId')?.setValue(this.order['technologyId']);
-    this.orderForm.get('profiles')?.setValue(this.profiles);
+    this.orderForm.get('MarketId')?.setValue(this.order['marketId']);
+    this.orderForm.get('AreaId')?.setValue(this.order['areaId']);
+    this.orderForm.get('TechnologyId')?.setValue(this.order['technologyId']);
+    this.orderForm.get('Profiles')?.setValue(this.profiles);
+    this.orderForm.get('MonthsCount')?.setValue(this.period);
+
     if (this.orderForm.invalid) {
       this.displayFormErrors();
       return;
     }
+
     if (this.orderForm.get('acceptPolicy')?.value === false) {
       this.toastr.warning('Should accept the privacy policy.');
       return;
     }
+
+    const myForm = this.filterNullValues(this.orderForm);
+    const formData = new FormData();
+    Object.keys(myForm).forEach((key) => {
+      const value = this.orderForm.get(key)?.value;
+      if (key === 'Profiles') {
+        value.forEach((profile: any, index: number) => {
+          formData.append(`Profiles[${index}].JobTitle`, profile.jobTitle);
+          formData.append(`Profiles[${index}].Quantity`, profile.quantity);
+        });
+      } else {
+        formData.append(key, value);
+      }
+    });
+    formData.append('Attachment.FileName', 'Fiker-order.pdf');
+    formData.append('MonthsCount', String(this.period));
+    formData.append('Attachment.Data', this.date);
+
     this.isLoading = true;
-    this.clientService.confirmOrder(this.orderForm.value).subscribe({
+    this.clientService.confirmOrder(formData).subscribe({
       next: ({ statusCode, message, errors }) => {
         if (statusCode === 200) {
           this.toastr.success(message);
@@ -468,6 +507,7 @@ export class ConfiguratorComponent {
           this.profiles = [];
           this.order = {};
           this.activeTab = 5;
+          this.period = 0;
           window.scrollTo({
             top: 0,
             behavior: 'smooth',
@@ -502,5 +542,47 @@ export class ConfiguratorComponent {
         }
       }
     });
+  }
+  backToTech() {
+    if (this.techId) {
+      this.activeTab = 0;
+    } else {
+      this.activeTab = 2;
+    }
+  }
+  backToArea() {
+    if (this.areaId) {
+      this.activeTab = 0;
+    } else {
+      this.activeTab = 1;
+    }
+  }
+  backToMarket() {
+    if (this.marketId) {
+      this.activeTab = 0;
+    } else {
+      if (this.areaId) {
+        this.activeTab = 1;
+      } else if (this.techId) {
+        this.activeTab = 2;
+      } else {
+        this.activeTab = 0;
+      }
+    }
+  }
+  calculateStep() {
+    if (this.screenWidth >= 1024) {
+      this.lineWidth = 390;
+      this.step = 390 / 20;
+    } else if (this.screenWidth >= 768) {
+      this.lineWidth = 290;
+      this.step = 290 / 20;
+    } else if (this.screenWidth >= 640) {
+      this.lineWidth = 405;
+      this.step = 405 / 20;
+    } else {
+      this.lineWidth = 135;
+      this.step = 135 / 20;
+    }
   }
 }
