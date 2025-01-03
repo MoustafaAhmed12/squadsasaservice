@@ -17,6 +17,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "jspdf",
+              "html2canvas",
+              "core-js",
+              "rgbcolor",
+              "raf"
+            ],
             "outputPath": "dist/squadsasaservice",
             "index": "src/index.html",
             "browser": "src/main.ts",
