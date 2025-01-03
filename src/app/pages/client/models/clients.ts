@@ -16,4 +16,5 @@ export interface Technologies {
 export interface Profiles {
   id: number;
   name: string;
+  price: number;
 }

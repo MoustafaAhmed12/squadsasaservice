@@ -1,27 +1,24 @@
-<div class="flex min-h-screen text-white md:ps-32 ps-0">
+<div class="flex min-h-screen text-mainBlack md:ps-32 ps-0">
   <form
     [formGroup]="contactForm"
     (ngSubmit)="onSubmit()"
-    class="relative z-30 w-full p-6 rounded shadow-lg md:w-7/12"
+    class="relative z-30 w-full p-6 rounded shadow-md md:w-7/12"
   >
-    <h2 class="mt-6 text-2xl mb-14 md:text-6xl">Ask for more information!</h2>
+    <h2 class="mt-6 mb-10 text-2xl md:text-6xl">Ask for more information!</h2>
 
     <div class="flex flex-col gap-y-4">
-      <!-- Contact Name -->
       <input
         id="contactName"
         type="text"
         formControlName="contactName"
-        class="w-full px-4 py-3 mb-4 text-white bg-transparent border-b-2 outline-none border-fGradient focus:ring-0"
+        class="w-full px-4 py-3 mb-4 bg-transparent border-b-2 outline-none text-mainBlack border-mainGreen focus:ring-0"
         placeholder="Contact name"
       />
-
-      <!-- Email -->
       <input
         id="email"
         type="email"
         formControlName="contactEmail"
-        class="w-full px-4 py-3 mb-4 text-white bg-transparent border-b-2 outline-none border-fGradient focus:ring-0"
+        class="w-full px-4 py-3 mb-4 bg-transparent border-b-2 outline-none text-mainBlack border-mainGreen focus:ring-0"
         placeholder="Email"
       />
 
@@ -31,7 +28,7 @@
           id="telephone"
           type="text"
           formControlName="telphone"
-          class="w-full px-4 py-3 mb-4 text-white bg-transparent border-b-2 outline-none border-fGradient focus:ring-0"
+          class="w-full px-4 py-3 mb-4 bg-transparent border-b-2 outline-none text-mainBlack border-mainGreen focus:ring-0"
           placeholder="Telephone"
         />
 
@@ -39,7 +36,7 @@
           id="company"
           type="text"
           formControlName="company"
-          class="w-full px-4 py-3 mb-4 text-white bg-transparent border-b-2 outline-none border-fGradient focus:ring-0"
+          class="w-full px-4 py-3 mb-4 bg-transparent border-b-2 outline-none text-mainBlack border-mainGreen focus:ring-0"
           placeholder="company"
         />
       </div>
@@ -48,13 +45,13 @@
         id="question"
         type="text"
         formControlName="question"
-        class="w-full px-4 py-3 mb-4 text-white bg-transparent border-b-2 outline-none border-fGradient focus:ring-0"
+        class="w-full px-4 py-3 mb-4 bg-transparent border-b-2 outline-none text-mainBlack border-mainGreen focus:ring-0"
         placeholder="How can we help you?"
       />
 
       <!-- Subscribe -->
       <div class="flex flex-col gap-y-4">
-        <div class="flex items-center mb-4">
+        <div class="flex items-center">
           <input
             id="subscribe"
             type="checkbox"
@@ -86,13 +83,12 @@
     <!-- Submit Button -->
     <button
       type="submit"
-      class="flex items-center justify-center mt-3 text-lg rounded-full gap-x-3 text-mainWhite btn"
+      class="flex items-center justify-center px-8 py-3 mt-3 text-lg font-bold rounded-lg hover:bg-tertiartGreen gap-x-3 text-mainWhite bg-mainGreen"
     >
       @if (isLoading) {
       <div
         class="w-6 h-6 border-4 border-[#3c193a] border-solid rounded-full animate-spin border-t-transparent"
       ></div>
-
       } <span class="ps-2">Let's do it</span>
     </button>
   </form>
@@ -108,7 +104,7 @@
     >
       <g
         transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-        fill="#fff"
+        fill="#000"
         stroke="none"
       >
         <path

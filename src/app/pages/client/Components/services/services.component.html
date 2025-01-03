@@ -1,10 +1,12 @@
 <div class="w-full">
   <div class="relative z-50 flex flex-col w-full pt-2 overflow-y-auto">
-    <h1 class="text-5xl leading-tight text-white px-7 md:text-5xl lg:text-8xl">
+    <h1
+      class="text-5xl leading-tight text-mainBlack px-7 md:text-5xl lg:text-8xl"
+    >
       Services
     </h1>
     <div
-      class="grid w-full grid-cols-2 gap-2 mt-4 md:gap-4"
+      class="grid w-full grid-cols-2 gap-2 px-8 mt-4 md:gap-4"
       [ngClass]="{
         'md:grid-cols-5': allAreas.length > 18,
         'md:grid-cols-3': allAreas.length > 12 && allAreas.length <= 18,
@@ -16,7 +18,7 @@
       <button
         routerLink="configurator"
         [queryParams]="{ areaId: item.id }"
-        class="bg-[#1f2937] hover:bg-gradient-to-r transition-all duration-500 hover:scale-105 from-pink-400 via-purple-500 to-blue-500 font-semibold md:ps-3 ps-2 pe-2 text-left py-5 md:text-lg text-base rounded-md text-mainWhite"
+        class="bg-[#1f2937] hover:bg-gradient-to-r transition-all hover:text-mainBlack duration-500 hover:scale-105 from-mainGreen via-secondaryGreen to-tertiartGreen font-semibold md:ps-3 ps-2 pe-2 text-left py-5 md:text-lg text-base rounded-md text-mainWhite"
       >
         {{ item.name }}
       </button>
@@ -24,6 +26,10 @@
     </div>
   </div>
   <div class="absolute inset-y-0 right-0 -z-0">
-    <img src="2.png" class="object-cover w-full h-full" alt="Here Image" />
+    <img
+      src="services.png"
+      class="object-cover w-screen h-full"
+      alt="Here Image"
+    />
   </div>
 </div>

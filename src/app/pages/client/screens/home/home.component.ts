@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         const element = document.getElementById(fragment);
         if (element) {
           window.scrollTo({
-            top: 3950,
+            top: 3930,
             behavior: 'smooth',
           });
           this.activeSectionIndex = 6;

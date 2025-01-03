@@ -1,15 +1,21 @@
 <nav
-  class="sticky top-0 z-[1580] flex items-center justify-between h-24 px-8 text-white bg-black md:pe-10"
+  class="sticky top-0 z-[1580] flex items-center justify-between h-24 px-8 text-mainBlack bg-[#E6E6E6] md:pe-10"
   [class.border-b-2]="isOpened()"
 >
   @if (currentPath.includes('configurator')) {
   <div
-    class="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-pink-400 via-purple-500 to-blue-500"
+    class="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-mainGreen via-secondaryGreen to-tertiartGreen"
   ></div>
   }
   <!-- Logo -->
   <div routerLink="/" class="w-24 cursor-pointer">
-    <h1 class="text-3xl font-semibold">Fiker</h1>
+    <h1 class="text-3xl font-semibold">
+      Fik<span
+        class="text-transparent bg-gradient-to-r from-mainGreen to-tertiartGreen bg-clip-text"
+        style="-webkit-text-fill-color: transparent"
+        >er
+      </span>
+    </h1>
   </div>
 
   <!-- Menu -->
@@ -20,7 +26,7 @@
         routerLinkActive="active"
         ariaCurrentWhenActive="page"
         [routerLinkActiveOptions]="{ exact: true }"
-        class="relative text-white text-lg tracking-wide no-underline after:content-[''] after:block after:w-full after:h-[4px] after:bg-gradient-to-r after:from-blue-500 after:via-purple-500 after:to-pink-500 after:mt-1 after:transition-all after:origin-left after:scale-x-0 hover:after:scale-x-100 hover:after:duration-700"
+        class="relative text-lg tracking-wide no-underline after:content-[''] after:block after:w-full after:h-[4px] after:bg-gradient-to-r after:from-mainGreen after:via-secondaryGreen-400 after:to-tertiartGreen after:mt-1 after:transition-all after:origin-left after:scale-x-0 hover:after:scale-x-100 hover:after:duration-700"
         >Home</a
       >
     </li>
@@ -30,7 +36,7 @@
         routerLinkActive="active"
         ariaCurrentWhenActive="page"
         [routerLinkActiveOptions]="{ exact: true }"
-        class="relative text-white text-lg tracking-wide no-underline after:content-[''] after:block after:w-full after:h-[4px] after:bg-gradient-to-r after:from-blue-500 after:via-purple-500 after:to-pink-500 after:mt-1 after:transition-all after:origin-left after:scale-x-0 hover:after:scale-x-100 hover:after:duration-700"
+        class="relative text-lg tracking-wide no-underline after:content-[''] after:block after:w-full after:h-[4px] after:bg-gradient-to-r after:from-mainGreen after:via-secondaryGreen-400 after:to-tertiartGreen after:mt-1 after:transition-all after:origin-left after:scale-x-0 hover:after:scale-x-100 hover:after:duration-700"
         >IT SERVICES</a
       >
     </li>
@@ -38,7 +44,7 @@
       <button
         [routerLink]="['/']"
         [fragment]="'section7'"
-        class="relative text-white text-lg tracking-wide no-underline after:content-[''] after:block after:w-full after:h-[4px] after:bg-gradient-to-r after:from-blue-500 after:via-purple-500 after:to-pink-500 after:mt-1 after:transition-all after:origin-left after:scale-x-0 hover:after:scale-x-100 hover:after:duration-700"
+        class="relative text-lg tracking-wide no-underline after:content-[''] after:block after:w-full after:h-[4px] after:bg-gradient-to-r after:from-mainGreen after:via-secondaryGreen-400 after:to-tertiartGreen after:mt-1 after:transition-all after:origin-left after:scale-x-0 hover:after:scale-x-100 hover:after:duration-700"
       >
         CONTACT US
       </button>
@@ -86,7 +92,7 @@
 
 @if (isOpened()) {
 <div
-  class="h-[calc(100vh-4rem)] fixed z-[500] w-full px-6 py-4 text-white bg-black md:hidden"
+  class="h-[calc(100vh-4rem)] fixed z-[500] w-full px-6 py-4 bg-black text-mainWhite md:hidden"
 >
   <ul class="flex flex-col pt-4 gap-y-4">
     <li
@@ -95,7 +101,7 @@
       routerLinkActive="active"
       ariaCurrentWhenActive="page"
       [routerLinkActiveOptions]="{ exact: true }"
-      class="relative w-full pb-5 text-xl tracking-wide text-white border-b border-gray-400 cursor-pointer"
+      class="relative w-full pb-5 text-xl tracking-wide border-b border-gray-400 cursor-pointer"
     >
       Home
     </li>
@@ -105,7 +111,7 @@
       routerLinkActive="active"
       ariaCurrentWhenActive="page"
       [routerLinkActiveOptions]="{ exact: true }"
-      class="relative w-full pb-5 text-xl tracking-wide text-white border-b border-gray-400 cursor-pointer"
+      class="relative w-full pb-5 text-xl tracking-wide border-b border-gray-400 cursor-pointer"
     >
       IT SERVICES
     </li>
@@ -113,7 +119,7 @@
       (click)="close()"
       [routerLink]="['/']"
       [fragment]="'section7'"
-      class="relative w-full pb-5 text-xl tracking-wide text-white border-b border-gray-400 cursor-pointer"
+      class="relative w-full pb-5 text-xl tracking-wide border-b border-gray-400 cursor-pointer"
     >
       CONTACT US
     </li>
