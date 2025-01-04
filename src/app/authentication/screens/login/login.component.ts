@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -33,6 +33,7 @@ export class LoginComponent {
   activeTab: number = 1;
   email: string = '';
   isLoadingResend: boolean = false;
+  token: string = '';
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -135,8 +136,9 @@ export class LoginComponent {
     this.isLoadingO = true;
     if (otp.length == 4) {
       this.authService.checkResetOtp(this.email, otp).subscribe({
-        next: ({ statusCode, message, errors }) => {
+        next: ({ statusCode, message, errors, data }) => {
           if (statusCode == 200) {
+            this.token = data;
             this.toastr.success(message);
             this.activeTab = 4;
             this.isLoadingO = false;
@@ -161,13 +163,13 @@ export class LoginComponent {
 
   resetPass(pass: string, pass2: string): void {
     if (!pass && !pass2) {
-      this.toastr.error('The email field is required.');
+      this.toastr.error('The password field is required.');
       return;
     }
     this.isLoadingR = true;
     const info = {
       password: pass2,
-      token: this.authService.getToken(),
+      token: this.token,
       email: this.email,
     };
     this.authService.resetPassword(info).subscribe({

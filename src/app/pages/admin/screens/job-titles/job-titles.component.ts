@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
 import { SharedService } from '../../../../shared/services/shared.service';
 import { Profiles } from '../../models/admins';
@@ -24,7 +24,7 @@ export class JobTitlesComponent implements OnInit {
   isLoading: boolean = false;
   isLoadingAdd: boolean = false;
   isDeleted: boolean = false;
-  isEdit: boolean = false;
+  isEdit = signal<boolean>(false);
   jobId: number = 0;
   jobName: string = '';
   jobPrice: number = 0;
@@ -60,6 +60,8 @@ export class JobTitlesComponent implements OnInit {
       this.toastr.error('Price field is required');
       return;
     }
+    debugger;
+
     this.isLoadingAdd = true;
     this.adminService
       .addJobTitle({ name: this.jobName, price: this.jobPrice })
@@ -106,7 +108,7 @@ export class JobTitlesComponent implements OnInit {
   }
 
   getJobTitle(job: Profiles) {
-    this.isEdit = true;
+    this.isEdit.set(true);
     this.jobName = job.name;
     this.jobPrice = job.price;
     this.jobId = job.id;
@@ -115,6 +117,14 @@ export class JobTitlesComponent implements OnInit {
       behavior: 'smooth',
     });
   }
+
+  cancelEdit() {
+    this.isEdit.set(false);
+    this.jobName = '';
+    this.jobPrice = 0;
+    this.jobId = 0;
+  }
+
   editJobTitle() {
     if (!this.jobName) {
       this.toastr.error('Name field is required');
@@ -138,7 +148,7 @@ export class JobTitlesComponent implements OnInit {
           this.jobPrice = 0;
           this.toastr.success(message);
           this.isLoadingAdd = false;
-          this.isEdit = false;
+          this.isEdit.set(false);
         } else {
           this.isLoadingAdd = false;
           this.toastr.error(message);
