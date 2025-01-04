@@ -17,7 +17,7 @@ import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, NgClass],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
@@ -32,6 +32,7 @@ export class NavbarComponent implements OnInit {
       .subscribe((event: any) => {
         this.currentPath = event.urlAfterRedirects;
       });
+    console.log(this.currentPath);
   }
   constructor() {}
   handleIsOpened(): void {
